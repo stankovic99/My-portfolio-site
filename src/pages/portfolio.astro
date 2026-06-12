@@ -1,0 +1,145 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stefan Stankovic | Portfolio & Blog</title>
+  </head>
+  <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black overflow-x-hidden">
+    <Navbar />
+
+    <main class="pt-32 pb-20">
+      
+      <section class="max-w-7xl mx-auto px-6 md:px-12 mb-20">
+        <div class="text-center lg:text-left max-w-4xl mx-auto lg:mx-0 fade-in-up">
+          <span class="font-mono text-[#00E5CC] font-bold tracking-widest uppercase text-sm md:text-base mb-4 inline-block">Work & Thoughts</span>
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-sans font-extrabold tracking-tighter leading-tight text-white mb-6">
+            Building systems.<br/> Sharing the process.
+          </h1>
+          <p class="font-mono text-gray-400 text-base md:text-lg leading-relaxed max-w-3xl">
+            A selection of my recent enterprise architecture and modern web projects, alongside an engineering blog where I document my ongoing learning and technical explorations.
+          </p>
+        </div>
+      </section>
+
+      <section class="max-w-7xl mx-auto px-6 md:px-12 mb-24 md:mb-32">
+        <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 100ms;">
+          <h2 class="text-3xl md:text-4xl font-sans font-bold tracking-tight text-white">Featured Projects</h2>
+          <span class="font-mono text-xs text-gray-500 uppercase tracking-widest">01 / Work</span>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2">
+          
+          <a href="/projects/sky-restaurant" class="group relative flex flex-col justify-between rounded-3xl border border-gray-800 bg-[#08131D] p-6 md:p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#00E5CC]/50 hover:shadow-[0_0_35px_rgba(0,229,204,0.1)] fade-in-up" style="animation-delay: 150ms;">
+            <div>
+              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] relative">
+                <div class="absolute inset-0 bg-[url('/images/sky-preview.jpg')] bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"></div>
+                <div class="absolute inset-0 bg-[#040D14]/40 group-hover:bg-transparent transition-colors duration-500"></div>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-[#00E5CC] transition-colors">Sky Restaurant & Pool Bar</h3>
+              <p class="text-gray-400 leading-relaxed text-sm mb-6">
+                Premium digital presence with full English/Macedonian localization and dynamic JSON menu architecture for effortless management.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Full-Stack</span><span class="tag">JSON Architecture</span><span class="tag">i18n</span>
+            </div>
+          </a>
+
+          <a href="/projects/season-tech" class="group relative flex flex-col justify-between rounded-3xl border border-gray-800 bg-[#08131D] p-6 md:p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#00E5CC]/50 hover:shadow-[0_0_35px_rgba(0,229,204,0.1)] fade-in-up" style="animation-delay: 200ms;">
+            <div>
+              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] flex items-center justify-center">
+                 <span class="font-mono text-gray-600 uppercase tracking-widest text-xs group-hover:scale-105 transition-transform duration-700">Season Tech Preview</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-[#00E5CC] transition-colors">Season Tech Agency</h3>
+              <p class="text-gray-400 leading-relaxed text-sm mb-6">
+                Official digital presence for my consulting agency. A hyper-optimized, zero-bloat platform demonstrating modern frontend capabilities.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">Astro</span><span class="tag">Tailwind</span>
+            </div>
+          </a>
+
+          <a href="/projects/axis-magazine" class="group relative flex flex-col justify-between rounded-3xl border border-gray-800 bg-[#08131D] p-6 md:p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#00E5CC]/50 hover:shadow-[0_0_35px_rgba(0,229,204,0.1)] fade-in-up" style="animation-delay: 250ms;">
+            <div>
+              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] flex items-center justify-center">
+                 <span class="font-mono text-gray-600 uppercase tracking-widest text-xs group-hover:scale-105 transition-transform duration-700">AXIS UI/UX Preview</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-[#00E5CC] transition-colors">AXIS Digital Magazine</h3>
+              <p class="text-gray-400 leading-relaxed text-sm mb-6">
+                Comprehensive UX/UI Case Study. Focused on creating an immersive, performance-first reading experience with flawless typography.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">UX/UI Design</span><span class="tag">Figma</span>
+            </div>
+          </a>
+
+          <a href="/projects/enterprise-automation" class="group relative flex flex-col justify-between rounded-3xl border border-gray-800 bg-[#08131D] p-6 md:p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#00E5CC]/50 hover:shadow-[0_0_35px_rgba(0,229,204,0.1)] fade-in-up" style="animation-delay: 300ms;">
+            <div>
+              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] flex items-center justify-center">
+                 <span class="font-mono text-gray-600 uppercase tracking-widest text-xs group-hover:scale-105 transition-transform duration-700">D365 Integration</span>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-[#00E5CC] transition-colors">Enterprise Automation</h3>
+              <p class="text-gray-400 leading-relaxed text-sm mb-6">
+                Confidential D365 F&O integration utilizing Microsoft Power Platform to automate manual data handoffs into a zero-touch pipeline.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag">D365 F&O</span><span class="tag">Power Automate</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <section class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 350ms;">
+          <h2 class="text-3xl md:text-4xl font-sans font-bold tracking-tight text-white">Engineering Blog</h2>
+          <span class="font-mono text-xs text-gray-500 uppercase tracking-widest">02 / Thoughts</span>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <a href="/blog/pl-400-mastery" class="group flex flex-col md:flex-row md:items-center justify-between rounded-2xl border border-transparent bg-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style="animation-delay: 400ms;">
+            <div class="mb-4 md:mb-0 md:max-w-2xl">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="font-mono text-xs text-[#00E5CC]">Certification</span>
+                <span class="h-1 w-1 rounded-full bg-gray-700"></span>
+                <span class="font-mono text-xs text-gray-500">June 2026</span>
+              </div>
+              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">Road to PL-400: Mastering Power Platform</h3>
+              <p class="mt-2 text-sm text-gray-400">Documenting my preparation process for the PL-400 exam, following my perfect 1000/1000 score on the PL-900.</p>
+            </div>
+          </a>
+          <a href="/blog/astro-architecture" class="group flex flex-col md:flex-row md:items-center justify-between rounded-2xl border border-transparent bg-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style="animation-delay: 450ms;">
+            <div class="mb-4 md:mb-0 md:max-w-2xl">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="font-mono text-xs text-[#00E5CC]">Architecture</span>
+                <span class="h-1 w-1 rounded-full bg-gray-700"></span>
+                <span class="font-mono text-xs text-gray-500">May 2026</span>
+              </div>
+              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">Why I Chose Astro for Season Tech</h3>
+              <p class="mt-2 text-sm text-gray-400">An analysis of rendering strategies. Why generating static HTML with Island architecture beats heavy SPAs.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <Footer />
+
+    <style is:inline>
+      body { overflow-x: hidden !important; width: 100%; }
+      .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+      @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+      .tag { display: inline-flex; align-items: center; border: 1px solid rgba(148, 163, 184, 0.35); background: rgba(255, 255, 255, 0.04); border-radius: 9999px; padding: 0.3rem 0.8rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: #cbd5e1; }
+    </style>
+  </body>
+</html>

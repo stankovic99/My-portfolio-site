@@ -1,0 +1,13 @@
+---
+// src/components/Footer.astro
+// Uzimamo trenutnu godinu dinamički
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full bg-[#02080D] py-8 border-t border-gray-800/50 flex flex-col items-center justify-center relative z-10">
+  <div class="max-w-7xl mx-auto px-6 w-full text-center">
+    <p class="font-mono text-[10px] md:text-xs text-gray-700 uppercase tracking-widest">
+      © {currentYear} Stefan Stankovic. All rights reserved.
+    </p>
+  </div>
+</footer>
