@@ -1,8 +1,11 @@
 name: Deploy to GitHub Pages
 
 on:
+  # Okida se svaki put kada push-ujes kod na 'main'
   push:
     branches: [ main ]
+  # Omogucava ti da rucno pokrenes build iz Actions taba ako zatreba
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -15,11 +18,14 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+        
+      # Ovde koristimo najnoviju v3 akciju i ZAKUCAVAMO tvoju Node 24 verziju
       - name: Install, build, and upload your site
-        uses: withastro/action@v2
+        uses: withastro/action@v3
         with:
-          node-version: 22
-          
+          node-version: 24
+          package-manager: npm
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
