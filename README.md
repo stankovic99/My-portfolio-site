@@ -1,43 +1,66 @@
-# Astro Starter Kit: Minimal
+# Stefan Stankovic | Digital Workspace
 
-```sh
-npm create astro@latest -- --template minimal
-```
+> **No Code Bloat. Just Smart Tech.**
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The official personal portfolio and engineering blog of Stefan Stankovic, Senior D365 F&O Architect and modern web developer. This project bridges the gap between complex enterprise ERP logic and lightning-fast, static frontend experiences.
 
-## 🚀 Project Structure
+## 🏗️ Architecture & Tech Stack
 
-Inside of your Astro project, you'll see the following folders and files:
+This platform is built with a strict performance-first, zero-bloat philosophy. It completely avoids heavy Single Page Application (SPA) frameworks in favor of static generation and minimal client-side JavaScript.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+* **Framework:** [Astro](https://astro.build/) (Static Site Generation / Island Architecture)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **Interactivity:** Vanilla JavaScript (Native Intersection Observers for scroll reveals)
+* **Content:** Markdown (`.md`) via Dynamic Routing
+* **Design System:** Custom minimalist dark theme (`bg-[#040D14]` with `#00E5CC` teal accents)
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 📂 Repository Structure
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+The project follows a clean, modular directory structure:
 
-Any static assets, like images, can be placed in the `public/` directory.
+* `/src/components` - Reusable UI blocks (Navbar.astro, Footer.astro)
+* `/src/layouts` - Master templates (e.g., ContentLayout.astro for Markdown injection)
+* `/src/pages` - File-based router (index, about, services, portfolio)
+* `/src/pages/projects` - Dynamic markdown content for portfolio pieces
+* `/src/pages/blog` - Dynamic markdown content for engineering logs
+* `/src/styles` - Global CSS and Tailwind directives
+* `/src/images` - Optimized static assets
 
-## 🧞 Commands
+## ⚙️ Content Management (Dynamic Routing)
 
-All commands are run from the root of the project, from a terminal:
+Adding new projects or engineering logs does not require writing HTML. The platform uses Astro's dynamic routing. To add a new entry, simply create a `.md` file in the respective folder (`src/pages/projects/` or `src/pages/blog/`) using the following Frontmatter block at the top of your file:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+---
+layout: ../../layouts/ContentLayout.astro
+title: Project Title
+description: A short summary of the architecture and business logic.
+category: Full-Stack Web / Architecture / Certification
+date: Month Year
+liveLink: https://example.com
+---
 
-## 👀 Want to learn more?
+## 🚀 Local Development
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+To run this project locally, ensure you have Node.js installed, then execute the following commands:
+
+1. **Install dependencies:**
+   `npm install`
+
+2. **Start the development server:**
+   `npm run dev` (The site will be available at http://localhost:4321)
+
+3. **Build for production:**
+   `npm run build` (Generates optimized static HTML/CSS/JS inside the dist/ directory)
+
+4. **Preview the production build:**
+   `npm run preview`
+
+## 📬 Contact
+
+For inquiries regarding enterprise architecture, D365 F&O integrations, or headless web solutions, reach out via:
+
+* **Email:** stefan.stankovicc99@gmail.com
+* **Agency:** Season Tech (Launching Summer 2026)
+
+---
+*Built with precision. © 2026 Stefan Stankovic.*
