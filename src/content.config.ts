@@ -21,8 +21,8 @@ const blogCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     // Astro v5 preporučuje da datume prebacimo u prave objekte
-    date: z.coerce.date(), 
     description: z.string(),
+    date: z.coerce.date(), 
   }),
 });
 

@@ -14,9 +14,9 @@ export interface Props {
 // Generisanje putanja
 export async function getStaticPaths() {
   const projectEntries = await getCollection('projects');
-  const blog = await getCollection('blog');
   
   return projectEntries.map((entry) => {
+    // KLJUČNA PROMENA: Sečemo ".md" ekstenziju iz entry.id da bi URL bio čist
     const cleanSlug = entry.id.replace(/\.md$/, '');
     
     return {
