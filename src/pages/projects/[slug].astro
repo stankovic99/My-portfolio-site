@@ -1,0 +1,97 @@
+---
+import { getCollection, type CollectionEntry, render } from 'astro:content';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import BaseHead from '../../components/BaseHead.astro';
+import '../../styles/global.css';
+
+
+// Definišemo TypeScript interfejs za Props ove komponente
+export interface Props {
+  entry: CollectionEntry<'projects'>;
+}
+
+// Generisanje putanja
+export async function getStaticPaths() {
+  const projectEntries = await getCollection('projects');
+  const blog = await getCollection('blog');
+  
+  return projectEntries.map((entry) => {
+    const cleanSlug = entry.id.replace(/\.md$/, '');
+    
+    return {
+      params: { slug: cleanSlug },
+      props: { entry },
+    };
+  });
+}
+
+// Sada TypeScript (i VS Code) tačno zna šta je "entry"
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <BaseHead title={`${entry.data.title} | Stefan Stankovic`} description={entry.data.description} />
+  </head>
+  <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black overflow-x-hidden">
+    <Navbar />
+
+    <main class="pt-32 pb-20">
+      
+      <!-- HEADER PROJEKTA (Uvek levo poravnanje) -->
+      <header class="container-custom mb-16 text-left border-b border-gray-800 pb-12 pt-4">
+        
+        <!-- Back Button -->
+        <a href="/portfolio" class="inline-flex items-center gap-2 font-mono text-sm text-gray-500 hover:text-[#00E5CC] transition-colors mb-10 fade-in-up">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          Back to Portfolio
+        </a>
+
+        <div class="fade-in-up" style="animation-delay: 100ms;">
+          <div class="pill-badge">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00E5CC]"></span>
+            Case Study
+          </div>
+          <h1 class="heading-page mb-6">{entry.data.title}</h1>
+          <p class="text-body text-xl max-w-3xl mb-10">{entry.data.description}</p>
+        </div>
+        
+        <!-- Tags & Live Link Flexbox -->
+        <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between fade-in-up" style="animation-delay: 200ms;">
+          
+          <div class="flex flex-wrap gap-2">
+            {entry.data.tags?.map((tag: string) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+          
+          <!-- Astro generiše pravo dugme ako postoji liveLink -->
+          {entry.data.liveLink && (
+            <a href={entry.data.liveLink} target="_blank" rel="noopener noreferrer" class="btn-primary shrink-0 text-xs py-3 px-6 shadow-[0_0_20px_rgba(0,229,204,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+              Visit Live Site
+              <svg class="h-3 w-3 ml-2 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          )}
+
+        </div>
+      </header>
+
+      <!-- SADRŽAJ (Proširen za moderniji prikaz) -->
+      <section class="container-custom">
+        <article class="max-w-none md:max-w-4xl mx-auto prose prose-invert prose-lg 
+            prose-headings:font-sans prose-headings:font-bold prose-headings:text-white
+            prose-p:font-mono prose-p:text-gray-400 prose-p:leading-relaxed
+            prose-a:text-[#00E5CC] prose-a:no-underline hover:prose-a:underline
+            prose-strong:text-white prose-strong:font-bold
+            prose-img:rounded-3xl prose-img:border prose-img:border-gray-800 prose-img:shadow-2xl prose-img:w-full fade-in-up" style="animation-delay: 300ms;">
+          <Content />
+        </article>
+      </section>
+
+    </main>
+
+    <Footer />
+  </body>
+</html>
