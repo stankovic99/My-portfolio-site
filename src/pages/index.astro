@@ -1,38 +1,31 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import BaseHead from '../components/BaseHead.astro';
 import '../styles/global.css';
 import bgImage from '../images/bg.png';
 import skyPreview from '../images/SkyMockup.png';
 import bendPort from '../images/StefanMockup.png';
+
+const pageTitle = "Stefan Stankovic | Tech Architect";
+const pageDescription = "Enterprise architecture and high-performance web systems.";
 ---
 
 <html lang="en" class="scroll-smooth">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stefan Stankovic | Tech Architect</title>
-    <!-- Google Fonts: Bricolage Grotesque, Instrument Serif, JetBrains Mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <BaseHead title={pageTitle} description={pageDescription} />
   </head>
-  <!-- Stavljamo tvoju tamnu boju iz dizajna (bg-[#040D14]) -->
   <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black overflow-x-hidden">
     
     <Navbar />
 
-    <!-- HERO SEKCIJA - Kompletna, responsive struktura -->
-    <main class="relative max-w-7xl mx-auto px-6 md:px-12 pt-32 pb-16 md:pt-40 md:pb-24 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[100svh] w-full">
+    <main class="relative container-custom pt-32 pb-16 md:pt-40 md:pb-24 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[100svh] w-full">
 
-      <!-- POZADINSKI EFEKTI -->
       <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] z-0 pointer-events-none"></div>
       <div class="absolute top-1/3 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto md:right-10 w-[300px] h-[300px] bg-[#00E5CC]/10 rounded-full blur-[100px] z-0 pointer-events-none"></div>
 
-      <!-- LEVA KOLONA: TEKST -->
       <div class="w-full md:w-3/5 z-10 flex flex-col items-center md:items-start text-center md:text-left relative">
 
-        <!-- Bedž + LinkedIn -->
         <div class="flex gap-4 mb-8 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700">
           <div class="inline-flex items-center space-x-2 border border-[#00E5CC]/30 bg-[#00E5CC]/5 rounded-full px-4 py-1.5">
             <span class="w-2 h-2 rounded-full bg-[#00E5CC]"></span>
@@ -44,31 +37,27 @@ import bendPort from '../images/StefanMockup.png';
           </a>
         </div>
 
-        <!-- Glavni Naslov -->
-        <h1 class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-100 text-5xl sm:text-6xl lg:text-8xl font-sans font-extrabold tracking-tighter leading-[1.1] mb-6 text-white">
+        <h1 class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-100 heading-primary mb-6">
           No Code Bloat. <br />
           <span class="font-serif italic font-normal tracking-normal text-[#00E5CC]">Just Smart Tech.</span>
         </h1>
 
-        <!-- Paragraf -->
-        <p class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200 font-mono text-sm md:text-base text-gray-400 max-w-xl mb-10 leading-relaxed">
+        <p class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200 text-body max-w-xl mb-10">
           I build scalable infrastructure and high-performance web systems. 
           Whether it's enterprise data modeling or conversion-focused platforms, I engineer solutions that simply don't break.
         </p>
 
-        <!-- Akcija -->
         <div class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-300 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mt-8 w-full">
-          <a href="#portfolio" class="inline-flex items-center justify-center font-sans bg-[#00E5CC] text-[#040D14] hover:bg-white px-8 py-3.5 rounded-sm font-bold uppercase tracking-widest transition-colors text-center">
+          <a href="#portfolio" class="btn-primary">
             VIEW INFRASTRUCTURE
           </a>
-          <a href="#services" class="inline-flex items-center justify-center font-sans text-gray-300 hover:text-[#00E5CC] font-bold uppercase tracking-widest transition-colors gap-2 px-8 py-3.5">
+          <a href="#services" class="btn-secondary">
             EXPLORE SERVICES <span>→</span>
           </a>
         </div>
 
       </div>
 
-      <!-- DESNA KOLONA: SLIKA -->
       <div class="hidden md:flex w-2/5 justify-end items-end relative min-h-[400px] lg:min-h-[500px] reveal-on-scroll opacity-0 translate-x-10 transition-all duration-1000 delay-500">
         <img 
           src={bgImage.src} 
@@ -80,17 +69,11 @@ import bendPort from '../images/StefanMockup.png';
 
     </main> 
 
-    <!-- INFINITE TECH STACK SLIDER -->
     <section class="w-full bg-[#02080D] border-y border-gray-800/50 py-5 overflow-hidden relative pause-on-hover select-none">
-      
-      <!-- Magične ivice (Fade-out efekat da tekst ne seče grubo na ivici ekrana) -->
       <div class="absolute inset-y-0 left-0 w-16 md:w-40 bg-gradient-to-r from-[#02080D] to-transparent z-10 pointer-events-none"></div>
       <div class="absolute inset-y-0 right-0 w-16 md:w-40 bg-gradient-to-l from-[#02080D] to-transparent z-10 pointer-events-none"></div>
 
-      <!-- Kontejner koji se zapravo pomera -->
       <div class="animate-marquee">
-        
-        <!-- SET 1 (Original) -->
         <ul class="flex items-center justify-center space-x-8 md:space-x-12 px-4 md:px-6 m-0">
           <li class="font-mono text-gray-500 text-sm md:text-base tracking-widest uppercase whitespace-nowrap">Dynamics 365 F&O</li>
           <li class="text-[#00E5CC] text-xl leading-none">•</li>
@@ -108,7 +91,6 @@ import bendPort from '../images/StefanMockup.png';
           <li class="text-[#00E5CC] text-xl leading-none">•</li>
         </ul>
 
-        <!-- SET 2 (Klon - aria-hidden obezbeđuje da screen readeri ne čitaju duplo) -->
         <ul class="flex items-center justify-center space-x-8 md:space-x-12 px-4 md:px-6 m-0" aria-hidden="true">
           <li class="font-mono text-gray-500 text-sm md:text-base tracking-widest uppercase whitespace-nowrap">Dynamics 365 F&O</li>
           <li class="text-[#00E5CC] text-xl leading-none">•</li>
@@ -125,84 +107,86 @@ import bendPort from '../images/StefanMockup.png';
           <li class="font-mono text-gray-500 text-sm md:text-base tracking-widest uppercase whitespace-nowrap">Enterprise Data Modeling</li>
           <li class="text-[#00E5CC] text-xl leading-none">•</li>
         </ul>
-
       </div>
     </section>
 
-    <!-- PROBLEM & SOLUTION SEKCIJA -->
-    <section id="about" class="py-24 md:py-32 bg-[#040D14] relative border-t border-gray-800/50 overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 md:px-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          
-          <!-- Leva strana: Problem -->
-          <div class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-1000 ease-out">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-sans font-bold mb-6 text-white leading-tight tracking-tighter">
-              Stop losing money on <br/>
-              <!-- Crveni tekst sa serifnim italic fontom -->
-              <span class="font-serif italic font-normal text-red-500 tracking-normal">disconnected tech.</span>
-            </h2>
-            <p class="font-mono text-gray-400 text-sm md:text-base leading-relaxed mb-8 max-w-lg">
-              Most businesses struggle because their systems don't communicate. They have heavy enterprise backends that require deep technical expertise, and modern frontends that need to be fast and agile. Bridging that gap is where projects fail.
-            </p>
-            
-            <!-- Suptilniji prelaz umesto lažnog dugmeta -->
-            <div class="border-l-2 border-[#00E5CC] pl-5">
-              <p class="font-sans text-xl font-bold text-white tracking-wide">I provide the technical execution <br class="hidden sm:block"/> to connect them.</p>
-            </div>
-          </div>
-
-          <!-- Desna strana: Tvoja stvarna uloga / Rešenje -->
-          <div class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-1000 delay-200 ease-out bg-[#08131D] border border-gray-800 p-8 md:p-12 rounded-sm shadow-2xl relative group hover:border-[#00E5CC]/30">
-            <h3 class="text-sm font-sans font-bold mb-6 text-[#00E5CC] uppercase tracking-widest">The Developer's Reality</h3>
-            <p class="font-sans text-gray-300 mb-8 leading-relaxed text-lg">
-              Enterprise software isn't built by a single person—it requires specialized teams. As a technical developer, my focus is the deep backend logic. I bring that strict, data-first discipline from the Microsoft ecosystem directly into every web platform I engineer.
-            </p>
-
-            <ul class="space-y-6">
-              <!-- Stavka 1: F&O / Power Platform uloga -->
-              <li class="flex items-start">
-                <svg class="w-6 h-6 text-[#00E5CC] mt-1 mr-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                <div>
-                  <h4 class="font-sans font-bold text-white mb-1 uppercase tracking-wider text-sm">Microsoft Ecosystem</h4>
-                  <p class="font-mono text-gray-500 text-sm">Executing precise X++ logic, database relations, and Power Platform automations as the technical engine of enterprise teams.</p>
-                </div>
-              </li>
-              <!-- Stavka 2: Web Dev uloga -->
-              <li class="flex items-start">
-                <svg class="w-6 h-6 text-[#00E5CC] mt-1 mr-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                <div>
-                  <h4 class="font-sans font-bold text-white mb-1 uppercase tracking-wider text-sm">Modern Web Engineering</h4>
-                  <p class="font-mono text-gray-500 text-sm">Building fast, clean UI/UX frontend platforms structured to securely connect with heavy backend infrastructure.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICES SEKCIJA -->
-    <section id="services" class="py-24 md:py-32 bg-[#02080D] border-t border-gray-800/50">
-      <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <section id="about" class="section-wrapper bg-[#040D14]">
+      <div class="container-custom">
         
-        <!-- Naslov -->
+        <div class="text-center mb-16 md:mb-24 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+          <h2 class="heading-section mb-6">
+            Stop losing money on <br/>
+            <span class="font-serif italic font-normal text-red-500 tracking-normal">disconnected tech.</span>
+          </h2>
+          <p class="text-body md:text-lg max-w-2xl mx-auto">
+            I provide the technical execution to bridge the gap between heavy enterprise systems and high-performance web platforms.
+          </p>
+        </div>
+
+        <div class="relative w-full max-w-5xl mx-auto reveal-on-scroll opacity-0 translate-y-10 transition-all duration-1000 delay-200 ease-out">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+            
+            <div class="z-10 w-full md:w-[35%] border border-gray-800 bg-[#08131D] p-8 text-center shadow-2xl relative group hover:border-[#00E5CC]/30 transition-colors duration-300 rounded-sm">
+              <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-sm bg-[#040D14] border border-gray-800 text-[#00E5CC] group-hover:bg-[#00E5CC]/10 transition-colors duration-300">
+                <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+              </div>
+              <h3 class="font-sans font-bold text-white text-xl mb-3 uppercase tracking-wider">Enterprise Backend</h3>
+              <p class="font-mono text-sm text-gray-500 leading-relaxed mb-4">Executing precise logic and database relations as the technical engine of enterprise teams.</p>
+              <div class="inline-flex items-center gap-2 border-t border-gray-800 pt-4">
+                <span class="tech-badge-sm">D365 F&O</span>
+                <span class="tech-badge-sm">X++</span>
+              </div>
+            </div>
+
+            <div class="hidden md:flex flex-1 items-center justify-center relative h-10 w-full px-4">
+              <div class="absolute h-[1px] w-full bg-gradient-to-r from-gray-800 via-[#00E5CC] to-gray-800 opacity-50"></div>
+              <div class="z-10 flex items-center justify-center rounded-sm border border-[#00E5CC]/50 bg-[#040D14] px-5 py-2 shadow-[0_0_20px_rgba(0,229,204,0.1)] relative">
+                <div class="absolute inset-0 rounded-sm border border-[#00E5CC] animate-ping opacity-20"></div>
+                <span class="font-sans font-bold text-xs text-white uppercase tracking-widest relative z-10 flex items-center gap-2">
+                    <svg class="h-3 w-3 text-[#00E5CC]" fill="currentColor" viewBox="0 0 24 24"><path d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></svg>
+                    Integration
+                </span>
+              </div>
+            </div>
+
+            <div class="md:hidden flex h-16 w-16 items-center justify-center text-[#00E5CC]">
+              <svg class="h-8 w-8 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </div>
+
+            <div class="z-10 w-full md:w-[35%] border border-gray-800 bg-[#08131D] p-8 text-center shadow-2xl relative group hover:border-[#00E5CC]/30 transition-colors duration-300 rounded-sm">
+              <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-sm bg-[#040D14] border border-gray-800 text-[#00E5CC] group-hover:bg-[#00E5CC]/10 transition-colors duration-300">
+                <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+              </div>
+              <h3 class="font-sans font-bold text-white text-xl mb-3 uppercase tracking-wider">Modern Frontend</h3>
+              <p class="font-mono text-sm text-gray-500 leading-relaxed mb-4">Building fast, clean UI/UX platforms structured to securely connect with backends.</p>
+              <div class="inline-flex items-center gap-2 border-t border-gray-800 pt-4">
+                <span class="tech-badge-sm">Astro</span>
+                <span class="tech-badge-sm">Tailwind</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+    
+    <section id="services" class="section-wrapper bg-[#02080D]">
+      <div class="container-custom">
+        
         <div class="text-center md:text-left mb-16 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
-          <span class="font-sans text-[#00E5CC] font-bold tracking-widest uppercase text-sm lg:text-base mb-4 block">Core Competencies</span>
-          <h2 class="text-4xl md:text-5xl lg:text-6xl font-sans font-extrabold text-gray-100 tracking-tighter">
+          <span class="subheading-tag">Core Competencies</span>
+          <h2 class="heading-section">
             Systems I Build.
           </h2>
         </div>
 
-        <!-- Services Grid (grid-auto-rows za jednaku visinu kartica) -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 auto-rows-fr">
           
-          <!-- KARTICA 1: ERP & F&O -->
-          <div class="h-full reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-100 ease-out bg-[#040D14] border border-gray-800 p-8 lg:p-10 hover:border-[#00E5CC]/40 transition-colors group flex flex-col">
+          <div class="card-base reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-100 ease-out">
             <svg class="w-10 h-10 lg:w-12 lg:h-12 text-gray-500 group-hover:text-[#00E5CC] transition-colors mb-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
             
-            <!-- Naslov kartice sa eksplicitnim font-sans i manjim trackingom -->
-            <h3 class="font-sans text-xl lg:text-2xl font-bold text-gray-100 mb-4 uppercase tracking-tight">Dynamics 365 F&O</h3>
+            <h3 class="card-title">Dynamics 365 F&O</h3>
             
             <p class="font-sans text-gray-300 md:text-gray-400 text-base lg:text-lg leading-relaxed mb-8 flex-grow">
               Architecting deep backend logic, executing complex data migrations, and developing robust X++ solutions for enterprise environments.
@@ -215,11 +199,10 @@ import bendPort from '../images/StefanMockup.png';
             </ul>
           </div>
 
-          <!-- KARTICA 2: Web Architecture -->
-          <div class="h-full reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200 ease-out bg-[#040D14] border border-gray-800 p-8 lg:p-10 hover:border-[#00E5CC]/40 transition-colors group flex flex-col">
+          <div class="card-base reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200 ease-out">
             <svg class="w-10 h-10 lg:w-12 lg:h-12 text-gray-500 group-hover:text-[#00E5CC] transition-colors mb-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
             
-            <h3 class="font-sans text-xl lg:text-2xl font-bold text-gray-100 mb-4 uppercase tracking-tight">Web Architecture</h3>
+            <h3 class="card-title">Web Architecture</h3>
             
             <p class="font-sans text-gray-300 md:text-gray-400 text-base lg:text-lg leading-relaxed mb-8 flex-grow">
               Translating premium UI/UX designs into lightning-fast, scalable frontend platforms using modern frameworks and strict CSS methodologies.
@@ -232,11 +215,10 @@ import bendPort from '../images/StefanMockup.png';
             </ul>
           </div>
 
-          <!-- KARTICA 3: Power Platform -->
-          <div class="h-full reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-300 ease-out bg-[#040D14] border border-gray-800 p-8 lg:p-10 hover:border-[#00E5CC]/40 transition-colors group flex flex-col">
+          <div class="card-base reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-300 ease-out">
             <svg class="w-10 h-10 lg:w-12 lg:h-12 text-gray-500 group-hover:text-[#00E5CC] transition-colors mb-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
             
-            <h3 class="font-sans text-xl lg:text-2xl font-bold text-gray-100 mb-4 uppercase tracking-tight">Power Platform</h3>
+            <h3 class="card-title">Power Platform</h3>
             
             <p class="font-sans text-gray-300 md:text-gray-400 text-base lg:text-lg leading-relaxed mb-8 flex-grow">
               Eliminating manual bottlenecks by bridging disconnected systems. Building custom workflows and automated processes that scale.
@@ -253,31 +235,25 @@ import bendPort from '../images/StefanMockup.png';
       </div>
     </section>
 
-    <!-- PORTFOLIO SEKCIJA (2 Projekta - 16:9 - Clickable) -->
-    <section id="portfolio" class="py-24 md:py-32 bg-[#040D14] border-t border-gray-800/50">
-      <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <section id="portfolio" class="section-wrapper bg-[#040D14]">
+      <div class="container-custom">
 
-        <!-- Naslov i Link -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
           <div>
-            <span class="font-sans text-[#00E5CC] font-bold tracking-widest uppercase text-sm lg:text-base mb-4 block">Proof of Work</span>
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-sans font-extrabold text-gray-100 tracking-tighter">
+            <span class="subheading-tag">Proof of Work</span>
+            <h2 class="heading-section">
               Engineered Platforms.
             </h2>
           </div>
-          <!-- Link ka budućoj spojenoj sekciji/stranici -->
           <a href="/portfolio" class="font-sans text-sm font-bold text-gray-400 hover:text-[#00E5CC] uppercase tracking-widest transition-colors mt-6 md:mt-0 flex items-center gap-2">
             View All Projects <span>→</span>
           </a>
         </div>
 
-        <!-- GRID SA 2 PROJEKTA -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 auto-rows-fr">
 
-          <!-- PROJEKAT 1: Sky Restaurant (LINK) -->
           <a href="http://skyrestaurant.mk/" target="_blank" rel="noopener noreferrer" class="h-full reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-100 ease-out group cursor-pointer flex flex-col focus:outline-none">
             
-            <!-- 16:9 Slika -->
             <div class="relative w-full aspect-video overflow-hidden rounded-sm border border-gray-800/80 bg-[#02080D] mb-6">
               <img 
                 src={skyPreview.src} 
@@ -287,23 +263,19 @@ import bendPort from '../images/StefanMockup.png';
               <div class="absolute inset-0 bg-[#00E5CC]/0 group-hover:bg-[#00E5CC]/10 transition-colors duration-500"></div>
             </div>
             
-            <!-- Tekst i Informacije -->
-            <h3 class="font-sans text-2xl font-bold text-gray-100 mb-3 tracking-tight group-hover:text-[#00E5CC] transition-colors">Sky Restaurant System</h3>
-            <p class="font-mono text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
+            <h3 class="card-title">Sky Restaurant System</h3>
+            <p class="text-body flex-grow mb-6">
               Dynamic data fetching via structured JSON source. Prioritized fast load times and clean frontend architecture.
             </p>
             
-            <!-- Tech Stack Bedževi -->
             <div class="flex flex-wrap gap-3 mt-auto shrink-0">
-              <span class="font-mono text-xs text-gray-300 border border-gray-800 bg-[#08131D] px-3 py-1.5 rounded-sm uppercase tracking-wider">Tailwind CSS</span>
-              <span class="font-mono text-xs text-gray-300 border border-gray-800 bg-[#08131D] px-3 py-1.5 rounded-sm uppercase tracking-wider">JSON API</span>
+              <span class="tech-badge">Tailwind CSS</span>
+              <span class="tech-badge">JSON API</span>
             </div>
           </a>
 
-          <!-- PROJEKAT 2: Webflow Platform (LINK) -->
           <a href="https://stefanslavkovic.webflow.io/" target="_blank" rel="noopener noreferrer" class="h-full reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200 ease-out group cursor-pointer flex flex-col focus:outline-none">
             
-            <!-- 16:9 Slika -->
             <div class="relative w-full aspect-video overflow-hidden rounded-sm border border-gray-800/80 bg-[#02080D] mb-6">
               <img 
                 src={bendPort.src} 
@@ -313,16 +285,14 @@ import bendPort from '../images/StefanMockup.png';
               <div class="absolute inset-0 bg-[#00E5CC]/0 group-hover:bg-[#00E5CC]/10 transition-colors duration-500"></div>
             </div>
             
-            <!-- Tekst i Informacije -->
-            <h3 class="font-sans text-2xl font-bold text-gray-100 mb-3 tracking-tight group-hover:text-[#00E5CC] transition-colors">Advanced Webflow Platform</h3>
-            <p class="font-mono text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
+            <h3 class="card-title">Advanced Webflow Platform</h3>
+            <p class="text-body flex-grow mb-6">
               Custom architecture integrating Client-First naming conventions and scalable CMS solutions for enterprise needs.
             </p>
             
-            <!-- Tech Stack Bedževi -->
             <div class="flex flex-wrap gap-3 mt-auto shrink-0">
-              <span class="font-mono text-xs text-gray-300 border border-gray-800 bg-[#08131D] px-3 py-1.5 rounded-sm uppercase tracking-wider">Webflow</span>
-              <span class="font-mono text-xs text-gray-300 border border-gray-800 bg-[#08131D] px-3 py-1.5 rounded-sm uppercase tracking-wider">GSAP</span>
+              <span class="tech-badge">Webflow</span>
+              <span class="tech-badge">GSAP</span>
             </div>
           </a>
 
@@ -331,22 +301,22 @@ import bendPort from '../images/StefanMockup.png';
       </div>
     </section>
 
-    <section id="contact" class="relative py-32 md:py-48 bg-[#02080D] border-t border-gray-800/50 overflow-hidden flex flex-col items-center justify-center text-center">
+    <section id="contact" class="section-wrapper bg-[#02080D] flex flex-col items-center justify-center text-center">
       
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-[#00E5CC]/5 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div class="max-w-4xl mx-auto px-6 relative z-10 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-1000 ease-out">
         
-        <h2 class="text-5xl md:text-7xl lg:text-[5.5rem] font-sans font-extrabold tracking-tighter leading-[1.1] mb-6">
+        <h2 class="heading-primary mb-6">
           <span class="text-white block">Let's build a system</span>
           <span class="text-gray-600 block">that scales.</span>
         </h2>
 
-        <p class="font-mono text-gray-400 text-sm md:text-base mb-12">
+        <p class="text-body mb-12">
           Zero templates. No bloated code. Just pure engineering.
         </p>
 
-        <a href="/contact" class="inline-block font-sans bg-[#00E5CC] text-[#040D14] hover:bg-white px-10 py-4 rounded-sm font-bold uppercase tracking-widest transition-all duration-300 shadow-[0_0_30px_rgba(0,229,204,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]">
+        <a href="/contact" class="btn-primary shadow-[0_0_30px_rgba(0,229,204,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]">
           INITIATE CONTACT
         </a>
 
@@ -355,7 +325,6 @@ import bendPort from '../images/StefanMockup.png';
 
     <Footer />
 
-    <!-- Tvoj JS -->
   <script src="../scripts/scrollReveal.js"></script>
   </body>
 </html>

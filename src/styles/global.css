@@ -13,12 +13,108 @@
 }
 
 .animate-marquee {
-  animation: marquee 35s linear infinite; /* 35 sekundi za lagano, čitljivo skrolovanje */
+  animation: marquee 35s linear infinite;
   display: flex;
-  width: max-content; /* Mora biti max-content da bi držalo sve u jednoj liniji */
+  width: max-content;
 }
 
-/* Opciono: Zaustavlja animaciju kada klijent pređe mišem preko nje */
 .marquee-container:hover .animate-marquee {
   animation-play-state: paused;
+}
+
+/* --- TVOJE SKALABILNE KOMPONENTE (V4 OPTIMIZOVANO) --- */
+@layer components {
+  /* Layout */
+  .section-wrapper {
+    @apply py-24 border-t border-gray-800/50 relative overflow-hidden;
+  }
+  @media (min-width: 768px) {
+    .section-wrapper { @apply py-32; }
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6;
+  }
+  @media (min-width: 768px) {
+    .container-custom { @apply px-12; }
+  }
+
+  /* Tipografija */
+  .heading-primary {
+    @apply text-5xl font-sans font-extrabold tracking-tighter text-white mb-6;
+    line-height: 1.1;
+  }
+  @media (min-width: 640px) {
+    .heading-primary { @apply text-6xl; }
+  }
+  @media (min-width: 1024px) {
+    .heading-primary { @apply text-8xl; }
+  }
+  
+  .heading-section {
+    @apply text-4xl font-sans font-extrabold tracking-tight text-white leading-tight;
+  }
+  @media (min-width: 768px) {
+    .heading-section { @apply text-5xl; }
+  }
+  @media (min-width: 1024px) {
+    .heading-section { @apply text-6xl; }
+  }
+  
+  .subheading-tag {
+    @apply font-sans text-[#00E5CC] font-bold tracking-widest uppercase text-sm mb-4 block;
+  }
+  @media (min-width: 1024px) {
+    .subheading-tag { @apply text-base; }
+  }
+  
+  .text-body {
+    @apply font-mono text-gray-400 text-sm leading-relaxed;
+  }
+  @media (min-width: 768px) {
+    .text-body { @apply text-base; }
+  }
+
+  /* Dugmad */
+  .btn-primary {
+    @apply inline-flex items-center justify-center font-sans bg-[#00E5CC] text-[#040D14] hover:bg-white px-8 py-3.5 rounded-sm font-bold uppercase tracking-widest transition-colors text-center;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center font-sans text-gray-300 hover:text-[#00E5CC] font-bold uppercase tracking-widest transition-colors gap-2 px-8 py-3.5;
+  }
+
+  /* Kartice */
+  .card-base {
+    @apply h-full bg-[#040D14] border border-gray-800 p-8 transition-colors flex flex-col rounded-sm;
+  }
+  @media (min-width: 1024px) {
+    .card-base { @apply p-10; }
+  }
+
+  /* Hover efekat za samu karticu */
+  .card-base:hover {
+    @apply border-[#00E5CC]/40;
+  }
+  
+  .card-title {
+    @apply font-sans text-xl font-bold text-gray-100 mb-4 uppercase tracking-tight transition-colors;
+  }
+  @media (min-width: 1024px) {
+    .card-title { @apply text-2xl; }
+  }
+
+  /* Zamena za group-hover: Kada se pređe mišem preko card-base, menja se boja card-title */
+  .card-base:hover .card-title {
+    @apply text-[#00E5CC];
+  }
+
+  /* Tech Bedževi */
+  .tech-badge {
+    @apply font-mono text-xs text-gray-300 border border-gray-800 bg-[#08131D] px-3 py-1.5 rounded-sm uppercase tracking-wider;
+  }
+  
+  .tech-badge-sm {
+    @apply font-mono text-[10px] text-[#00E5CC] tracking-widest uppercase bg-[#00E5CC]/10 px-2 py-1 rounded-sm;
+  }
 }
