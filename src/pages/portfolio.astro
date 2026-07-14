@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import BaseHead from '../components/BaseHead.astro';
 import '../styles/global.css';
 import skyPreview from '../images/SkyMockup.png';
+import bendPort from '../images/StefanMockup.png';
 
 const pageTitle = "Stefan Stankovic | Portfolio & Blog";
 const pageDescription = "A selection of my recent enterprise architecture and modern web projects.";
@@ -56,22 +57,22 @@ const pageDescription = "A selection of my recent enterprise architecture and mo
             </div>
           </a>
 
-          <a href="/projects/season-tech" class="card-base group relative fade-in-up" style="animation-delay: 200ms;">
+          <a href="/projects/stefan-slavkovic" class="card-base group relative fade-in-up" style="animation-delay: 200ms;">
             <div>
-              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] flex items-center justify-center">
-                <span class="font-mono text-gray-600 uppercase tracking-widest text-xs group-hover:scale-105 transition-transform duration-700">Season Tech Preview</span>
+              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] relative">
+                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700" style={`background-image: url('${bendPort.src}')`}></div>
               </div>
-              <h3 class="card-title">Season Tech Agency</h3>
+              <h3 class="card-title">Visual Artist Portfolio</h3>
               <p class="text-gray-400 leading-relaxed text-sm mb-6">
-                Official digital presence for my consulting agency. A hyper-optimized, zero-bloat platform demonstrating modern frontend capabilities.
+                Custom Webflow architecture tailored for high-resolution graphic assets. Engineered with optimized interactions and dynamic image sliders.
               </p>
             </div>
             <div class="flex flex-wrap gap-2">
-              <span class="tag">Astro</span><span class="tag">Tailwind</span>
+              <span class="tag">Webflow</span><span class="tag">CMS</span><span class="tag">INTERACTIONS</span>
             </div>
           </a>
 
-          <a href="/projects/axis-magazine" class="card-base group relative fade-in-up" style="animation-delay: 250ms;">
+          <!-- <a href="/projects/axis-magazine" class="card-base group relative fade-in-up" style="animation-delay: 250ms;">
             <div>
               <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] flex items-center justify-center">
                 <span class="font-mono text-gray-600 uppercase tracking-widest text-xs group-hover:scale-105 transition-transform duration-700">AXIS UI/UX Preview</span>
@@ -99,7 +100,7 @@ const pageDescription = "A selection of my recent enterprise architecture and mo
             <div class="flex flex-wrap gap-2">
               <span class="tag">D365 F&O</span><span class="tag">Power Automate</span>
             </div>
-          </a>
+          </a> -->
 
         </div>
       </section>
@@ -130,7 +131,7 @@ const pageDescription = "A selection of my recent enterprise architecture and mo
                 <span class="h-1 w-1 rounded-full bg-gray-700"></span>
                 <span class="font-mono text-xs text-gray-500">May 2026</span>
               </div>
-              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">Why I Chose Astro for Season Tech</h3>
+              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">Why I Chose Astro for Modern Web Development</h3>
               <p class="mt-2 text-sm text-gray-400">An analysis of rendering strategies. Why generating static HTML with Island architecture beats heavy SPAs.</p>
             </div>
           </a>
