@@ -3,9 +3,10 @@ title: "Sky Restaurant & Pool Bar"
 description: "A complete digital presence for a premium restaurant featuring dynamic JSON menu architecture and full English/Macedonian localization."
 tags: ["Full-Stack Web", "JSON Architecture", "i18n", "Tailwind CSS"]
 liveLink: "https://skyrestaurant.mk/"
+heroImage: "../../images/projects/sky-restaurant.png"
+featured: true
+order: 1
 ---
-
-![Sky Restaurant Platform Mockup](../../images/SkyMockup.png)
 
 ## The Vision
 Sky Restaurant required a digital footprint that mirrored its physical elegance. The objective was clear: avoid the bloated, slow-loading templates typical of the hospitality industry, and instead engineer a high-performance platform from the ground up. The business needed a system that was virtually maintenance-free for the owners, yet lightning-fast for the guests.

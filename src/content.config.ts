@@ -1,17 +1,23 @@
 import { z, defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders'; // NOVO: Uvozimo glob loader
+import { glob } from 'astro/loaders';
 
 // Šema za Portfolio Projekte
 const projectsCollection = defineCollection({
-  // NOVO: Koristimo loader umesto type: 'content'
-  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }), 
-  schema: z.object({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
-    client: z.string().optional(),
     tags: z.array(z.string()),
-    heroImage: z.string().optional(),
+    // Putanja relativna u odnosu na .md fajl, slika ide kroz Astro optimizer
+    heroImage: image(),
+    client: z.string().optional(),
     liveLink: z.string().url().optional(),
+    // Prikazuje se na Home stranici
+    featured: z.boolean().default(false),
+    // Manji broj ide prvi; projekti bez order-a idu na kraj (po naslovu)
+    order: z.number().optional(),
+    // draft: true -> ne pojavljuje se u listama i ne build-uje se
+    draft: z.boolean().default(false),
   }),
 });
 
@@ -20,10 +26,11 @@ const blogCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
-    // Astro v5 preporučuje da datume prebacimo u prave objekte
     description: z.string(),
     date: z.coerce.date(),
     category: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    draft: z.boolean().default(false),
   }),
 });
 

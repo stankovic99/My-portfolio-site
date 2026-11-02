@@ -3,9 +3,10 @@ title: "Visual Artist Portfolio"
 description: "A custom Webflow architecture engineered specifically for high-resolution visual assets, featuring dynamic sliders and optimized load times."
 tags: ["Webflow", "CMS Architecture", "Custom Interactions"]
 liveLink: "https://stefanslavkovic.webflow.io/"
+heroImage: "../../images/projects/stefan-slavkovic.png"
+featured: true
+order: 2
 ---
-
-![Sky Restaurant Platform Mockup](../../images/StefanMockup.png)
 
 ## The Objective
 Graphic design portfolios are notoriously heavy and slow due to the massive volume of high-resolution image assets. The goal for this project was to build a structured, high-performance Webflow environment that allows the artwork to take center stage without compromising the site's speed or technical stability.

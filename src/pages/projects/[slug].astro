@@ -1,25 +1,20 @@
 ---
-import { getCollection, type CollectionEntry, render } from 'astro:content';
+import { type CollectionEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getProjects } from '../../utils/content';
 
 // Definišemo TypeScript interfejs za Props ove komponente
 export interface Props {
   entry: CollectionEntry<'projects'>;
 }
 
-// Generisanje putanja
+// Generisanje putanja (draft projekti se ne build-uju)
 export async function getStaticPaths() {
-  const projectEntries = await getCollection('projects');
-  
-  return projectEntries.map((entry) => {
-    // KLJUČNA PROMENA: Sečemo ".md" ekstenziju iz entry.id da bi URL bio čist
-    const cleanSlug = entry.id.replace(/\.md$/, '');
-    
-    return {
-      params: { slug: cleanSlug },
-      props: { entry },
-    };
-  });
+  const projects = await getProjects();
+  return projects.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
 }
 
 // Sada TypeScript (i VS Code) tačno zna šta je "entry"
