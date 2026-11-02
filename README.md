@@ -1,6 +1,6 @@
 # Stefan Stankovic | Personal Site
 
-The personal site and blog of Stefan Stankovic, Senior D365 F&O Architect and web developer. It covers my work with Dynamics 365 F&O and Power Platform, my skills and certifications, selected projects, and a technical blog.
+The personal site and blog of Stefan Stankovic, D365 F&O Developer and web developer. It covers my work with Dynamics 365 F&O and Power Platform, my skills and certifications, selected projects, and a technical blog.
 
 Live at https://stefanstankovic.me.
 

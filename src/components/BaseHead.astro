@@ -7,11 +7,16 @@ export interface Props {
   description: string;
   image?: string;
   canonicalURL?: string | URL;
+  // 'article' za blog postove (Open Graph)
+  type?: 'website' | 'article';
+  publishedTime?: Date;
 }
 
 const {
   title,
   description,
+  type = 'website',
+  publishedTime,
   // Ako ne proslediš sliku, koristi se 1200x630 preview iz public foldera
   image = '/og-image.png',
   // Automatski generiše tačan URL trenutne stranice
@@ -36,10 +41,11 @@ const socialImageURL = new URL(image, Astro.url);
 <link rel="canonical" href={canonicalURL} />
 
 <title>{title}</title>
-<meta name="title" content={title} />
 <meta name="description" content={description} />
 
-<meta property="og:type" content="website" />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Stefan Stankovic" />
+<meta property="og:locale" content="en_US" />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -51,13 +57,15 @@ const socialImageURL = new URL(image, Astro.url);
     <meta property="og:image:alt" content="Stefan Stankovic, Dynamics 365 F&O, Power Platform and Web Developer" />
   </>
 )}
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
 
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={socialImageURL} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={Astro.url} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImageURL} />
 
 <Font cssVariable="--font-bricolage" preload />
 <Font cssVariable="--font-instrument" />
-<Font cssVariable="--font-jetbrains" preload />
+{/* Preload samo normalnog stila (italic se učitava po potrebi) */}
+<Font cssVariable="--font-jetbrains" preload={[{ style: 'normal' }]} />

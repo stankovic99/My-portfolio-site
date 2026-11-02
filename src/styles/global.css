@@ -143,4 +143,12 @@ body {
     transform: none;
     animation: none;
   }
+  /* Elementi koje otkriva scrollReveal.js su odmah vidljivi
+     (Tailwind v4 translate-* koristi svojstvo `translate`, ne `transform`) */
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    translate: none !important;
+    transition: none !important;
+  }
 }

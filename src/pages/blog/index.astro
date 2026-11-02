@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getPosts, readingTime, formatDate } from '../../utils/content';
+import { getPosts, readingTime, formatDate, toDateAttr } from '../../utils/content';
 
 const pageTitle = "Stefan Stankovic | Blog";
 const pageDescription = "Notes on Dynamics 365 F&O, Power Platform and web development.";
@@ -30,7 +30,7 @@ const posts = await getPosts();
       ) : (
         <div class="flex flex-col gap-4">
           {posts.map((post, i) => (
-            <a href={`/blog/${post.id}`} class="group block rounded-2xl border border-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style={`animation-delay: ${100 + i * 50}ms;`}>
+            <a href={`/blog/${post.id}/`} class="group block rounded-2xl border border-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style={`animation-delay: ${100 + i * 50}ms;`}>
               <div class="md:max-w-2xl">
                 <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
                   {post.data.category && (
@@ -39,11 +39,11 @@ const posts = await getPosts();
                       <span class="h-1 w-1 rounded-full bg-gray-700"></span>
                     </>
                   )}
-                  <time datetime={post.data.date.toISOString()} class="font-mono text-xs text-gray-500">
+                  <time datetime={toDateAttr(post.data.date)} class="font-mono text-xs text-gray-400">
                     {formatDate(post.data.date)}
                   </time>
                   <span class="h-1 w-1 rounded-full bg-gray-700"></span>
-                  <span class="font-mono text-xs text-gray-500">{readingTime(post.body)} min read</span>
+                  <span class="font-mono text-xs text-gray-400">{readingTime(post.body)} min read</span>
                 </div>
                 <h2 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">{post.data.title}</h2>
                 <p class="mt-2 text-sm text-gray-400">{post.data.description}</p>

@@ -5,13 +5,15 @@ import type { CollectionEntry } from 'astro:content';
 export interface Props {
   project: CollectionEntry<'projects'>;
   delay?: number;
+  // Kartice u prvom redu mogu da se učitaju odmah
+  loading?: 'lazy' | 'eager';
 }
 
-const { project, delay = 150 } = Astro.props;
+const { project, delay = 150, loading = 'lazy' } = Astro.props;
 const { title, description, heroImage, tags } = project.data;
 ---
 
-<a href={`/projects/${project.id}`} class="card-base group relative fade-in-up" style={`animation-delay: ${delay}ms;`}>
+<a href={`/projects/${project.id}/`} class="card-base group relative fade-in-up" style={`animation-delay: ${delay}ms;`}>
   <div>
     <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] relative">
       <Image
@@ -19,6 +21,7 @@ const { title, description, heroImage, tags } = project.data;
         alt={`${title} preview`}
         widths={[480, 800]}
         sizes="(min-width: 768px) 50vw, 100vw"
+        loading={loading}
         class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
     </div>

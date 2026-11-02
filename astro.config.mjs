@@ -13,7 +13,7 @@ export default defineConfig({
   site: 'https://stefanstankovic.me',
   integrations: [sitemap()],
   // Stara Services stranica je spojena sa About
-  redirects: { '/services': '/about' },
+  redirects: { '/services': '/about/' },
   markdown: {
     shikiConfig: {
       theme: 'github-dark-default',
@@ -34,7 +34,8 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: 'Instrument Serif',
       cssVariable: '--font-instrument',
-      styles: ['normal', 'italic'],
+      // Koristi se samo kurziv (font-serif italic u naslovima)
+      styles: ['italic'],
       fallbacks: ['serif'],
     },
     {

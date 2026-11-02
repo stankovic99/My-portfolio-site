@@ -28,12 +28,12 @@ const projects = await getProjects();
 
     <!-- PROJEKTI -->
     <section class="container-custom">
-      <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 100ms;">
+      <div class="mb-10 border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 100ms;">
         <h2 class="heading-section">Projects</h2>
       </div>
 
       <div class="grid gap-8 md:grid-cols-2">
-        {projects.map((p, i) => <ProjectCard project={p} delay={150 + i * 50} />)}
+        {projects.map((p, i) => <ProjectCard project={p} delay={150 + i * 50} loading={i < 2 ? 'eager' : 'lazy'} />)}
       </div>
     </section>
 

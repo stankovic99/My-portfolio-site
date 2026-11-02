@@ -43,6 +43,7 @@ The filename (kebab-case) becomes the URL.
 - Keep `description` under ~160 characters so it works as a meta description.
 - Code: use fenced blocks with a language, ```` ```csharp ````, ```` ```xpp ```` (X++, highlighted like C#), ```` ```sql ````, ```` ```json ````.
 - Images in the body: put the file next to the .md (or in `src/images/`) and use a relative path, `![Alt text](./diagram.png)`. Always write real alt text.
+- Links to other pages on the site end with a slash: `[my PL-400 post](/blog/pl-400-mastery/)`.
 
 ## After writing
 - Posts and projects appear automatically. Blog posts show on `/blog`; projects show on `/portfolio`, and on Home when `featured: true`. No page or card code needs changing.

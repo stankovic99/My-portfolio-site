@@ -9,14 +9,16 @@ export interface Props {
   title: string;
   description: string;
   image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: Date;
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, type, publishedTime } = Astro.props;
 ---
 
 <html lang="en" class="scroll-smooth">
   <head>
-    <BaseHead title={title} description={description} image={image} />
+    <BaseHead title={title} description={description} image={image} type={type} publishedTime={publishedTime} />
   </head>
   <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black">
     <Navbar />
