@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('An error occurred while sending the message.');
                 }
             })
-            .catch(error => {
+            .catch(() => {
                 alert('A network error occurred. Please check your connection.');
             })
             .finally(() => {

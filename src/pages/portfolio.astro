@@ -1,145 +1,88 @@
 ---
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import BaseHead from '../components/BaseHead.astro';
-import '../styles/global.css';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import skyPreview from '../images/SkyMockup.png';
 import bendPort from '../images/StefanMockup.png';
 
 const pageTitle = "Stefan Stankovic | Portfolio & Blog";
 const pageDescription = "A selection of my recent enterprise architecture and modern web projects.";
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<html lang="en" class="scroll-smooth">
-  <head>
-    <BaseHead title={pageTitle} description={pageDescription} />
-  </head>
-  <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black">
-    <Navbar />
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="pt-32 pb-20">
 
-    <main class="pt-32 pb-20">      
-      
-      <!-- HERO SEKCIJA -->
-      <section class="container-custom mb-20">
-        <div class="text-center lg:text-left max-w-4xl mx-auto lg:mx-0 fade-in-up">
-          <span class="pill-badge">Work & Thoughts</span>
-          <h1 class="heading-page">
-            What I build.<br/> 
+    <!-- HERO SEKCIJA -->
+    <section class="container-custom mb-20">
+      <div class="text-center lg:text-left max-w-4xl mx-auto lg:mx-0 fade-in-up">
+        <span class="pill-badge">Work & Thoughts</span>
+        <h1 class="heading-page">
+          What I build.<br/>
           <span class="font-serif italic font-normal tracking-normal text-[#00E5CC]">And how I build it.</span>
-          </h1>
-          <p class="text-body max-w-3xl">
-            A selection of my recent enterprise architecture and modern web projects, alongside an engineering blog where I document my ongoing learning and technical explorations.
-          </p>
-        </div>
-      </section>
+        </h1>
+        <p class="text-body max-w-3xl">
+          A selection of my recent enterprise architecture and modern web projects, alongside an engineering blog where I document my ongoing learning and technical explorations.
+        </p>
+      </div>
+    </section>
 
-      <!-- FEATURED PROJECTS -->
-      <section class="container-custom mb-24 md:mb-32">
-        <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 100ms;">
-          <h2 class="heading-section">Featured Projects</h2>
-          <span class="font-mono text-xs text-gray-500 uppercase tracking-widest">01 / Work</span>
-        </div>
+    <!-- FEATURED PROJECTS -->
+    <section class="container-custom mb-24 md:mb-32">
+      <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 100ms;">
+        <h2 class="heading-section">Featured Projects</h2>
+        <span class="font-mono text-xs text-gray-500 uppercase tracking-widest">01 / Work</span>
+      </div>
 
-        <div class="grid gap-8 md:grid-cols-2">
-          
-          <a href="/projects/sky-restaurant" class="card-base group relative fade-in-up" style="animation-delay: 150ms;">
-            <div>
-              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] relative">
-                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700" style={`background-image: url('${skyPreview.src}')`}></div>
-              </div>
-              <h3 class="card-title">Sky Restaurant & Pool Bar</h3>
-              <p class="text-gray-400 leading-relaxed text-sm mb-6">
-                Premium digital presence with full English/Macedonian localization and dynamic JSON menu architecture for effortless management.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">Full-Stack</span><span class="tag">JSON Architecture</span><span class="tag">i18n</span>
-            </div>
-          </a>
+      <div class="grid gap-8 md:grid-cols-2">
+        <ProjectCard
+          href="/projects/sky-restaurant"
+          title="Sky Restaurant & Pool Bar"
+          description="Premium digital presence with full English/Macedonian localization and dynamic JSON menu architecture for effortless management."
+          image={skyPreview}
+          tags={['Full-Stack', 'JSON Architecture', 'i18n']}
+        />
+        <ProjectCard
+          href="/projects/stefan-slavkovic"
+          title="Visual Artist Portfolio"
+          description="Custom Webflow architecture tailored for high-resolution graphic assets. Engineered with optimized interactions and dynamic image sliders."
+          image={bendPort}
+          tags={['Webflow', 'CMS', 'Interactions']}
+          delay={200}
+        />
+      </div>
+    </section>
 
-          <a href="/projects/stefan-slavkovic" class="card-base group relative fade-in-up" style="animation-delay: 200ms;">
-            <div>
-              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] relative">
-                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700" style={`background-image: url('${bendPort.src}')`}></div>
-              </div>
-              <h3 class="card-title">Visual Artist Portfolio</h3>
-              <p class="text-gray-400 leading-relaxed text-sm mb-6">
-                Custom Webflow architecture tailored for high-resolution graphic assets. Engineered with optimized interactions and dynamic image sliders.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">Webflow</span><span class="tag">CMS</span><span class="tag">INTERACTIONS</span>
-            </div>
-          </a>
+    <!-- ENGINEERING BLOG -->
+    <section class="container-custom">
+      <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 350ms;">
+        <h2 class="heading-section">Engineering Blog</h2>
+        <span class="font-mono text-xs text-gray-500 uppercase tracking-widest">02 / Thoughts</span>
+      </div>
 
-          <!-- <a href="/projects/axis-magazine" class="card-base group relative fade-in-up" style="animation-delay: 250ms;">
-            <div>
-              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] flex items-center justify-center">
-                <span class="font-mono text-gray-600 uppercase tracking-widest text-xs group-hover:scale-105 transition-transform duration-700">AXIS UI/UX Preview</span>
-              </div>
-              <h3 class="card-title">AXIS Digital Magazine</h3>
-              <p class="text-gray-400 leading-relaxed text-sm mb-6">
-                Comprehensive UX/UI Case Study. Focused on creating an immersive, performance-first reading experience with flawless typography.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">UX/UI Design</span><span class="tag">Figma</span>
-            </div>
-          </a>
-
-          <a href="/projects/enterprise-automation" class="card-base group relative fade-in-up" style="animation-delay: 300ms;">
-            <div>
-              <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] flex items-center justify-center">
-                <span class="font-mono text-gray-600 uppercase tracking-widest text-xs group-hover:scale-105 transition-transform duration-700">D365 Integration</span>
-              </div>
-              <h3 class="card-title">Enterprise Automation</h3>
-              <p class="text-gray-400 leading-relaxed text-sm mb-6">
-                Confidential D365 F&O integration utilizing Microsoft Power Platform to automate manual data handoffs into a zero-touch pipeline.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">D365 F&O</span><span class="tag">Power Automate</span>
-            </div>
-          </a> -->
-
-        </div>
-      </section>
-
-      <!-- ENGINEERING BLOG -->
-      <section class="container-custom">
-        <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 350ms;">
-          <h2 class="heading-section">Engineering Blog</h2>
-          <span class="font-mono text-xs text-gray-500 uppercase tracking-widest">02 / Thoughts</span>
-        </div>
-
-        <div class="flex flex-col gap-4">
-          <a href="/blog/pl-400-mastery" class="group flex flex-col md:flex-row md:items-center justify-between rounded-2xl border border-transparent bg-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style="animation-delay: 400ms;">
-            <div class="mb-4 md:mb-0 md:max-w-2xl">
+      <div class="flex flex-col gap-4">
+        {posts.map((post, i) => (
+          <a href={`/blog/${post.id}`} class="group block rounded-2xl border border-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style={`animation-delay: ${400 + i * 50}ms;`}>
+            <div class="md:max-w-2xl">
               <div class="flex items-center gap-3 mb-2">
-                <span class="font-mono text-xs text-[#00E5CC]">Certification</span>
-                <span class="h-1 w-1 rounded-full bg-gray-700"></span>
-                <span class="font-mono text-xs text-gray-500">June 2026</span>
+                {post.data.category && (
+                  <>
+                    <span class="font-mono text-xs text-[#00E5CC]">{post.data.category}</span>
+                    <span class="h-1 w-1 rounded-full bg-gray-700"></span>
+                  </>
+                )}
+                <time datetime={post.data.date.toISOString()} class="font-mono text-xs text-gray-500">
+                  {post.data.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                </time>
               </div>
-              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">Road to PL-400: Mastering Power Platform</h3>
-              <p class="mt-2 text-sm text-gray-400">Documenting my preparation process for the PL-400 exam, following my perfect 1000/1000 score on the PL-900.</p>
+              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">{post.data.title}</h3>
+              <p class="mt-2 text-sm text-gray-400">{post.data.description}</p>
             </div>
           </a>
-          <a href="/blog/astro-architecture" class="group flex flex-col md:flex-row md:items-center justify-between rounded-2xl border border-transparent bg-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style="animation-delay: 450ms;">
-            <div class="mb-4 md:mb-0 md:max-w-2xl">
-              <div class="flex items-center gap-3 mb-2">
-                <span class="font-mono text-xs text-[#00E5CC]">Architecture</span>
-                <span class="h-1 w-1 rounded-full bg-gray-700"></span>
-                <span class="font-mono text-xs text-gray-500">May 2026</span>
-              </div>
-              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">Why I Chose Astro for Modern Web Development</h3>
-              <p class="mt-2 text-sm text-gray-400">An analysis of rendering strategies. Why generating static HTML with Island architecture beats heavy SPAs.</p>
-            </div>
-          </a>
-        </div>
-      </section>
+        ))}
+      </div>
+    </section>
 
-    </main>
-
-    <Footer />
-  </body>
-</html>
+  </main>
+</BaseLayout>

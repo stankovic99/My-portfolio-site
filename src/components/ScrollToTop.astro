@@ -1,0 +1,27 @@
+<button
+  id="scroll-top"
+  type="button"
+  aria-label="Back to top"
+  class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 flex h-12 w-12 items-center justify-center rounded-sm border border-[#00E5CC]/30 bg-[#08131D] text-[#00E5CC] shadow-[0_0_20px_rgba(0,229,204,0.15)] transition-all duration-300 hover:border-[#00E5CC] hover:bg-[#00E5CC] hover:text-[#040D14] hover:shadow-[0_0_30px_rgba(0,229,204,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00E5CC] focus-visible:ring-offset-2 focus-visible:ring-offset-[#040D14] opacity-0 translate-y-4 pointer-events-none"
+>
+  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M12 19V5m-7 7l7-7 7 7" />
+  </svg>
+</button>
+
+<script>
+  const btn = document.getElementById('scroll-top');
+  const hiddenClasses = ['opacity-0', 'translate-y-4', 'pointer-events-none'];
+
+  if (btn) {
+    const toggle = () => {
+      const hidden = window.scrollY < 400;
+      hiddenClasses.forEach((cls) => btn.classList.toggle(cls, hidden));
+    };
+
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+</script>

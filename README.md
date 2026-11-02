@@ -19,7 +19,7 @@ This platform is built with a strict performance-first, zero-bloat philosophy. I
 The project follows a clean, modular directory structure:
 
 * `/src/components` - Reusable UI blocks (Navbar.astro, Footer.astro)
-* `/src/layouts` - Master templates (e.g., ContentLayout.astro for Markdown injection)
+* `/src/layouts` - BaseLayout.astro, the shared page shell (head, navbar, footer)
 * `/src/pages` - File-based router (index, about, services, portfolio)
 * `/src/pages/projects` - Dynamic markdown content for portfolio pieces
 * `/src/pages/blog` - Dynamic markdown content for engineering logs

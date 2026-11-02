@@ -2,9 +2,10 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: 'Bricolage Grotesque', sans-serif;
-  --font-serif: 'Instrument Serif', serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Varijable dolaze iz Astro Fonts API-ja (astro.config.mjs) */
+  --font-sans: var(--font-bricolage);
+  --font-serif: var(--font-instrument);
+  --font-mono: var(--font-jetbrains);
 }
 
 @keyframes marquee {
@@ -32,61 +33,37 @@
 @layer components {
   /* --- LAYOUT --- */
   .section-wrapper {
-    @apply py-24 border-t border-gray-800/50 relative overflow-hidden;
+    @apply py-24 md:py-32 border-t border-gray-800/50 relative overflow-hidden;
   }
-  @media (min-width: 768px) {
-    .section-wrapper { @apply py-32; }
-  }
-  
+
   .container-custom {
-    @apply max-w-7xl mx-auto px-6;
-  }
-  @media (min-width: 768px) {
-    .container-custom { @apply px-12; }
+    @apply max-w-7xl mx-auto px-6 md:px-12;
   }
 
   /* --- TIPOGRAFIJA --- */
   /* Gigantski naslov isključivo za Hero sekciju na index.astro */
   .heading-primary {
-    @apply text-5xl font-sans font-extrabold tracking-tighter text-white mb-6;
+    @apply text-5xl sm:text-6xl lg:text-8xl font-sans font-extrabold tracking-tighter text-white mb-6;
     line-height: 1.1;
-  }
-  @media (min-width: 640px) {
-    .heading-primary { @apply text-6xl; }
-  }
-  @media (min-width: 1024px) {
-    .heading-primary { @apply text-8xl; }
   }
 
   /* Standard za naslove na unutrašnjim stranicama (About, Portfolio, Contact, Services) */
   .heading-page {
-    @apply text-4xl font-sans font-black tracking-tight text-white leading-tight mb-6;
+    @apply text-4xl md:text-5xl lg:text-6xl font-sans font-black tracking-tight text-white leading-tight mb-6;
   }
-  @media (min-width: 768px) {
-    .heading-page { @apply text-5xl; }
-  }
-  @media (min-width: 1024px) {
-    .heading-page { @apply text-6xl; }
-  }
-  
+
   /* Naslovi manjih sekcija unutar stranica */
   .heading-section {
-    @apply text-3xl font-sans font-bold tracking-tight text-white;
+    @apply text-3xl md:text-4xl font-sans font-bold tracking-tight text-white;
   }
-  @media (min-width: 768px) {
-    .heading-section { @apply text-4xl; }
-  }
-  
+
   /* Tvoj paragraf tekst */
   .text-body {
-    @apply font-mono text-gray-400 text-base leading-relaxed;
-  }
-  @media (min-width: 768px) {
-    .text-body { @apply text-lg; }  
+    @apply font-mono text-gray-400 text-base md:text-lg leading-relaxed;
   }
 
   /* --- BEDŽEVI / TAGOVI --- */
-  /* NOVO: Ultimativni standard za one "eyebrow" tagove iznad naslova */
+  /* Standard za "eyebrow" tagove iznad naslova */
   .pill-badge {
     @apply mb-4 md:mb-6 inline-flex items-center gap-2 rounded-full border border-[#00E5CC]/20 bg-[#08131D] px-4 py-2 font-mono text-xs uppercase tracking-[0.25em] text-[#00E5CC];
   }
@@ -101,15 +78,12 @@
 
   /* --- KARTICE --- */
   .card-base {
-    @apply flex flex-col justify-between rounded-3xl border border-gray-800 bg-[#08131D] p-6 shadow-xl transition-all duration-500;
-  }
-  @media (min-width: 768px) {
-    .card-base { @apply p-8; }
+    @apply flex flex-col justify-between rounded-3xl border border-gray-800 bg-[#08131D] p-6 md:p-8 shadow-xl transition-all duration-500;
   }
   .card-base:hover {
     @apply border-[#00E5CC]/50 shadow-[0_0_35px_rgba(0,229,204,0.1)];
   }
-  
+
   .card-title {
     @apply text-2xl font-bold text-white mb-3 transition-colors;
   }
@@ -121,7 +95,7 @@
   .btn-primary {
     @apply inline-flex items-center justify-center font-sans bg-[#00E5CC] text-[#040D14] hover:bg-white px-8 py-3.5 rounded-sm font-bold uppercase tracking-widest transition-colors text-center;
   }
-  
+
   .btn-secondary {
     @apply inline-flex items-center justify-center font-sans text-gray-300 hover:text-[#00E5CC] font-bold uppercase tracking-widest transition-colors gap-2 px-8 py-3.5 border border-gray-800 bg-transparent;
   }
@@ -137,7 +111,17 @@
   }
 }
 
-body { 
-  overflow-x: hidden !important; 
-  width: 100%; 
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee { animation: none; }
+  .fade-in-up {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }

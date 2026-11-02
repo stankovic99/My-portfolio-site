@@ -22,7 +22,8 @@ const blogCollection = defineCollection({
     title: z.string(),
     // Astro v5 preporučuje da datume prebacimo u prave objekte
     description: z.string(),
-    date: z.coerce.date(), 
+    date: z.coerce.date(),
+    category: z.string().optional(),
   }),
 });
 

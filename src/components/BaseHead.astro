@@ -1,4 +1,6 @@
 ---
+import { Font } from 'astro:assets';
+
 // Definišemo koje podatke komponenta očekuje
 export interface Props {
   title: string;
@@ -10,8 +12,8 @@ export interface Props {
 const {
   title,
   description,
-  // Ako ne proslediš sliku, vuče neku tvoju defaultnu (dodaj je u public folder)
-  image = '/default-og-image.jpg',
+  // Ako ne proslediš sliku, koristi se 1200x630 preview iz public foldera
+  image = '/og-image.png',
   // Automatski generiše tačan URL trenutne stranice
   canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://stefanstankovic.me'),
 } = Astro.props;
@@ -42,6 +44,13 @@ const socialImageURL = new URL(image, Astro.url);
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={socialImageURL} />
+{!Astro.props.image && (
+  <>
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Stefan Stankovic, Dynamics 365 F&O, Power Platform and Web Developer" />
+  </>
+)}
 
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
@@ -49,6 +58,6 @@ const socialImageURL = new URL(image, Astro.url);
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={socialImageURL} />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+<Font cssVariable="--font-bricolage" preload />
+<Font cssVariable="--font-instrument" />
+<Font cssVariable="--font-jetbrains" preload />

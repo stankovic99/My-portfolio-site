@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         // Kada udje u ekran, skidamo klase koje ga drze providnim i spustenim
-        entry.target.classList.remove('opacity-0', 'translate-y-10');
-        entry.target.classList.add('opacity-100', 'translate-y-0');
+        entry.target.classList.remove('opacity-0', 'translate-y-10', 'translate-x-10');
+        entry.target.classList.add('opacity-100', 'translate-y-0', 'translate-x-0');
         
         // Iskljucujemo posmatranje za ovaj element (animacija se desava samo jednom)
         observer.unobserve(entry.target); 

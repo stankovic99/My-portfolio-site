@@ -1,20 +1,11 @@
 ---
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import BaseHead from '../components/BaseHead.astro';
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
 const pageTitle = "Stefan Stankovic | Contact";
 const pageDescription = "Let's build something solid. Get in touch to discuss enterprise architecture and modern web solutions.";
 ---
 
-<html lang="en" class="scroll-smooth">
-  <head>
-    <BaseHead title={pageTitle} description={pageDescription} />
-  </head>
-  <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black">
-    <Navbar />
-
+<BaseLayout title={pageTitle} description={pageDescription}>
     <main class="pt-32 pb-20">
       
       <section class="container-custom mb-16">
@@ -88,7 +79,7 @@ const pageDescription = "Let's build something solid. Get in touch to discuss en
               <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="flex flex-col gap-6 relative">
                 <input type="hidden" name="access_key" value="bf5fb5c5-6ad9-4ae7-8d91-812e7237b598">
                 <input type="hidden" name="subject" value="New Contact from Portfolio Website">
-                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                <input type="checkbox" name="botcheck" class="hidden">
 
                 <div class="flex flex-col gap-6">
                   <div class="flex flex-col gap-2">
@@ -104,7 +95,7 @@ const pageDescription = "Let's build something solid. Get in touch to discuss en
 
                 <div class="flex flex-col gap-2 mt-2">
                   <label for="message" class="font-mono text-xs text-gray-400 uppercase tracking-widest">Message</label>
-                  <textarea id="message" name="message" rows="6" required placeholder="Briefly describe your project, timeline, or the technical bottlenecks you're currently facing.." class="rounded-xl border border-gray-700 bg-[#040D14] px-5 py-4 text-white placeholder-gray-600 focus:border-[#00E5CC] focus:outline-none focus:ring-1 focus:ring-[#00E5CC] transition-colors resize-none"></textarea>
+                  <textarea id="message" name="message" rows="6" required placeholder="Briefly describe your project, timeline, or the technical bottlenecks you're currently facing." class="rounded-xl border border-gray-700 bg-[#040D14] px-5 py-4 text-white placeholder-gray-600 focus:border-[#00E5CC] focus:outline-none focus:ring-1 focus:ring-[#00E5CC] transition-colors resize-none"></textarea>
                 </div>
 
                 <button type="submit" class="mt-4 w-full md:w-auto inline-flex justify-center items-center gap-2 rounded-sm border border-transparent bg-[#00E5CC] px-8 py-4 text-sm font-bold uppercase tracking-[0.18em] text-[#040D14] shadow-[0_0_30px_rgba(0,229,204,0.14)] transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_0_35px_rgba(255,255,255,0.18)] disabled:opacity-50 disabled:cursor-not-allowed">
@@ -129,8 +120,5 @@ const pageDescription = "Let's build something solid. Get in touch to discuss en
 
     </main>
 
-    <Footer />
-
     <script src="../scripts/contactForm.js"></script>
-  </body>
-</html>
+</BaseLayout>

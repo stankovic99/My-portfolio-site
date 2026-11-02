@@ -1,10 +1,6 @@
 ---
 import { getCollection, type CollectionEntry, render } from 'astro:content';
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
-import BaseHead from '../../components/BaseHead.astro';
-import '../../styles/global.css';
-
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 // Definišemo TypeScript interfejs za Props ove komponente
 export interface Props {
@@ -31,13 +27,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<html lang="en" class="scroll-smooth">
-  <head>
-    <BaseHead title={`${entry.data.title} | Stefan Stankovic`} description={entry.data.description} />
-  </head>
-  <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black overflow-x-hidden">
-    <Navbar />
-
+<BaseLayout title={`${entry.data.title} | Stefan Stankovic`} description={entry.data.description}>
     <main class="pt-32 pb-20">
       
       <!-- HEADER PROJEKTA (Uvek levo poravnanje) -->
@@ -61,7 +51,7 @@ const { Content } = await render(entry);
         <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between fade-in-up" style="animation-delay: 200ms;">
           
           <div class="flex flex-wrap gap-2">
-            {entry.data.tags?.map((tag: string) => (
+            {entry.data.tags.map((tag) => (
               <span class="tag">{tag}</span>
             ))}
           </div>
@@ -90,7 +80,4 @@ const { Content } = await render(entry);
       </section>
 
     </main>
-
-    <Footer />
-  </body>
-</html>
+</BaseLayout>

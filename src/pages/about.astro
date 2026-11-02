@@ -1,40 +1,35 @@
 ---
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import BaseHead from '../components/BaseHead.astro';
-import '../styles/global.css';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import bgImage from '../images/bg.png';
 
 const pageTitle = "Stefan Stankovic | About";
 const pageDescription = "Serious Architecture. Zero Bloat. Bridging the gap between heavy enterprise systems and the modern web.";
 ---
 
-<html lang="en" class="scroll-smooth">
-  <head>
-    <BaseHead title={pageTitle} description={pageDescription} />
-  </head>
-  <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black">
-    <Navbar />
-
+<BaseLayout title={pageTitle} description={pageDescription}>
     <main class="pt-32 pb-20">
       
       <section class="container-custom mb-20 md:mb-32">
         <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           
           <article class="fade-in-up order-1 lg:order-2">
-            <div class="relative mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-gray-800 bg-[#08131D] p-4 shadow-xl transition-all duration-500 hover:-translate-y-1 hover:border-[#00E5CC]/50 hover:shadow-[0_0_35px_rgba(0,229,204,0.1)]">
-              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,229,204,0.08),transparent_30%)] opacity-0 transition duration-500 hover:opacity-100"></div>
-              <img
-                src={bgImage.src} 
+            <div class="group relative mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-gray-800 bg-[#08131D] p-4 shadow-xl transition-all duration-500 hover:-translate-y-1 hover:border-[#00E5CC]/50 hover:shadow-[0_0_35px_rgba(0,229,204,0.1)]">
+              <Image
+                src={bgImage}
                 alt="Stefan Stankovic"
-                class="relative h-full w-full rounded-2xl object-cover transition duration-500"
+                widths={[400, 800]}
+                sizes="(min-width: 448px) 448px, 100vw"
+                loading="eager"
+                class="relative h-full w-full rounded-2xl object-cover"
               />
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,229,204,0.08),transparent_30%)] opacity-0 transition duration-500 group-hover:opacity-100 pointer-events-none"></div>
             </div>
           </article>
 
           <article class="fade-in-up order-2 lg:order-1 text-center md:text-left" style="animation-delay: 100ms;">
             
-            <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00E5CC]/20 bg-[#08131D] px-4 py-2 text-xs uppercase tracking-[0.25em] text-[#00E5CC]">About Me</p>
+            <p class="pill-badge">About Me</p>
             
             <h1 class="heading-page">
               The story so far.
@@ -64,7 +59,7 @@ const pageDescription = "Serious Architecture. Zero Bloat. Bridging the gap betw
                 </svg>
                 Download CV
               </a>
-              <a href="/contact" class="btn-secondary w-full md:w-auto border border-gray-800 bg-transparent hover:border-[#00E5CC]/40 hover:bg-[#08131D]">
+              <a href="/contact" class="btn-secondary w-full md:w-auto">
                 Contact Me
               </a>
             </div>
@@ -132,9 +127,4 @@ const pageDescription = "Serious Architecture. Zero Bloat. Bridging the gap betw
         </div>
       </section>
     </main>
-
-    <Footer />
-    
-    <script src="../scripts/scrollReveal.js"></script>
-  </body>
-</html>
+</BaseLayout>

@@ -2,6 +2,7 @@
 title: "Road to PL-400: Mastering Power Platform"
 description: "Documenting my preparation process for the PL-400 exam, following my perfect 1000/1000 score on the PL-900."
 date: 2026-06-16
+category: "Certification"
 ---
 
 ## The Baseline: Perfection is Engineered
