@@ -16,7 +16,7 @@ Enter **Astro**.
 
 The main reason why Astro is superior for content-driven websites lies in its *Island Architecture*. 
 
-Instead of taking over the entire site and rendering it through client-side JavaScript (like a classic SPA), Astro by default strips out absolutely all client-side JS. It generates clean, lightweight, and blazing-fast static HTML on the server.
+Instead of taking over the entire site and rendering it through client-side JavaScript (like a classic SPA), Astro by default strips out absolutely all client-side JS. It generates clean, lightweight, and fast static HTML on the server.
 
 What happens when we need interactivity? Astro allows us to create "islands" of interactivity. If we need a dynamic image slider or a complex form, only that specific part of the page gets its JavaScript, while the rest remains pure HTML. 
 
@@ -36,7 +36,7 @@ With Astro, the user instantly receives ready-to-use HTML. The result? A **100/1
 
 Switching to Astro didn't mean sacrificing modern tools. On the contrary, the component system is fantastic. Writing `.astro` files feels like writing pure HTML with a touch of JSX and scoped CSS. 
 
-All of this integrates perfectly with **Tailwind CSS**. Writing layouts is fast, utility classes work flawlessly, and the final build process outputs minimal, optimized code. No more Webpack configuration nightmares—Vite handles everything under the hood in milliseconds.
+All of this integrates perfectly with **Tailwind CSS**. Writing layouts is fast, utility classes just work, and the final build process outputs minimal, optimized code. No more Webpack configuration nightmares—Vite handles everything under the hood in milliseconds.
 
 ## 🏁 Conclusion
 

@@ -11,7 +11,7 @@ In May 2026, I cleared the Microsoft PL-900 (Power Platform Fundamentals) exam w
 I approach engineering and personal growth with the exact same mindset: a love for high-level competition and an absolute refusal to lose. That intensity is now entirely directed at my next technical target: the **PL-400 Power Platform Developer** certification.
 
 ## Why PL-400? Bridging the Enterprise Gap
-Working deep in the trenches as a Senior Technical Architect specializing in Dynamics 365 Finance & Operations and X++, I’ve seen firsthand how chaotic enterprise business logic can become. D365 F&O is an absolute powerhouse for heavy lifting, but modern enterprises demand rapid, seamless integrations and automated pipelines that don't bloat the core ERP.
+Working deep in the trenches as a Senior Technical Architect specializing in Dynamics 365 Finance & Operations and X++, I’ve seen firsthand how chaotic enterprise business logic can become. D365 F&O is an absolute powerhouse for heavy lifting, but modern enterprises demand rapid, smooth integrations and automated pipelines that don't overload the core ERP.
 
 The Power Platform is the bridge. 
 
