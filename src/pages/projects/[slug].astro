@@ -1,6 +1,8 @@
 ---
 import { type CollectionEntry, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Prose from '../../components/Prose.astro';
 import { getProjects } from '../../utils/content';
 
 // Definišemo TypeScript interfejs za Props ove komponente
@@ -45,10 +47,15 @@ const { Content } = await render(entry);
         <!-- Tags & Live Link Flexbox -->
         <div class="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between fade-in-up" style="animation-delay: 200ms;">
           
-          <div class="flex flex-wrap gap-2">
-            {entry.data.tags.map((tag) => (
-              <span class="tag">{tag}</span>
-            ))}
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-wrap gap-2">
+              {entry.data.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+            {entry.data.client && (
+              <p class="font-mono text-xs uppercase tracking-widest text-gray-500">Client: {entry.data.client}</p>
+            )}
           </div>
           
           <!-- Astro generiše pravo dugme ako postoji liveLink -->
@@ -62,16 +69,25 @@ const { Content } = await render(entry);
         </div>
       </header>
 
-      <!-- SADRŽAJ (Proširen za moderniji prikaz) -->
+      <!-- HERO SLIKA PROJEKTA -->
+      <section class="container-custom fade-in-up" style="animation-delay: 250ms;">
+        <div class="max-w-5xl mx-auto mb-16 overflow-hidden rounded-3xl border border-gray-800 bg-[#08131D] shadow-2xl">
+          <Image
+            src={entry.data.heroImage}
+            alt={`${entry.data.title} preview`}
+            widths={[640, 1024, 1600]}
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            loading="eager"
+            class="w-full h-auto"
+          />
+        </div>
+      </section>
+
+      <!-- SADRŽAJ (Markdown telo projekta) -->
       <section class="container-custom">
-        <article class="max-w-none md:max-w-4xl mx-auto prose prose-invert prose-lg 
-            prose-headings:font-sans prose-headings:font-bold prose-headings:text-white
-            prose-p:font-mono prose-p:text-gray-400 prose-p:leading-relaxed
-            prose-a:text-[#00E5CC] prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-white prose-strong:font-bold
-            prose-img:rounded-3xl prose-img:border prose-img:border-gray-800 prose-img:shadow-2xl prose-img:w-full fade-in-up" style="animation-delay: 300ms;">
+        <Prose class="fade-in-up" style="animation-delay: 300ms;">
           <Content />
-        </article>
+        </Prose>
       </section>
 
     </main>

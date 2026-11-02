@@ -2,12 +2,13 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { getFeaturedProjects } from '../utils/content';
 import bgImage from '../images/bg.png';
-import skyPreview from '../images/projects/sky-restaurant.png';
-import bendPort from '../images/projects/stefan-slavkovic.png';
 
 const pageTitle = "Stefan Stankovic | Tech Architect";
 const pageDescription = "Enterprise architecture and high-performance web systems.";
+
+const featuredProjects = await getFeaturedProjects();
 
 const skills = [
   'D365 F&O',
@@ -176,20 +177,7 @@ const skills = [
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 auto-rows-fr">
-        <ProjectCard
-          href="/projects/sky-restaurant"
-          title="Sky Restaurant & Pool Bar"
-          description="Premium digital presence with full English/Macedonian localization and dynamic JSON menu architecture for effortless management."
-          image={skyPreview}
-          tags={['Full-Stack', 'JSON Architecture', 'i18n']}
-        />
-        <ProjectCard
-          href="/projects/stefan-slavkovic"
-          title="Visual Artist Portfolio"
-          description="Custom Webflow architecture tailored for high-resolution graphic assets. Engineered with optimized interactions and dynamic image sliders."
-          image={bendPort}
-          tags={['Webflow', 'CMS', 'Interactions']}
-        />
+        {featuredProjects.map((p, i) => <ProjectCard project={p} delay={150 + i * 50} />)}
       </div>
     </div>
   </section>

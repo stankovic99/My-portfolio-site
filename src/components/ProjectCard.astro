@@ -1,24 +1,21 @@
 ---
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-  href: string;
-  title: string;
-  description: string;
-  image: ImageMetadata;
-  tags: string[];
+  project: CollectionEntry<'projects'>;
   delay?: number;
 }
 
-const { href, title, description, image, tags, delay = 150 } = Astro.props;
+const { project, delay = 150 } = Astro.props;
+const { title, description, heroImage, tags } = project.data;
 ---
 
-<a href={href} class="card-base group relative fade-in-up" style={`animation-delay: ${delay}ms;`}>
+<a href={`/projects/${project.id}`} class="card-base group relative fade-in-up" style={`animation-delay: ${delay}ms;`}>
   <div>
     <div class="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-gray-800 bg-[#040D14] relative">
       <Image
-        src={image}
+        src={heroImage}
         alt={`${title} preview`}
         widths={[480, 800]}
         sizes="(min-width: 768px) 50vw, 100vw"
