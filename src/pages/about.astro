@@ -5,6 +5,38 @@ import bgImage from '../images/bg.png';
 
 const pageTitle = "Stefan Stankovic | About";
 const pageDescription = "Serious Architecture. Zero Bloat. Bridging the gap between heavy enterprise systems and the modern web.";
+
+// Kartice za sekciju "What I do"
+const services = [
+  {
+    eyebrow: 'ENTERPRISE LOGIC',
+    title: 'Dynamics 365 F&O Architecture',
+    role: 'Intermediate Technical Consultant',
+    body: "This is my day-to-day engine. I write robust X++ business logic, execute complex data migrations, and customize modules for large-scale enterprise environments. If your ERP system needs stable, scalable customizations that won't break during Microsoft updates, this is where I come in.",
+    tags: ['D365 F&O', 'X++', 'ERP'],
+  },
+  {
+    eyebrow: 'AUTOMATION & APPS',
+    title: 'Microsoft Power Platform',
+    role: 'Certified Power Platform Developer',
+    body: "Bridging the gaps between your disconnected systems. I build custom workflows, model-driven apps, and automated processes using Power Apps, Power Automate and Power Pages. It's all about eliminating manual bottlenecks and securely making your data work for you.",
+    tags: ['Power Apps', 'Power Automate', 'Power Pages'],
+  },
+  {
+    eyebrow: 'HIGH-PERFORMANCE UI',
+    title: 'Modern Frontend Execution',
+    role: 'Full-Stack Developer',
+    body: "I don't use heavy, bloated templates. I build lightning-fast, visually precise frontend architectures using Astro and Webflow, strictly styled with utility-first CSS frameworks like Tailwind. The result is a premium digital presence that loads instantly and scales flawlessly across all devices.",
+    tags: ['Astro', 'Webflow', 'Tailwind'],
+  },
+  {
+    eyebrow: 'DATA STRUCTURES',
+    title: 'Backend & CMS Architecture',
+    role: 'Full-Stack Developer',
+    body: "A beautiful frontend needs a smart backend. I set up decoupled content architectures using Sanity, Webflow CMS, or dedicated backend engines like Xano. This gives you a secure, intuitive dashboard to manage your content and data without ever having to touch the source code.",
+    tags: ['Sanity', 'Webflow CMS', 'Xano'],
+  },
+];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -67,7 +99,31 @@ const pageDescription = "Serious Architecture. Zero Bloat. Bridging the gap betw
         </div>
       </section>
 
+      <!-- WHAT I DO -->
       <section class="section-wrapper bg-[#02080D]">
+        <div class="container-custom">
+          <div class="mb-16 flex flex-col gap-3 text-center lg:text-left fade-in-up">
+            <span class="pill-badge self-center lg:self-start">What I do</span>
+            <h2 class="heading-section">What I do</h2>
+          </div>
+
+          <div class="grid gap-6 md:grid-cols-2">
+            {services.map((service, i) => (
+              <article class="card-base fade-in-up" style={`animation-delay: ${100 + i * 100}ms;`}>
+                <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#00E5CC] mb-2 block">{service.eyebrow}</span>
+                <h3 class="card-title">{service.title}</h3>
+                <p class="text-sm font-mono text-gray-400 mb-4">{service.role}</p>
+                <p class="text-gray-300 leading-relaxed mb-6 text-sm md:text-base flex-grow">{service.body}</p>
+                <div class="flex flex-wrap gap-2">
+                  {service.tags.map((tag) => <span class="tag">{tag}</span>)}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section-wrapper bg-[#040D14]">
         <div class="container-custom">
           <div class="mb-16 flex flex-col gap-3 text-center lg:text-left fade-in-up">
             <span class="pill-badge self-center lg:self-start">My Approach</span>
@@ -98,7 +154,7 @@ const pageDescription = "Serious Architecture. Zero Bloat. Bridging the gap betw
         </div>
       </section>
 
-      <section class="section-wrapper bg-[#040D14]">
+      <section class="section-wrapper bg-[#02080D]">
         <div class="container-custom">
           <div class="rounded-3xl border border-gray-800 bg-[#08131D] p-8 md:p-12 shadow-2xl fade-in-up" style="animation-delay: 400ms;">
             <p class="pill-badge mb-8">Arsenals & Technologies</p>

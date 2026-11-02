@@ -12,6 +12,8 @@ export default defineConfig({
   },
   site: 'https://stefanstankovic.me',
   integrations: [sitemap()],
+  // Stara Services stranica je spojena sa About
+  redirects: { '/services': '/about' },
   markdown: {
     shikiConfig: {
       theme: 'github-dark-default',
