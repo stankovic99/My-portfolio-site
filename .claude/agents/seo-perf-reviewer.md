@@ -24,6 +24,7 @@ You audit Stefan Stankovic's Astro portfolio and report findings. You do **not**
   - motion respects `prefers-reduced-motion`
 - **Links**: internal links point to pages that exist in `dist/`. External links with `target="_blank"` have `rel="noopener noreferrer"`. Content pages are reachable from navigation (flag orphans).
 - **Crawling**: `sitemap-index.xml` exists and `robots.txt` references it.
+- **Drafts & redirects**: no entry with `draft: true` in `src/content/` has a page in `dist/` or a link anywhere. `dist/services/index.html` redirects to `/about` and `/services/` isn't in the sitemap.
 
 ## Report
 Group the findings by severity: **Broken**, **Should fix**, **Nice to have**. For each one give the file (source file, not just `dist/`), what's wrong, and a concrete fix. End with a few headline numbers (page count, largest image, total JS/CSS/font weight).

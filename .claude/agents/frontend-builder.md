@@ -10,7 +10,8 @@ You build UI for Stefan Stankovic's Astro 6 + Tailwind v4 portfolio. Read `CLAUD
 1. Read the files you will touch and one similar existing page/component, and match its style (indentation, Serbian comments, class order).
 2. Reuse before you write:
    - shared classes in `src/styles/global.css` (`container-custom`, `section-wrapper`, `heading-*`, `text-body`, `pill-badge`, `tag`, `card-base`, `btn-primary`, `btn-secondary`, `fade-in-up`, `reveal-on-scroll`)
-   - existing components (`BaseLayout`, `ProjectCard`, `ScrollToTop`)
+   - existing components (`BaseLayout`, `ProjectCard`, `Prose`, `Certifications`, `ScrollToTop`)
+   - data files in `src/data/` (`certifications.ts`, `skills.ts`) and helpers in `src/utils/content.ts` (`getProjects`, `getFeaturedProjects`, `getPosts`, `readingTime`, `formatDate`). Never call `getCollection` directly in pages; the helpers filter out drafts.
 3. Repeated markup → array in frontmatter + `.map()`, or a new component in `src/components/`.
 4. Run `npm run build` and make sure it finishes without errors before you report back.
 

@@ -1,43 +1,86 @@
-# Stefan Stankovic | Digital Workspace
+# Stefan Stankovic | Personal Site
 
-> **No Code Bloat. Just Smart Tech.**
+The personal site and blog of Stefan Stankovic, Senior D365 F&O Architect and web developer. It covers my work with Dynamics 365 F&O and Power Platform, my skills and certifications, selected projects, and a technical blog.
 
-The official personal portfolio and engineering blog of Stefan Stankovic, Senior D365 F&O Architect and modern web developer. This project bridges the gap between complex enterprise ERP logic and lightning-fast, static frontend experiences.
+Live at https://stefanstankovic.me.
 
-## 🏗️ Architecture & Tech Stack
+## 🏗️ Tech Stack
 
-This platform is built with a strict performance-first, zero-bloat philosophy. It completely avoids heavy Single Page Application (SPA) frameworks in favor of static generation and minimal client-side JavaScript.
+The site is generated as static HTML, with very little JavaScript in the browser.
 
-* **Framework:** [Astro](https://astro.build/) (Static Site Generation / Island Architecture)
-* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-* **Interactivity:** Vanilla JavaScript (Native Intersection Observers for scroll reveals)
-* **Content:** Markdown (`.md`) via Dynamic Routing
-* **Design System:** Custom minimalist dark theme (`bg-[#040D14]` with `#00E5CC` teal accents)
+* **Framework:** [Astro](https://astro.build/) (static site generation)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/) + `@tailwindcss/typography` for Markdown pages
+* **Interactivity:** Vanilla JavaScript (scroll reveals, mobile menu, contact form)
+* **Content:** Markdown files in Astro content collections
+* **Design:** Dark theme (`#040D14` background, `#00E5CC` accent), fonts self-hosted via the Astro Fonts API
 
 ## 📂 Repository Structure
 
-The project follows a clean, modular directory structure:
-
-* `/src/components` - Reusable UI blocks (Navbar.astro, Footer.astro)
+* `/src/pages` - Routes: Home, About, Portfolio, Blog, Contact, plus `projects/[slug]` and `blog/[slug]`
+* `/src/content/projects` - One Markdown file per project
+* `/src/content/blog` - One Markdown file per blog post
+* `/src/data` - `certifications.ts` and `skills.ts`
+* `/src/components` - Navbar, Footer, ProjectCard, Prose, Certifications, ScrollToTop, BaseHead
 * `/src/layouts` - BaseLayout.astro, the shared page shell (head, navbar, footer)
-* `/src/pages` - File-based router (index, about, services, portfolio)
-* `/src/pages/projects` - Dynamic markdown content for portfolio pieces
-* `/src/pages/blog` - Dynamic markdown content for engineering logs
+* `/src/utils` - Helpers for loading posts and projects (sorting, drafts, reading time)
 * `/src/styles` - Global CSS and Tailwind directives
-* `/src/images` - Optimized static assets
+* `/src/images` - Images optimized at build time (`projects/` holds project hero images)
 
-## ⚙️ Content Management (Dynamic Routing)
+## ✍️ How to add a blog post
 
-Adding new projects or engineering logs does not require writing HTML. The platform uses Astro's dynamic routing. To add a new entry, simply create a `.md` file in the respective folder (`src/pages/projects/` or `src/pages/blog/`) using the following Frontmatter block at the top of your file:
+1. Create `src/content/blog/my-post-name.md`. The filename becomes the URL: `/blog/my-post-name`.
+2. Start it with this frontmatter, then write the post in Markdown below it:
 
+```markdown
 ---
-layout: ../../layouts/ContentLayout.astro
-title: Project Title
-description: A short summary of the architecture and business logic.
-category: Full-Stack Web / Architecture / Certification
-date: Month Year
-liveLink: https://example.com
+title: "Extending a D365 F&O form with Chain of Command"
+description: "A short summary, 1–2 sentences. Shown in the blog list and in search results."
+date: 2026-11-02
+category: "X++"            # optional
+tags: ["X++", "D365 F&O"]  # optional
+draft: true                # optional – remove (or set to false) to publish
 ---
+
+## First section
+
+Text…
+```
+
+3. Code blocks: use a language after the three backticks, e.g. ```` ```xpp ```` for X++ (highlighted like C#), ```` ```csharp ````, ```` ```sql ````.
+4. Images: put the image next to the `.md` file and reference it with a relative path: `![Short description](./my-image.png)`.
+
+The post appears on `/blog` automatically (newest first), with its reading time calculated for you.
+
+## 🧩 How to add a project
+
+1. Put the project image in `src/images/projects/`, e.g. `src/images/projects/my-project.png`.
+2. Create `src/content/projects/my-project.md`. The filename becomes the URL: `/projects/my-project`.
+3. Start it with this frontmatter, then write the case study in Markdown below it:
+
+```markdown
+---
+title: "Project name"
+description: "A short summary. Shown on the project card and in search results."
+tags: ["Power Automate", "Dataverse"]
+heroImage: "../../images/projects/my-project.png"
+client: "Client name"            # optional
+liveLink: "https://example.com"  # optional
+featured: true                   # optional – also show it on the Home page
+order: 3                         # optional – lower numbers come first
+draft: true                      # optional – remove (or set to false) to publish
+---
+
+## The Goal
+
+Text…
+```
+
+The project card on `/portfolio` (and on Home, if `featured: true`) is created automatically.
+
+## 🏅 Certifications and skills
+
+* Certifications: edit `src/data/certifications.ts`. Each entry has a code and name, plus an optional date (`'2026-05'`), credential link and badge image.
+* Skills: edit the list in `src/data/skills.ts`. It feeds both the Home page strip and the About page.
 
 ## 🚀 Local Development
 
@@ -50,17 +93,19 @@ To run this project locally, ensure you have Node.js installed, then execute the
    `npm run dev` (The site will be available at http://localhost:4321)
 
 3. **Build for production:**
-   `npm run build` (Generates optimized static HTML/CSS/JS inside the dist/ directory)
+   `npm run build` (Generates static HTML/CSS/JS inside the dist/ directory)
 
 4. **Preview the production build:**
    `npm run preview`
 
+Pushing to `main` deploys the site to GitHub Pages automatically.
+
 ## 📬 Contact
 
-For inquiries regarding enterprise architecture, D365 F&O integrations, or headless web solutions, reach out via:
+For questions about D365 F&O, Power Platform or web projects, reach out via:
 
 * **Email:** stefan.stankovicc99@gmail.com
 * **Agency:** Season Tech (Launching Summer 2026)
 
 ---
-*Built with precision. © 2026 Stefan Stankovic.*
+*© 2026 Stefan Stankovic.*
