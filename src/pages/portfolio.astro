@@ -1,14 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getProjects } from '../utils/content';
 
-const pageTitle = "Stefan Stankovic | Portfolio & Blog";
+const pageTitle = "Stefan Stankovic | Portfolio";
 const pageDescription = "A selection of my recent enterprise architecture and modern web projects.";
 
 const projects = await getProjects();
-const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -17,56 +15,25 @@ const posts = (await getCollection('blog')).sort((a, b) => b.data.date.valueOf()
     <!-- HERO SEKCIJA -->
     <section class="container-custom mb-20">
       <div class="text-center lg:text-left max-w-4xl mx-auto lg:mx-0 fade-in-up">
-        <span class="pill-badge">Work & Thoughts</span>
+        <span class="pill-badge">Work</span>
         <h1 class="heading-page">
           What I build.<br/>
           <span class="font-serif italic font-normal tracking-normal text-[#00E5CC]">And how I build it.</span>
         </h1>
         <p class="text-body max-w-3xl">
-          A selection of my recent enterprise architecture and modern web projects, alongside an engineering blog where I document my ongoing learning and technical explorations.
+          A selection of my recent enterprise architecture and modern web projects.
         </p>
       </div>
     </section>
 
-    <!-- FEATURED PROJECTS -->
-    <section class="container-custom mb-24 md:mb-32">
+    <!-- PROJEKTI -->
+    <section class="container-custom">
       <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 100ms;">
-        <h2 class="heading-section">Featured Projects</h2>
-        <span class="font-mono text-xs text-gray-500 uppercase tracking-widest">01 / Work</span>
+        <h2 class="heading-section">Projects</h2>
       </div>
 
       <div class="grid gap-8 md:grid-cols-2">
         {projects.map((p, i) => <ProjectCard project={p} delay={150 + i * 50} />)}
-      </div>
-    </section>
-
-    <!-- ENGINEERING BLOG -->
-    <section class="container-custom">
-      <div class="mb-10 flex items-center justify-between border-b border-gray-800 pb-4 fade-in-up" style="animation-delay: 350ms;">
-        <h2 class="heading-section">Engineering Blog</h2>
-        <span class="font-mono text-xs text-gray-500 uppercase tracking-widest">02 / Thoughts</span>
-      </div>
-
-      <div class="flex flex-col gap-4">
-        {posts.map((post, i) => (
-          <a href={`/blog/${post.id}`} class="group block rounded-2xl border border-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style={`animation-delay: ${400 + i * 50}ms;`}>
-            <div class="md:max-w-2xl">
-              <div class="flex items-center gap-3 mb-2">
-                {post.data.category && (
-                  <>
-                    <span class="font-mono text-xs text-[#00E5CC]">{post.data.category}</span>
-                    <span class="h-1 w-1 rounded-full bg-gray-700"></span>
-                  </>
-                )}
-                <time datetime={post.data.date.toISOString()} class="font-mono text-xs text-gray-500">
-                  {post.data.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                </time>
-              </div>
-              <h3 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">{post.data.title}</h3>
-              <p class="mt-2 text-sm text-gray-400">{post.data.description}</p>
-            </div>
-          </a>
-        ))}
       </div>
     </section>
 

@@ -12,6 +12,13 @@ export default defineConfig({
   },
   site: 'https://stefanstankovic.me',
   integrations: [sitemap()],
+  markdown: {
+    shikiConfig: {
+      theme: 'github-dark-default',
+      // Shiki nema X++ gramatiku; X++ je sintaksno blizak C#-u
+      langAlias: { xpp: 'csharp', 'x++': 'csharp' },
+    },
+  },
   // Fontovi se preuzimaju pri build-u i serviraju sa našeg domena (bez Google requesta u browseru)
   fonts: [
     {

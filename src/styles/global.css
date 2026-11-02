@@ -103,6 +103,25 @@
     @apply border-[#00E5CC]/40 bg-[#08131D];
   }
 
+  /* --- MARKDOWN / KOD --- */
+  /* Blokovi koda (Shiki postavlja inline pozadinu, zato !important) */
+  .prose pre.astro-code {
+    @apply border border-gray-800 rounded-2xl text-sm leading-relaxed;
+    background-color: #08131D !important;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+  }
+
+  /* Inline kod u tekstu */
+  .prose :not(pre) > code {
+    @apply rounded-md bg-[#00E5CC]/10 text-[#00E5CC] px-1.5 py-0.5 font-mono font-normal text-[0.9em];
+  }
+  /* Uklanjamo backtick-ove koje dodaje typography plugin */
+  .prose :not(pre) > code::before,
+  .prose :not(pre) > code::after {
+    content: none;
+  }
+
   /* --- ANIMACIJA --- */
   .fade-in-up {
     opacity: 0;

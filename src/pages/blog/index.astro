@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts, readingTime, formatDate } from '../../utils/content';
+
+const pageTitle = "Stefan Stankovic | Blog";
+const pageDescription = "Notes on Dynamics 365 F&O, Power Platform and web development.";
+
+// Svi objavljeni postovi, najnoviji prvi
+const posts = await getPosts();
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <main class="pt-32 pb-20">
+
+    <!-- HERO SEKCIJA -->
+    <section class="container-custom mb-20">
+      <div class="text-center lg:text-left max-w-4xl mx-auto lg:mx-0 fade-in-up">
+        <span class="pill-badge">Blog</span>
+        <h1 class="heading-page">Blog</h1>
+        <p class="text-body max-w-3xl">
+          Notes on Dynamics 365 F&O, Power Platform and web development.
+        </p>
+      </div>
+    </section>
+
+    <!-- LISTA POSTOVA -->
+    <section class="container-custom">
+      {posts.length === 0 ? (
+        <p class="text-body">No posts yet.</p>
+      ) : (
+        <div class="flex flex-col gap-4">
+          {posts.map((post, i) => (
+            <a href={`/blog/${post.id}`} class="group block rounded-2xl border border-transparent p-5 md:p-6 transition-all hover:bg-[#08131D] hover:border-gray-800 fade-in-up" style={`animation-delay: ${100 + i * 50}ms;`}>
+              <div class="md:max-w-2xl">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
+                  {post.data.category && (
+                    <>
+                      <span class="font-mono text-xs text-[#00E5CC]">{post.data.category}</span>
+                      <span class="h-1 w-1 rounded-full bg-gray-700"></span>
+                    </>
+                  )}
+                  <time datetime={post.data.date.toISOString()} class="font-mono text-xs text-gray-500">
+                    {formatDate(post.data.date)}
+                  </time>
+                  <span class="h-1 w-1 rounded-full bg-gray-700"></span>
+                  <span class="font-mono text-xs text-gray-500">{readingTime(post.body)} min read</span>
+                </div>
+                <h2 class="text-lg md:text-xl font-semibold text-white group-hover:text-[#00E5CC] transition-colors">{post.data.title}</h2>
+                <p class="mt-2 text-sm text-gray-400">{post.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </section>
+
+  </main>
+</BaseLayout>

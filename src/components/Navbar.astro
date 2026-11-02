@@ -7,13 +7,17 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/portfolio', label: 'Portfolio' },
+  { href: '/blog', label: 'Blog' },
   { href: '/services', label: 'Services' },
 ];
 
-// Projekti i blog postovi pripadaju Portfolio sekciji
+// Projekti pripadaju Portfolio sekciji, postovi Blog sekciji
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isActive = (href: string) =>
-  href === '/' ? path === '/' : path === href || (href === '/portfolio' && /^\/(projects|blog)\//.test(path));
+const isActive = (href: string) => {
+  if (href === '/') return path === '/';
+  if (href === '/portfolio') return path === href || path.startsWith('/projects/');
+  return path === href || path.startsWith(`${href}/`);
+};
 ---
 
 <nav class="w-full bg-[#040D14]/95 backdrop-blur-md border-b border-gray-800 text-white fixed top-0 z-50">
