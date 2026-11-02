@@ -2,23 +2,15 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import Certifications from '../components/Certifications.astro';
 import { getFeaturedProjects } from '../utils/content';
+import { skills } from '../data/skills';
 import bgImage from '../images/bg.png';
 
 const pageTitle = "Stefan Stankovic | Tech Architect";
 const pageDescription = "Enterprise architecture and high-performance web systems.";
 
 const featuredProjects = await getFeaturedProjects();
-
-const skills = [
-  'D365 F&O',
-  'X++',
-  'Power Platform',
-  'Webflow Engineering',
-  'Tailwind CSS',
-  'API Integrations',
-  'Enterprise Data Modeling',
-];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -79,7 +71,8 @@ const skills = [
     <div class="absolute inset-y-0 left-0 w-16 md:w-40 bg-gradient-to-r from-[#02080D] to-transparent z-10 pointer-events-none"></div>
     <div class="absolute inset-y-0 right-0 w-16 md:w-40 bg-gradient-to-l from-[#02080D] to-transparent z-10 pointer-events-none"></div>
 
-    <div class="animate-marquee">
+    <!-- Trajanje raste sa brojem stavki (5s po stavci) da brzina ostane ista -->
+    <div class="animate-marquee" style={`animation-duration: ${skills.length * 5}s;`}>
       {[false, true].map((duplicate) => (
         <ul class="flex items-center justify-center space-x-8 md:space-x-12 px-4 md:px-6 m-0" aria-hidden={duplicate ? 'true' : undefined}>
           {skills.map((skill) => (
@@ -160,6 +153,8 @@ const skills = [
 
     </div>
   </section>
+
+  <Certifications class="bg-[#02080D]" />
 
   <section id="portfolio" class="section-wrapper bg-[#040D14]">
     <div class="container-custom">

@@ -1,6 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Certifications from '../components/Certifications.astro';
+import { skills } from '../data/skills';
 import bgImage from '../images/bg.png';
 
 const pageTitle = "Stefan Stankovic | About";
@@ -123,7 +125,9 @@ const services = [
         </div>
       </section>
 
-      <section class="section-wrapper bg-[#040D14]">
+      <Certifications class="bg-[#040D14]" />
+
+      <section class="section-wrapper bg-[#02080D]">
         <div class="container-custom">
           <div class="mb-16 flex flex-col gap-3 text-center lg:text-left fade-in-up">
             <span class="pill-badge self-center lg:self-start">My Approach</span>
@@ -154,30 +158,12 @@ const services = [
         </div>
       </section>
 
-      <section class="section-wrapper bg-[#02080D]">
+      <section class="section-wrapper bg-[#040D14]">
         <div class="container-custom">
           <div class="rounded-3xl border border-gray-800 bg-[#08131D] p-8 md:p-12 shadow-2xl fade-in-up" style="animation-delay: 400ms;">
             <p class="pill-badge mb-8">Arsenals & Technologies</p>
             <div class="flex flex-wrap gap-3">
-              <span class="tag">Dynamics 365 F&O</span>
-              <span class="tag">AX 2012</span>
-              <span class="tag">X++</span>
-              <span class="tag">C#</span>
-              <span class="tag">Power Apps</span>
-              <span class="tag">Power Automate</span>
-              <span class="tag">Power Pages</span>
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">Astro</span>
-              <span class="tag">Tailwind CSS</span>
-              <span class="tag">Webflow</span>
-              <span class="tag">TypeScript</span>
-              <span class="tag">API Integrations</span>
-              <span class="tag">SQL</span>
-              <span class="tag">Git</span>
-              <span class="tag">TFS</span>
-              <span class="tag">DevOps</span>
+              {skills.map((skill) => <span class="tag">{skill}</span>)}
             </div>
           </div>
         </div>
