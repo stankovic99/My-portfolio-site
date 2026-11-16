@@ -12,7 +12,7 @@ export interface Certification {
 // Datum i link su opcioni: `date: '2026-05'` (format YYYY-MM) i `credentialUrl: 'https://...'`.
 // Bedž: sacuvaj sliku u src/images/certifications/, importuj je na vrhu fajla
 // (npr. `import mb500Badge from '../images/certifications/mb-500.png';`) pa dodaj `badge: mb500Badge`.
-// Bez bedža kartica prikazuje kod sertifikacije u kvadratu.
+// Bez bedža kartica prikazuje ikonicu u kvadratu (kapa za Fundamentals, medalja za ostale).
 export const certifications: Certification[] = [
   { code: 'MB-500', name: 'Dynamics 365: Finance and Operations Apps Developer Associate' },
   { code: 'PL-400', name: 'Power Platform Developer Associate' },

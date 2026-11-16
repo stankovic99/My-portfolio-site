@@ -3,6 +3,7 @@ import { type CollectionEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Prose from '../../components/Prose.astro';
+import Icon from '../../components/Icon.astro';
 import { getProjects } from '../../utils/content';
 
 // Definišemo TypeScript interfejs za Props ove komponente
@@ -25,14 +26,14 @@ const { Content } = await render(entry);
 ---
 
 <BaseLayout title={`${entry.data.title} | Stefan Stankovic`} description={entry.data.description}>
-    <main class="pt-32 pb-20">
+    <main id="main" class="pt-32 pb-20">
       
       <!-- HEADER PROJEKTA (Uvek levo poravnanje) -->
       <header class="container-custom mb-16 text-left border-b border-gray-800 pb-12 pt-4">
         
         <!-- Back Button -->
         <a href="/portfolio/" class="inline-flex items-center gap-2 font-mono text-sm text-gray-400 hover:text-[#00E5CC] transition-colors mb-10 fade-in-up">
-          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <Icon name="arrow-left" class="h-4 w-4" />
           Back to Portfolio
         </a>
 
@@ -60,9 +61,9 @@ const { Content } = await render(entry);
           
           <!-- Astro generiše pravo dugme ako postoji liveLink -->
           {entry.data.liveLink && (
-            <a href={entry.data.liveLink} target="_blank" rel="noopener noreferrer" class="btn-primary shrink-0 text-xs py-3 px-6 shadow-[0_0_20px_rgba(0,229,204,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+            <a href={entry.data.liveLink} target="_blank" rel="noopener noreferrer" class="btn-primary shrink-0">
               Visit Live Site
-              <svg class="h-3 w-3 ml-2 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              <Icon name="external-link" class="h-4 w-4" />
             </a>
           )}
 
@@ -71,7 +72,7 @@ const { Content } = await render(entry);
 
       <!-- HERO SLIKA PROJEKTA -->
       <section class="container-custom fade-in-up" style="animation-delay: 250ms;">
-        <div class="max-w-5xl mx-auto mb-16 overflow-hidden rounded-3xl border border-gray-800 bg-[#08131D] shadow-2xl">
+        <div class="max-w-5xl mx-auto mb-16 overflow-hidden rounded-3xl border border-gray-800 bg-[#0A1A22] shadow-2xl">
           <Image
             src={entry.data.heroImage}
             alt={`${entry.data.title} preview`}

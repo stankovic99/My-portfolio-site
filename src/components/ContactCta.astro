@@ -1,0 +1,29 @@
+---
+// Završna kontakt sekcija (Home i About). Razmak oko sekcije zadaje stranica preko `class`.
+import Icon from './Icon.astro';
+import { linkedInUrl } from '../data/nav';
+
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<section id="contact" class:list={['container-custom', className]}>
+  <div class="flex flex-col items-center gap-6 rounded-[28px] border border-[#00E5CC]/20 bg-[#0A1A22] bg-[radial-gradient(ellipse_at_50%_0%,rgba(0,229,204,0.16),transparent_60%)] px-6 py-16 md:px-10 md:py-20 text-center reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
+    <h2 class="heading-primary">
+      Have a question?<br />
+      <span class="font-serif italic font-normal tracking-normal text-[#00E5CC]">Send me a message.</span>
+    </h2>
+    <p class="text-body">About Dynamics 365, Power Platform or something on the blog. Or just to say hi.</p>
+    <div class="flex flex-col sm:flex-row justify-center gap-3 pt-2">
+      <a href="/contact/" class="btn-primary">
+        <Icon name="mail" class="h-4 w-4" /> Get in touch
+      </a>
+      <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" class="btn-secondary">
+        <Icon name="linkedin" class="h-4 w-4" /> Connect on LinkedIn
+      </a>
+    </div>
+  </div>
+</section>

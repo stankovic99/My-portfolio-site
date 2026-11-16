@@ -12,7 +12,7 @@ The site is generated as static HTML, with very little JavaScript in the browser
 * **Styling:** [Tailwind CSS](https://tailwindcss.com/) + `@tailwindcss/typography` for Markdown pages
 * **Interactivity:** Vanilla JavaScript (scroll reveals, mobile menu, contact form)
 * **Content:** Markdown files in Astro content collections
-* **Design:** Dark theme (`#040D14` background, `#00E5CC` accent), fonts self-hosted via the Astro Fonts API
+* **Design:** Dark theme (`#061219` background, `#00E5CC` accent), fonts self-hosted via the Astro Fonts API
 
 ## 📂 Repository Structure
 
@@ -36,8 +36,10 @@ The site is generated as static HTML, with very little JavaScript in the browser
 title: "Extending a D365 F&O form with Chain of Command"
 description: "A short summary, 1–2 sentences. Shown in the blog list and in search results."
 date: 2026-11-02
-category: "X++"            # optional
-tags: ["X++", "D365 F&O"]  # optional
+tags: ["X++", "D365 F&O"]  # optional – shown as pills on the card and the post
+takeaways:                 # optional – 3–4 short points for the "Key takeaways" box
+  - "First point."
+  - "Second point."
 draft: true                # optional – remove (or set to false) to publish
 ---
 

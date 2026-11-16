@@ -1,0 +1,19 @@
+---
+// "Stakleno" okno iza fotografije na About: kose linije koje klize + povremeni odsjaj (animacije su u global.css).
+// Oblik, poziciju, veličinu i pozadinu zadaje stranica preko `class`.
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div
+  class:list={['absolute overflow-hidden border border-[#00E5CC]/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]', className]}
+  aria-hidden="true"
+>
+  <div class="absolute -inset-1/2 -rotate-[25deg]">
+    <div class="glass-lines absolute inset-y-0 left-0 w-[calc(100%+48px)]"></div>
+  </div>
+  <div class="glass-sheen absolute inset-0"></div>
+</div>

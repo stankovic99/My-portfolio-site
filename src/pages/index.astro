@@ -2,202 +2,245 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import PostCard from '../components/PostCard.astro';
 import Certifications from '../components/Certifications.astro';
-import { getFeaturedProjects } from '../utils/content';
+import ContactCta from '../components/ContactCta.astro';
+import CodeWindow from '../components/CodeWindow.astro';
+import Icon from '../components/Icon.astro';
+import { getFeaturedProjects, getPosts, yearsSince } from '../utils/content';
+import { linkedInUrl } from '../data/nav';
 import { skills } from '../data/skills';
+import { certifications } from '../data/certifications';
+import { d365Start } from '../data/experience';
 import bgImage from '../images/bg.png';
 
 const pageTitle = "Stefan Stankovic | D365 F&O Developer";
 const pageDescription = "Enterprise architecture and high-performance web systems.";
 
 const featuredProjects = await getFeaturedProjects();
+// Tri najnovija posta za sekciju "Latest posts"
+const latestPosts = (await getPosts()).slice(0, 3);
 
-// Kartice za sekciju "Three Disciplines" (icons = `d` vrednosti <path> elemenata ikonice)
+// Činjenice ispod dugmadi u Hero sekciji
+const heroFacts = [
+  { icon: 'briefcase', text: `${yearsSince(d365Start)}+ years as a D365 F&O developer` },
+  { icon: 'badge-check', text: `${certifications.length} Microsoft certifications` },
+  { icon: 'map-pin', text: 'Skopje · hybrid' },
+] as const;
+
+// Navike rada pored naslova sekcije "What I do"
+const principles = [
+  { icon: 'clipboard-list', text: 'Plan first' },
+  { icon: 'feather', text: 'Keep it simple' },
+  { icon: 'shield-check', text: 'Test properly' },
+] as const;
+
+// Kartice za sekciju "What I do"
 const disciplines = [
   {
-    title: 'ENTERPRISE ERP LOGIC',
-    body: 'Writing reliable X++ business logic for large-scale Dynamics 365 environments. I understand complex data modeling and system stability from the inside out.',
-    footer: 'D365 F&O • X++',
-    icons: [
-      'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4',
-    ],
+    icon: 'database',
+    title: 'Dynamics 365 F&O',
+    body: 'I write X++ for Finance & Operations. I extend the standard system, connect it to other tools and fix what slows it down.',
+    points: ['Data models that fit the business', 'Extensions and integrations', 'Finding and fixing slow code'],
+    footer: 'D365 F&O · X++ · SQL',
   },
   {
-    title: 'POWER PLATFORM',
-    body: 'Executing developer-grade custom workflows, automated logic, and enterprise-scale model-driven apps to eliminate bottlenecks and securely bridge disconnected systems.',
-    footer: 'Automate • Apps • Pages',
-    icons: [
-      'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z',
-      'M15 12a3 3 0 11-6 0 3 3 0 016 0z',
-    ],
+    icon: 'workflow',
+    title: 'Power Platform',
+    body: 'When a process runs on emails and spreadsheets, I turn it into a flow or an app that people actually use.',
+    points: ['Power Automate flows', 'Model-driven and canvas apps', 'Safe connections between systems'],
+    footer: 'Automate · Apps · Pages',
   },
   {
-    title: 'HIGH-PERFORMANCE WEB',
-    body: 'I build fast websites with a clean structure that are easy to use.',
-    footer: 'Astro • Webflow • Tailwind',
-    icons: ['M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'],
+    icon: 'code-xml',
+    title: 'Websites',
+    body: 'Fast sites with a simple structure, so the people who own them can update them without calling me.',
+    points: ['Fast load times', 'Content you can edit yourself', 'More than one language'],
+    footer: 'Astro · Webflow · Tailwind',
   },
-];
+] as const;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <main class="relative container-custom pt-32 pb-16 md:pt-40 md:pb-24 flex flex-col md:flex-row items-center justify-center md:justify-between min-h-[100svh] w-full">
+  <main id="main">
 
-    <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] z-0 pointer-events-none"></div>
-    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto md:right-10 w-[300px] h-[300px] bg-[#00E5CC]/10 rounded-full blur-[100px] z-0 pointer-events-none"></div>
+    <!-- HERO -->
+    <section class="relative container-custom pt-32 pb-16 md:pt-40 md:pb-24 flex flex-col md:flex-row items-center justify-center md:justify-between gap-12 min-h-[100svh] w-full">
 
-    <div class="w-full md:w-3/5 z-10 flex flex-col items-center md:items-start text-center md:text-left relative">
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] z-0 pointer-events-none"></div>
+      <div class="absolute top-1/3 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto md:right-10 w-[300px] h-[300px] bg-[#00E5CC]/10 rounded-full blur-[100px] z-0 pointer-events-none"></div>
 
-      <div class="flex gap-4 mb-8 fade-in-up" style="animation-delay: 0ms;">
-        <div class="inline-flex items-center space-x-2 border border-[#00E5CC]/30 bg-[#00E5CC]/5 rounded-full px-4 py-1.5">
-          <span class="w-2 h-2 rounded-full bg-[#00E5CC]"></span>
-          <span class="text-xs font-sans font-semibold text-gray-300 tracking-wider uppercase">Enterprise Engineer & Architect</span>
-        </div>
-        <a href="https://www.linkedin.com/in/stefan-stankovic-6926aa23a/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 border border-blue-500/30 bg-blue-500/5 hover:bg-blue-500/10 rounded-full px-4 py-1.5 transition-colors">
-          <svg class="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0zM7.06 20.45H3.56V9h3.5v11.45zM5.31 7.48c-1.13 0-2.05-.92-2.05-2.05 0-1.13.92-2.05 2.05-2.05 1.13 0 2.05.92 2.05 2.05 0 1.13-.92 2.05-2.05 2.05zM20.45 20.45h-3.5v-5.58c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.68h-3.5V9h3.36v1.56h.05c.47-.89 1.62-1.83 3.33-1.83 3.57 0 4.23 2.35 4.23 5.4v6.32z"/></svg>
-          <span class="text-xs font-sans font-semibold text-blue-400 tracking-wider uppercase">LinkedIn</span>
-        </a>
-      </div>
+      <div class="w-full md:w-3/5 z-10 flex flex-col gap-7 items-center md:items-start text-center md:text-left relative">
 
-      <h1 class="fade-in-up heading-primary" style="animation-delay: 100ms;">
-        Hi, I'm Stefan. <br />
-        <span class="font-serif italic font-normal tracking-normal text-[#00E5CC]">I build business software.</span>
-      </h1>
-
-      <p class="fade-in-up text-body max-w-xl mb-10" style="animation-delay: 200ms;">
-        I'm a Dynamics 365 F&O, Power Platform and Web developer. I bridge the gap between heavy ERP business processes and fast, modern frontends.
-        I keep the code simple and make sure it keeps working.
-      </p>
-
-      <div class="fade-in-up flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mt-8 w-full" style="animation-delay: 300ms;">
-        <a href={featuredProjects.length > 0 ? "#portfolio" : "/portfolio/"} class="btn-primary">
-          View Case Studies
-        </a>
-        <a href="/contact/" class="btn-secondary">
-          Discuss Your Project
-        </a>
-      </div>
-
-    </div>
-
-    <div class="hidden md:flex w-2/5 justify-end items-end relative min-h-[400px] lg:min-h-[500px] fade-in-up" style="animation-delay: 500ms;">
-      <Image
-        src={bgImage}
-        alt="Stefan Stankovic"
-        widths={[400, 640]}
-        sizes="(min-width: 1024px) 30vw, 32vw"
-        loading="eager"
-        fetchpriority="high"
-        class="w-4/5 lg:w-3/4 object-contain relative z-10 drop-shadow-2xl"
-      />
-      <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#040D14] to-transparent z-20 pointer-events-none"></div>
-    </div>
-
-  </main>
-
-  <section class="marquee-container w-full bg-[#02080D] border-y border-gray-800/50 py-5 overflow-hidden relative select-none">
-    <div class="absolute inset-y-0 left-0 w-16 md:w-40 bg-gradient-to-r from-[#02080D] to-transparent z-10 pointer-events-none"></div>
-    <div class="absolute inset-y-0 right-0 w-16 md:w-40 bg-gradient-to-l from-[#02080D] to-transparent z-10 pointer-events-none"></div>
-
-    <!-- Trajanje raste sa brojem stavki (5s po stavci) da brzina ostane ista -->
-    <div class="animate-marquee" style={`animation-duration: ${skills.length * 5}s;`}>
-      {[false, true].map((duplicate) => (
-        <ul class="flex items-center justify-center space-x-8 md:space-x-12 px-4 md:px-6 m-0" aria-hidden={duplicate ? 'true' : undefined}>
-          {skills.map((skill) => (
-            <>
-              <li class="font-mono text-gray-400 text-sm md:text-base tracking-widest uppercase whitespace-nowrap">{skill}</li>
-              <li class="text-[#00E5CC] text-xl leading-none">•</li>
-            </>
-          ))}
-        </ul>
-      ))}
-    </div>
-  </section>
-
-  <section class="container-custom py-24">
-
-    <div class="text-center max-w-3xl mx-auto mb-20 fade-in-up">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 font-sans">
-        Three Disciplines.<br/>
-        <span class="text-[#00E5CC] italic font-serif font-light">One way of working.</span>
-      </h2>
-      <p class="text-gray-400 text-lg font-mono leading-relaxed">
-        I started in ERP development, and I bring the same habits to Power Platform and web work: plan first, keep it simple, test it properly.
-      </p>
-    </div>
-
-    <div class="flex flex-col lg:flex-row items-stretch justify-center relative w-full fade-in-up" style="animation-delay: 200ms;">
-      {disciplines.map((discipline, i) => (
-        <>
-          <div class="w-full lg:w-1/3 flex flex-col text-center p-8 bg-[#08131D] border border-gray-800 rounded-2xl relative hover:border-[#00E5CC] transition-colors duration-300">
-            <div class="mx-auto w-14 h-14 rounded-xl bg-[#00E5CC]/10 flex items-center justify-center text-[#00E5CC] mb-6">
-              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                {discipline.icons.map((d) => <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={d}/>)}
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold mb-4 text-white">{discipline.title}</h3>
-            <p class="text-sm text-gray-400 font-mono mb-8 flex-grow leading-relaxed">{discipline.body}</p>
-            <div class="text-[#00E5CC] font-bold text-xs tracking-widest uppercase mt-auto">{discipline.footer}</div>
-          </div>
-
-          {/* Spojnica između kartica (ne posle poslednje) */}
-          {i < disciplines.length - 1 && (
-            <div class="flex flex-col lg:flex-row items-center justify-center shrink-0 py-4 lg:py-0 lg:px-4">
-              <div class="w-px h-10 lg:w-10 lg:h-px bg-gray-800 relative">
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#00E5CC] shadow-[0_0_12px_#00E5CC]"></div>
-              </div>
-            </div>
-          )}
-        </>
-      ))}
-    </div>
-  </section>
-
-  <Certifications class="bg-[#02080D]" />
-
-  <!-- Sekcija se prikazuje samo ako postoje featured projekti -->
-  {featuredProjects.length > 0 && (
-    <section id="portfolio" class="section-wrapper bg-[#040D14]">
-      <div class="container-custom">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00E5CC] opacity-[0.03] blur-[120px] rounded-full pointer-events-none"></div>
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
-          <div>
-            <span class="pill-badge">Proof of Work</span>
-            <h2 class="heading-section">
-              Engineered Platforms.
-            </h2>
-          </div>
-          <a href="/portfolio/" class="font-sans text-sm font-bold text-gray-400 hover:text-[#00E5CC] uppercase tracking-widest transition-colors mt-6 md:mt-0 flex items-center gap-2">
-            View All Projects <span>→</span>
+        <div class="flex flex-wrap justify-center md:justify-start gap-2.5 fade-in-up" style="animation-delay: 0ms;">
+          <span class="inline-flex items-center gap-2 rounded-full border border-[#00E5CC]/30 bg-[#00E5CC]/10 px-3.5 py-1.5 ui-text text-xs text-[#00E5CC]">
+            <span class="h-2 w-2 rounded-full bg-[#00E5CC] shadow-[0_0_0_4px_rgba(0,229,204,0.2)]" aria-hidden="true"></span>
+            Dynamics 365 F&O developer
+          </span>
+          <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-3.5 py-1.5 ui-text text-xs text-gray-300 hover:border-[#00E5CC] hover:text-white transition-colors">
+            <Icon name="linkedin" class="h-3.5 w-3.5" />
+            LinkedIn
           </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 auto-rows-fr">
-          {featuredProjects.map((p, i) => <ProjectCard project={p} delay={150 + i * 50} />)}
+        <h1 class="fade-in-up heading-primary" style="animation-delay: 100ms;">
+          Hi, I'm Stefan.<br />
+          <span class="font-serif italic font-normal tracking-normal text-[#00E5CC]">I build business software.</span>
+        </h1>
+
+        <p class="fade-in-up text-body max-w-xl" style="animation-delay: 200ms;">
+          Dynamics 365 F&O, Power Platform and web developer. I connect heavy ERP processes with fast, modern frontends, and keep the code simple enough to keep working.
+        </p>
+
+        <div class="fade-in-up flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 w-full" style="animation-delay: 300ms;">
+          <a href={featuredProjects.length > 0 ? "#portfolio" : "/portfolio/"} class="btn-primary w-full sm:w-auto">
+            View case studies <Icon name="arrow-right" class="h-4 w-4" />
+          </a>
+          <a href="/blog/" class="btn-secondary w-full sm:w-auto">
+            <Icon name="book-open" class="h-4 w-4" /> Read the blog
+          </a>
         </div>
+
+        <ul class="fade-in-up flex flex-wrap justify-center md:justify-start gap-x-7 gap-y-3 w-full pt-5 border-t border-gray-800 text-[15px] text-gray-300" style="animation-delay: 400ms;">
+          {heroFacts.map(({ icon, text }) => (
+            <li class="flex items-center gap-2.5">
+              <Icon name={icon} class="h-5 w-5 text-[#00E5CC]" />{text}
+            </li>
+          ))}
+        </ul>
+
+      </div>
+
+      <div class="hidden md:flex w-2/5 justify-end items-end relative min-h-[400px] lg:min-h-[500px] fade-in-up" style="animation-delay: 500ms;">
+        <div class="relative w-[88%]">
+          <!-- Pozadina iza fotografije: prozor editora sa X++ kodom (više viri levo, ka tekstu, da desno ne izađe iz ekrana) -->
+          <CodeWindow class="-left-[20%] -right-[6%] top-[6%] h-[74%]" />
+          <Image
+            src={bgImage}
+            alt="Stefan Stankovic"
+            widths={[400, 640]}
+            sizes="(min-width: 1280px) 400px, 32vw"
+            loading="eager"
+            fetchpriority="high"
+            class="w-full object-contain relative z-10 drop-shadow-2xl"
+          />
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#061219] to-transparent z-20 pointer-events-none"></div>
+      </div>
+
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee-container marquee-fade w-full bg-[#081820] border-y border-gray-800/50 py-5 overflow-hidden relative select-none">
+      <!-- Trajanje raste sa brojem stavki (5s po stavci) da brzina ostane ista -->
+      <div class="animate-marquee" style={`animation-duration: ${skills.length * 5}s;`}>
+        {[false, true].map((duplicate) => (
+          <ul class="flex items-center m-0" aria-hidden={duplicate ? 'true' : undefined}>
+            {skills.map((skill) => (
+              <li class="flex items-center gap-3 px-6 md:px-9 font-mono text-sm md:text-[15px] tracking-[0.08em] uppercase text-gray-300 whitespace-nowrap">
+                <span class="h-1.5 w-1.5 rounded-full bg-[#00E5CC]" aria-hidden="true"></span>
+                {skill}
+              </li>
+            ))}
+          </ul>
+        ))}
       </div>
     </section>
-  )}
 
-  <section id="contact" class="section-wrapper bg-[#02080D] flex flex-col items-center justify-center text-center">
+    <!-- WHAT I DO -->
+    <section class="container-custom py-24 md:py-28">
 
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-[#00E5CC]/5 rounded-full blur-[100px] pointer-events-none"></div>
+      <!-- Naslov levo, navike desno u istom redu (od lg naviše) -->
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
+        <div class="flex flex-col gap-4">
+          <span class="eyebrow">What I do</span>
+          <h2 class="heading-section">
+            Three kinds of work.<br />
+            <span class="font-serif italic font-normal tracking-normal text-[#00E5CC]">Same habits for each.</span>
+          </h2>
+        </div>
+        <ul class="flex flex-wrap lg:justify-end gap-2.5">
+          {principles.map(({ icon, text }) => (
+            <li class="flex items-center gap-2 rounded-xl border border-gray-800 px-4 py-2.5 text-gray-300">
+              <Icon name={icon} class="h-[18px] w-[18px] text-[#00E5CC]" />{text}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-    <div class="max-w-4xl mx-auto px-6 relative z-10 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-1000 ease-out">
+      <!-- Omotač nosi reveal animaciju i kašnjenje; da su na samoj kartici, kasnio bi i njen hover -->
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {disciplines.map(({ icon, title, body, points, footer }, i) => (
+          <div class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out" style={`transition-delay: ${i * 100}ms;`}>
+            <article class="card-base h-full justify-start gap-5 rounded-[20px]">
+              <span class="flex h-[52px] w-[52px] items-center justify-center rounded-[14px] bg-[#00E5CC]/10 text-[#00E5CC]">
+                <Icon name={icon} class="h-[26px] w-[26px]" />
+              </span>
+              <h3 class="card-title mb-0 text-[22px]">{title}</h3>
+              <p class="font-mono text-sm leading-relaxed text-gray-400">{body}</p>
+              <ul class="flex flex-col gap-2.5 text-[15px] text-gray-300">
+                {points.map((point) => (
+                  <li class="flex items-center gap-2.5">
+                    <Icon name="check" class="h-[18px] w-[18px] text-[#00E5CC]" />{point}
+                  </li>
+                ))}
+              </ul>
+              <p class="mt-auto pt-5 border-t border-gray-800 font-mono text-[13px] text-[#00E5CC]">{footer}</p>
+            </article>
+          </div>
+        ))}
+      </div>
+    </section>
 
-      <h2 class="heading-primary">
-        <span class="text-white block">Let's build a system</span>
-        <span class="text-gray-500 block">that scales.</span>
-      </h2>
+    <Certifications class="bg-[#081820] border-b border-gray-800/50" />
 
-      <p class="text-body mb-12">
-        Have a project or a role in mind? Let's talk.
-      </p>
+    <!-- LATEST POSTS (samo ako postoje postovi) -->
+    {latestPosts.length > 0 && (
+      <section class="container-custom py-24 md:py-28">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
+          <div class="flex flex-col gap-4">
+            <span class="eyebrow">From the blog</span>
+            <h2 class="heading-section">Latest posts.</h2>
+          </div>
+          <a href="/blog/" class="btn-secondary">
+            All posts <Icon name="arrow-right" class="h-4 w-4" />
+          </a>
+        </div>
 
-      <a href="/contact/" class="btn-primary shadow-[0_0_30px_rgba(0,229,204,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]">
-        GET IN TOUCH
-      </a>
+        <!-- Iste kartice kao na /blog; tri u redu od lg naviše. Reveal je na omotaču da hover kartice ne kasni -->
+        <div class="grid gap-5 lg:grid-cols-3">
+          {latestPosts.map((post, i) => (
+            <div class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out" style={`transition-delay: ${i * 100}ms;`}>
+              <PostCard post={post} headingLevel={3} />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
 
-    </div>
-  </section>
+    <!-- SELECTED WORK (samo ako postoje featured projekti); svetlija pozadina da se odvoji od postova -->
+    {featuredProjects.length > 0 && (
+      <section id="portfolio" class="bg-[#081820] border-y border-gray-800/50">
+        <div class="container-custom py-24 md:py-28">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
+            <div class="flex flex-col gap-4">
+              <span class="eyebrow">Selected work</span>
+              <h2 class="heading-section">Engineered platforms.</h2>
+            </div>
+            <a href="/portfolio/" class="btn-secondary">
+              All projects <Icon name="arrow-right" class="h-4 w-4" />
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr">
+            {featuredProjects.map((p, i) => <ProjectCard project={p} delay={150 + i * 50} />)}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- CONTACT CTA: gornji razmak treba kad je sekcija iznad druge boje (projekti ili sertifikati) -->
+    <ContactCta class:list={['pb-24 md:pb-28', { 'pt-24 md:pt-28': featuredProjects.length > 0 || latestPosts.length === 0 }]} />
+
+  </main>
 </BaseLayout>

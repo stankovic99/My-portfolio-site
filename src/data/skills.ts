@@ -1,4 +1,4 @@
-// Jedna lista vestina: koristi je marquee na Home i lista tehnologija na About
+// Kratka lista veština za marquee na Home (About ima svoju, opširniju: `skillGroups` u about.astro)
 export const skills: string[] = [
   // D365 / ERP
   'Dynamics 365 F&O',

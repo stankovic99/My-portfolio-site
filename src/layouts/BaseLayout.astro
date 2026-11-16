@@ -20,7 +20,9 @@ const { title, description, image, type, publishedTime } = Astro.props;
   <head>
     <BaseHead title={title} description={description} image={image} type={type} publishedTime={publishedTime} />
   </head>
-  <body class="bg-[#040D14] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black">
+  <body class="bg-[#061219] text-white min-h-screen font-sans selection:bg-[#00E5CC] selection:text-black">
+    <!-- Prvi Tab na stranici: preskače navigaciju (svaka stranica ima <main id="main">) -->
+    <a href="#main" class="skip-link">Skip to content</a>
     <Navbar />
     <slot />
     <Footer />

@@ -8,6 +8,15 @@
   --font-mono: var(--font-jetbrains);
 }
 
+/* Tekst za navigaciju, dugmad i CTA linkove: Bricolage, semibold, uppercase, široki razmak.
+   Veličinu (text-xs / text-sm …) dodaje svako mesto posebno. */
+@utility ui-text {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 @keyframes marquee {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
@@ -26,8 +35,60 @@
   width: max-content;
 }
 
+/* Ivice trake blede u pozadinu */
+.marquee-fade {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
 .marquee-container:hover .animate-marquee {
   animation-play-state: paused;
+}
+
+/* --- "STAKLENA" POZADINA IZA FOTOGRAFIJE (About) --- */
+/* Tanke uspravne linije; roditelj ih rotira. Pomeraj = tačno jedan period (48px), pa je petlja bez skoka */
+@keyframes glassLines {
+  to { transform: translateX(-48px); }
+}
+.glass-lines {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 22px,
+    rgba(255, 255, 255, 0.06) 22px 23px,
+    transparent 23px 47px,
+    rgba(0, 229, 204, 0.14) 47px 48px
+  );
+  animation: glassLines 6s linear infinite;
+  will-change: transform;
+}
+
+/* Široki svetli odsjaj koji povremeno pređe preko stakla */
+@keyframes glassSheen {
+  0%, 55% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+.glass-sheen {
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.09) 50%, transparent 65%);
+  animation: glassSheen 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* --- PROZOR EDITORA IZA FOTOGRAFIJE (Home, CodeWindow.astro) --- */
+/* Poslednji red koda se otkucava slovo po slovo, stoji, pa se briše */
+@keyframes codeType {
+  0%, 8% { max-width: 0; }
+  35%, 92% { max-width: 26ch; }
+  100% { max-width: 0; }
+}
+.code-type {
+  animation: codeType 8s steps(26, end) infinite;
+}
+
+@keyframes cursorBlink {
+  50% { opacity: 0; }
+}
+.code-cursor {
+  animation: cursorBlink 1s steps(1) infinite;
 }
 
 @layer components {
@@ -43,8 +104,8 @@
   /* --- TIPOGRAFIJA --- */
   /* Gigantski naslov isključivo za Hero sekciju na index.astro */
   .heading-primary {
-    @apply text-5xl sm:text-6xl lg:text-8xl font-sans font-extrabold tracking-tighter text-white mb-6;
-    line-height: 1.1;
+    @apply text-5xl sm:text-6xl lg:text-7xl font-sans font-bold tracking-tighter text-white;
+    line-height: 1.05;
   }
 
   /* Standard za naslove na unutrašnjim stranicama (About, Portfolio, Contact) */
@@ -54,7 +115,8 @@
 
   /* Naslovi manjih sekcija unutar stranica */
   .heading-section {
-    @apply text-3xl md:text-4xl font-sans font-bold tracking-tight text-white;
+    @apply text-4xl md:text-5xl font-sans font-bold tracking-tight text-white;
+    line-height: 1.08;
   }
 
   /* Tvoj paragraf tekst */
@@ -65,7 +127,12 @@
   /* --- BEDŽEVI / TAGOVI --- */
   /* Standard za "eyebrow" tagove iznad naslova */
   .pill-badge {
-    @apply mb-4 md:mb-6 inline-flex items-center gap-2 rounded-full border border-[#00E5CC]/20 bg-[#08131D] px-4 py-2 font-mono text-xs uppercase tracking-[0.25em] text-[#00E5CC];
+    @apply mb-4 md:mb-6 inline-flex items-center gap-2 rounded-full border border-[#00E5CC]/20 bg-[#0A1A22] px-4 py-2 font-mono text-xs uppercase tracking-[0.25em] text-[#00E5CC];
+  }
+
+  /* Novi "eyebrow" iznad naslova: običan cyan mono tekst bez okvira (Home; ostale stranice još koriste pill-badge) */
+  .eyebrow {
+    @apply font-mono text-[13px] uppercase tracking-[0.12em] text-[#00E5CC];
   }
 
   /* Mali tagovi unutar kartica (za tehnologije) */
@@ -76,9 +143,14 @@
     @apply border-[#00E5CC]/60 bg-[#00E5CC]/10 text-white;
   }
 
+  /* Tagovi na blogu (kartica posta i zaglavlje posta): cyan pilule, bez hovera jer stoje unutar linka */
+  .tag-accent {
+    @apply inline-flex items-center rounded-full border border-[#00E5CC]/30 bg-[#00E5CC]/10 px-3 py-1 font-mono text-xs text-[#00E5CC];
+  }
+
   /* --- KARTICE --- */
   .card-base {
-    @apply flex flex-col justify-between rounded-3xl border border-gray-800 bg-[#08131D] p-6 md:p-8 shadow-xl transition-all duration-500;
+    @apply flex flex-col justify-between rounded-3xl border border-gray-800 bg-[#0A1A22] p-6 md:p-8 shadow-xl transition-all duration-500;
   }
   .card-base:hover {
     @apply border-[#00E5CC]/50 shadow-[0_0_35px_rgba(0,229,204,0.1)];
@@ -93,21 +165,33 @@
 
   /* --- DUGMAD --- */
   .btn-primary {
-    @apply inline-flex items-center justify-center font-sans bg-[#00E5CC] text-[#040D14] hover:bg-white px-8 py-3.5 rounded-sm font-bold uppercase tracking-widest transition-colors text-center;
+    @apply inline-flex items-center justify-center gap-2 ui-text text-sm bg-[#00E5CC] text-[#061219] hover:bg-white px-6 py-3.5 rounded-lg border border-[#00E5CC] hover:border-white transition-colors text-center;
+    /* Taman tekst na svetloj pozadini optički deluje tanje; 700 ga izjednačava sa belim tekstom (600) na btn-secondary */
+    font-weight: 700;
   }
 
+  /* Ista veličina, font i razmak kao btn-primary (border i kod primary da visine budu iste) */
   .btn-secondary {
-    @apply inline-flex items-center justify-center font-sans text-gray-300 hover:text-[#00E5CC] font-bold uppercase tracking-widest transition-colors gap-2 px-8 py-3.5 border border-gray-800 bg-transparent;
+    @apply inline-flex items-center justify-center gap-2 ui-text text-sm text-white px-6 py-3.5 rounded-lg border border-white/20 bg-transparent transition-colors text-center;
   }
   .btn-secondary:hover {
-    @apply border-[#00E5CC]/40 bg-[#08131D];
+    @apply border-[#00E5CC] bg-[#00E5CC]/5;
+  }
+
+  /* Link "Skip to content" (BaseLayout): van ekrana dok ne dobije fokus sa tastature */
+  .skip-link {
+    @apply fixed left-4 top-4 z-[60] -translate-y-[200%] rounded-lg bg-[#00E5CC] px-4 py-2.5 ui-text text-sm text-[#061219];
+    font-weight: 700;
+  }
+  .skip-link:focus {
+    @apply translate-y-0;
   }
 
   /* --- MARKDOWN / KOD --- */
   /* Blokovi koda (Shiki postavlja inline pozadinu, zato !important) */
   .prose pre.astro-code {
     @apply border border-gray-800 rounded-2xl text-sm leading-relaxed;
-    background-color: #08131D !important;
+    background-color: #0A1A22 !important;
     padding: 1.25rem 1.5rem;
     overflow-x: auto;
   }
@@ -138,6 +222,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .animate-marquee { animation: none; }
+  .glass-lines,
+  .glass-sheen,
+  .code-type,
+  .code-cursor { animation: none; }
   .fade-in-up {
     opacity: 1;
     transform: none;

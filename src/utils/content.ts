@@ -27,9 +27,10 @@ export function readingTime(body = ''): number {
   return Math.max(1, Math.round(words / 200));
 }
 
-// Datumi iz frontmatter-a su ponoć UTC, pa formatiramo u UTC da se dan ne pomeri
-export function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+// Datumi iz frontmatter-a su ponoć UTC, pa formatiramo u UTC da se dan ne pomeri.
+// 'long' -> 'November 16, 2026', 'short' -> 'Nov 16, 2026' (kartice i zaglavlje posta)
+export function formatDate(date: Date, month: 'long' | 'short' = 'long'): string {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month, day: 'numeric', timeZone: 'UTC' });
 }
 
 // Vrednost za <time datetime>: 'YYYY-MM-DD'
@@ -37,10 +38,23 @@ export function toDateAttr(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
 
-// 'YYYY-MM' -> 'May 2026'; pogrešan format ruši build umesto da prikaže "Invalid Date"
-export function formatMonth(yyyyMm: string): string {
+// 'YYYY-MM' -> Date (1. u mesecu, UTC); pogrešan format ruši build umesto da prikaže "Invalid Date"
+function parseMonth(yyyyMm: string): Date {
   if (!/^\d{4}-\d{2}$/.test(yyyyMm)) {
-    throw new Error(`Certification date "${yyyyMm}" must be YYYY-MM`);
+    throw new Error(`Date "${yyyyMm}" must be YYYY-MM`);
   }
-  return new Date(`${yyyyMm}-01T00:00:00Z`).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  return new Date(`${yyyyMm}-01T00:00:00Z`);
+}
+
+// 'YYYY-MM' -> 'May 2026'
+export function formatMonth(yyyyMm: string): string {
+  return parseMonth(yyyyMm).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
+// Pune godine od 'YYYY-MM' do danas (računa se pri build-u), npr. '2022-06' u novembru 2026 -> 4
+export function yearsSince(yyyyMm: string): number {
+  const start = parseMonth(yyyyMm);
+  const now = new Date();
+  const months = (now.getUTCFullYear() - start.getUTCFullYear()) * 12 + (now.getUTCMonth() - start.getUTCMonth());
+  return Math.floor(months / 12);
 }

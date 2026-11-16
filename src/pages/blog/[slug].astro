@@ -1,8 +1,12 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Prose from "../../components/Prose.astro";
+import Icon from "../../components/Icon.astro";
 import { getPosts, readingTime, formatDate, toDateAttr } from "../../utils/content";
+import { jobs } from "../../data/experience";
+import authorPhoto from "../../images/bg.png";
 
 export interface Props {
     entry: CollectionEntry<"blog">;
@@ -18,43 +22,72 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const { title, description, date, tags, takeaways } = entry.data;
 const { Content } = await render(entry);
+
+// Uloga autora = trenutni posao (prvi u nizu)
+const authorRole = jobs[0].role;
 ---
 
-<BaseLayout title={`${entry.data.title} | Stefan Stankovic`} description={entry.data.description} type="article" publishedTime={entry.data.date}>
-    <main class="pt-32 pb-20">
+<BaseLayout title={`${title} | Stefan Stankovic`} description={description} type="article" publishedTime={date}>
+    <main id="main" class="pt-32 pb-20">
+        <!-- Zaglavlje i tekst dele istu kolonu (max-w-4xl), da se čita kao jedna celina -->
+        <div class="container-custom">
+            <div class="mx-auto max-w-4xl">
 
-        <!-- HEADER POSTA -->
-        <header class="container-custom mb-16 border-b border-gray-800 pb-12 pt-4">
-            <a href="/blog/" class="inline-flex items-center gap-2 font-mono text-sm text-gray-400 hover:text-[#00E5CC] transition-colors mb-10 fade-in-up">
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-                Back to Blog
-            </a>
+                <!-- HEADER POSTA -->
+                <header class="pt-4">
+                    <a href="/blog/" class="inline-flex items-center gap-2 font-mono text-sm text-gray-400 hover:text-[#00E5CC] transition-colors mb-10 fade-in-up">
+                        <Icon name="arrow-left" class="h-4 w-4" />
+                        All posts
+                    </a>
 
-            <div class="fade-in-up" style="animation-delay: 100ms;">
-                <div class="pill-badge">{entry.data.category ?? "Blog"}</div>
-                <h1 class="heading-page">{entry.data.title}</h1>
-                <p class="font-mono text-sm text-[#00E5CC]">
-                    <time datetime={toDateAttr(entry.data.date)}>{formatDate(entry.data.date)}</time>
-                    <span aria-hidden="true"> · </span>
-                    <span>{readingTime(entry.body)} min read</span>
-                </p>
-                {entry.data.tags.length > 0 && (
-                    <div class="flex flex-wrap gap-2 mt-6">
-                        {entry.data.tags.map((tag) => (
-                            <span class="tag">{tag}</span>
-                        ))}
+                    <div class="fade-in-up" style="animation-delay: 100ms;">
+                        <!-- Datum, vreme čitanja i tagovi -->
+                        <div class="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2.5 font-mono text-sm text-gray-400">
+                            <time datetime={toDateAttr(date)} class="text-[#00E5CC]">{formatDate(date, "short")}</time>
+                            <span class="h-1 w-1 rounded-full bg-gray-700" aria-hidden="true"></span>
+                            <span>{readingTime(entry.body)} min read</span>
+                            {tags.map((tag) => <span class="tag-accent">{tag}</span>)}
+                        </div>
+
+                        <h1 class="heading-page">{title}</h1>
+
+                        <!-- Autor: lice izrezano iz iste fotografije kao na Home/About (uvećano, poravnato po vrhu) -->
+                        <div class="mb-8 flex items-center gap-4">
+                            <div class="h-14 w-14 shrink-0 overflow-hidden rounded-full border border-gray-800 bg-[#0A1A22]">
+                                <Image src={authorPhoto} alt="" width={96} densities={[1, 2]} class="h-full w-full origin-top scale-[1.6] object-cover object-top" />
+                            </div>
+                            <div>
+                                <p class="font-bold text-white">Stefan Stankovic</p>
+                                <p class="text-sm text-gray-400">{authorRole}</p>
+                            </div>
+                        </div>
+
+                        <p class="text-body md:text-xl">{description}</p>
                     </div>
-                )}
+
+                    <!-- KEY TAKEAWAYS (samo ako ih post ima u frontmatter-u) -->
+                    {takeaways.length > 0 && (
+                        <section aria-labelledby="takeaways-heading" class="mt-10 rounded-3xl border border-gray-800 bg-[#0A1A22] p-6 md:p-8 fade-in-up" style="animation-delay: 150ms;">
+                            <h2 id="takeaways-heading" class="eyebrow mb-5">Key takeaways</h2>
+                            <ul class="flex flex-col gap-3.5 text-[15px] md:text-base text-gray-300">
+                                {takeaways.map((point) => (
+                                    <li class="flex gap-3">
+                                        <Icon name="check" class="mt-0.5 h-5 w-5 text-[#00E5CC]" />{point}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+                    )}
+                </header>
+
+                <!-- SADRŽAJ (Markdown telo posta) -->
+                <Prose class="mt-12 border-t border-gray-800 pt-12 fade-in-up" style="animation-delay: 200ms;">
+                    <Content />
+                </Prose>
+
             </div>
-        </header>
-
-        <!-- SADRŽAJ (Markdown telo posta) -->
-        <section class="container-custom">
-            <Prose class="fade-in-up" style="animation-delay: 200ms;">
-                <Content />
-            </Prose>
-        </section>
-
+        </div>
     </main>
 </BaseLayout>

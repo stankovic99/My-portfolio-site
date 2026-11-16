@@ -1,53 +1,64 @@
 ---
-import { navLinks, contactLink } from '../data/nav';
+import logo from '../images/logo.svg';
+import { navLinks, contactLink, linkedInUrl, email, githubUrl } from '../data/nav';
+import Icon from './Icon.astro';
 
 const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { href: `mailto:${email}`, label: 'Email', icon: 'mail', external: false },
+  { href: linkedInUrl, label: 'LinkedIn', icon: 'linkedin', external: true },
+  { href: githubUrl, label: 'GitHub', icon: 'github', external: true },
+] as const;
 ---
 
-<footer class="border-t border-gray-800 bg-[#040D14] pt-12 md:pt-16 pb-8">
-  <div class="max-w-7xl mx-auto px-6 md:px-12">
-    
-    <div class="grid grid-cols-2 md:grid-cols-12 gap-x-4 gap-y-10 md:gap-8 mb-12 md:mb-16">
-      
-      <div class="col-span-2 md:col-span-12 lg:col-span-6 flex flex-col items-start">
-        <a href="/" class="inline-block text-2xl font-sans font-black tracking-tighter text-white mb-4 hover:text-[#00E5CC] transition-colors">
-          STEFAN<span class="text-[#00E5CC]">.</span>
-        </a>
-        <p class="text-sm text-gray-400 leading-relaxed font-mono max-w-sm">
-          Dynamics 365 F&O, Power Platform and web developer based in Skopje.
-        </p>
-      </div>
+<footer class="border-t border-gray-800 bg-[#061219]">
+  <div class="container-custom pt-14 pb-8 grid grid-cols-2 lg:grid-cols-4 gap-10">
 
-      <div class="col-span-1 md:col-span-6 lg:col-span-3 flex flex-col items-start">
-        <h2 class="text-white font-bold tracking-widest text-xs uppercase mb-5 font-mono">Navigation</h2>
-        <ul class="flex flex-col gap-3 items-start w-full">
-          {[...navLinks, contactLink].map(({ href, label }) => (
-            <li><a href={href} class="text-sm text-gray-400 hover:text-[#00E5CC] transition-colors">{label}</a></li>
-          ))}
-        </ul>
-      </div>
-
-      <div class="col-span-1 md:col-span-6 lg:col-span-3 flex flex-col items-start">
-        <h2 class="text-white font-bold tracking-widest text-xs uppercase mb-5 font-mono">Connect</h2>
-        <ul class="flex flex-col gap-3 items-start w-full">
-          <li><a href="mailto:stefan.stankovicc99@gmail.com" class="text-sm text-gray-400 hover:text-[#00E5CC] transition-colors">Email Me</a></li>
-          <li><a href="https://www.linkedin.com/in/stefan-stankovic-6926aa23a/" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-400 hover:text-[#00E5CC] transition-colors">LinkedIn</a></li>
-          <li><a href="https://github.com/stankovic99" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-400 hover:text-[#00E5CC] transition-colors">GitHub</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-xs text-gray-400 font-mono uppercase tracking-widest text-center md:text-left">
-        &copy; {currentYear} Stefan Stankovic. All rights reserved.
-      </p>
-      
-      <p class="hidden md:flex text-xs text-gray-400 font-mono uppercase tracking-widest items-center justify-center gap-2">
-        <span class="h-1.5 w-1.5 rounded-full bg-[#00E5CC]"></span>
-        Skopje, North Macedonia
+    <div class="col-span-2 flex flex-col items-start gap-4">
+      <!-- Logo + stari "STEFAN." znak; uppercase iz CSS-a da ga čitači ekrana ne slovkaju -->
+      <a href="/" aria-label="Stefan Stankovic, home" class="flex items-center gap-3 text-2xl font-sans font-black uppercase tracking-tighter text-white hover:text-[#00E5CC] transition-colors">
+        <img src={logo.src} width={logo.width} height={logo.height} alt="" class="h-8 w-auto object-contain" />
+        <span>Stefan<span class="text-[#00E5CC]">.</span></span>
+      </a>
+      <p class="text-sm text-gray-400 leading-relaxed font-mono max-w-sm">
+        Dynamics 365 F&O, Power Platform and web developer based in Skopje, North Macedonia.
       </p>
     </div>
-    
+
+    <div class="flex flex-col items-start">
+      <h2 class="text-white text-[13px] uppercase tracking-[0.1em] mb-4 font-mono">Navigate</h2>
+      <ul class="flex flex-col gap-3">
+        {[...navLinks, contactLink].map(({ href, label }) => (
+          <li><a href={href} class="text-[15px] text-gray-400 hover:text-[#00E5CC] transition-colors">{label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="flex flex-col items-start">
+      <h2 class="text-white text-[13px] uppercase tracking-[0.1em] mb-4 font-mono">Connect</h2>
+      <ul class="flex flex-col gap-3">
+        {socialLinks.map(({ href, label, icon, external }) => (
+          <li>
+            <a
+              href={href}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener noreferrer' : undefined}
+              class="flex items-center gap-2.5 text-[15px] text-gray-400 hover:text-[#00E5CC] transition-colors"
+            >
+              <Icon name={icon} class="h-[17px] w-[17px]" />{label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="container-custom">
+    <div class="border-t border-gray-800 pt-6 pb-10 flex flex-col sm:flex-row justify-between gap-4 text-sm text-gray-400">
+      <p>&copy; {currentYear} Stefan Stankovic</p>
+      <p>Skopje, North Macedonia</p>
+    </div>
   </div>
 </footer>

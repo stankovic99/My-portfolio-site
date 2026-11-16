@@ -28,8 +28,10 @@ const blogCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    category: z.string().optional(),
+    // Pilule na kartici i u zaglavlju posta
     tags: z.array(z.string()).default([]),
+    // Kratke tačke za "Key takeaways" okvir na vrhu posta (bez njih se okvir ne prikazuje)
+    takeaways: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),
 });

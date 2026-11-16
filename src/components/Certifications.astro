@@ -2,49 +2,82 @@
 import { Image } from 'astro:assets';
 import { certifications } from '../data/certifications';
 import { formatMonth } from '../utils/content';
+import Icon from './Icon.astro';
 
 export interface Props {
   class?: string;
+  heading?: string;
 }
 
-const { class: className } = Astro.props;
+const { class: className, heading = 'Microsoft certified.' } = Astro.props;
+
+// Nivo sertifikata iz naziva (Microsoft ga uvek piše na kraju)
+const levelOf = (name: string) => ['Expert', 'Associate', 'Fundamentals'].find((level) => name.includes(level));
 ---
 
-<section class:list={['section-wrapper', className]}>
+<!-- id: About linkuje na /#certifications -->
+<section id="certifications" class:list={['section-wrapper scroll-mt-20', className]}>
   <div class="container-custom">
-    <div class="mb-16 flex flex-col gap-3 text-center lg:text-left fade-in-up">
-      <span class="pill-badge self-center lg:self-start">Certifications</span>
-      <h2 class="heading-section">Certifications</h2>
+    <div class="mb-12 flex flex-col gap-4 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
+      <span class="eyebrow">Certifications</span>
+      <h2 class="heading-section">{heading}</h2>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {certifications.map(({ code, name, date, credentialUrl, badge }, i) => (
-        <article class="card-base justify-start gap-4 fade-in-up" style={`animation-delay: ${100 + i * 100}ms;`}>
-          <div class="flex items-center gap-4">
-            {badge ? (
-              <>
-                <Image src={badge} alt={`${code} badge`} width={64} height={64} densities={[1, 2]} class="h-16 w-16 object-contain" />
-                <span class="font-mono text-xs uppercase tracking-widest text-[#00E5CC]">{code}</span>
-              </>
-            ) : (
-              <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-[#00E5CC]/20 bg-[#00E5CC]/10 font-mono text-sm font-bold text-[#00E5CC]">
-                {code}
+    <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {certifications.map(({ code, name, date, credentialUrl, badge }, i) => {
+        const level = levelOf(name);
+        const isFundamentals = level === 'Fundamentals';
+        // Kartica je link (sa hover efektom) samo kad postoji credentialUrl; inače je obična kartica bez hovera
+        const Card = credentialUrl ? 'a' : 'div';
+        const linkProps = credentialUrl ? { href: credentialUrl, target: '_blank', rel: 'noopener noreferrer' } : {};
+        return (
+          <li class="reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out" style={`transition-delay: ${i * 100}ms;`}>
+            <Card
+              {...linkProps}
+              class:list={[
+                'group flex h-full items-start gap-5 rounded-[18px] border border-gray-800 bg-[#0A1A22] p-6 md:p-7',
+                credentialUrl && 'transition-all duration-300 hover:border-[#00E5CC]/50 hover:shadow-[0_0_35px_rgba(0,229,204,0.1)]',
+              ]}
+            >
+              {badge ? (
+                <Image src={badge} alt="" width={56} height={56} densities={[1, 2]} class="h-14 w-14 shrink-0 object-contain" />
+              ) : (
+                <span class:list={[
+                  'flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px]',
+                  isFundamentals ? 'bg-white/5 text-gray-300' : 'bg-[#00E5CC]/10 text-[#00E5CC]',
+                ]}>
+                  <Icon name={isFundamentals ? 'graduation-cap' : 'award'} class="h-7 w-7" />
+                </span>
+              )}
+              <div class="flex flex-col gap-2">
+                <p class="flex items-center gap-2.5 font-mono text-[13px]">
+                  <span class={isFundamentals ? 'text-gray-300' : 'text-[#00E5CC]'}>{code}</span>
+                  {level && (
+                    <>
+                      <span class="h-1 w-1 rounded-full bg-gray-700" aria-hidden="true"></span>
+                      <span class="text-gray-400">{level}</span>
+                    </>
+                  )}
+                </p>
+                <h3 class:list={[
+                  'text-[17px] font-bold leading-snug text-white',
+                  credentialUrl && 'transition-colors group-hover:text-[#00E5CC]',
+                ]}>{name}</h3>
+                {date && (
+                  <p class="font-mono text-xs uppercase tracking-widest text-gray-400">
+                    Issued <time datetime={date}>{formatMonth(date)}</time>
+                  </p>
+                )}
+                {credentialUrl && (
+                  <span class="mt-1 inline-flex items-center gap-1.5 ui-text text-xs text-[#00E5CC]">
+                    Verify credential <Icon name="arrow-up-right" class="h-3.5 w-3.5" />
+                  </span>
+                )}
               </div>
-            )}
-          </div>
-          <h3 class="card-title mb-0 text-xl">{name}</h3>
-          {date && (
-            <p class="font-mono text-xs uppercase tracking-widest text-gray-400">
-              <time datetime={date}>{formatMonth(date)}</time>
-            </p>
-          )}
-          {credentialUrl && (
-            <a href={credentialUrl} target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-gray-400 hover:text-[#00E5CC] transition-colors">
-              View credential <span aria-hidden="true">↗</span>
-            </a>
-          )}
-        </article>
-      ))}
-    </div>
+            </Card>
+          </li>
+        );
+      })}
+    </ul>
   </div>
 </section>

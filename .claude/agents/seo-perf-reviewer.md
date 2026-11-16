@@ -20,7 +20,7 @@ You audit Stefan Stankovic's Astro portfolio and report findings. You do **not**
   - icon-only buttons and links have `aria-label`
   - the active nav link has `aria-current="page"`
   - form inputs have labels
-  - text on dark backgrounds has enough contrast (gray-500 or darker on `#040D14` is borderline for small text)
+  - text on dark backgrounds has enough contrast (gray-500 or darker on `#061219` is borderline for small text)
   - motion respects `prefers-reduced-motion`
 - **Links**: internal links point to pages that exist in `dist/`. External links with `target="_blank"` have `rel="noopener noreferrer"`. Content pages are reachable from navigation (flag orphans).
 - **Crawling**: `sitemap-index.xml` exists and `robots.txt` references it.

@@ -1,0 +1,34 @@
+---
+// Kartica jednog posta (/blog i "Latest posts" na Home). Cela kartica je link.
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { readingTime, formatDate, toDateAttr } from '../utils/content';
+
+export interface Props {
+  post: CollectionEntry<'blog'>;
+  // h2 na /blog, h3 na Home (tamo je iznad naslov sekcije)
+  headingLevel?: 2 | 3;
+  // Klase za animaciju (npr. fade-in-up) i kašnjenje dolaze od stranice
+  class?: string;
+  style?: string;
+}
+
+const { post, headingLevel = 2, class: className, style } = Astro.props;
+const { title, description, date, tags } = post.data;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+<a href={`/blog/${post.id}/`} class:list={['card-base group h-full justify-start gap-4', className]} style={style}>
+  <!-- Datum, vreme čitanja i tagovi u jednom redu koji se prelama -->
+  <div class="flex flex-wrap items-center gap-x-3 gap-y-2.5 font-mono text-sm text-gray-400">
+    <time datetime={toDateAttr(date)}>{formatDate(date, 'short')}</time>
+    <span class="h-1 w-1 rounded-full bg-gray-700" aria-hidden="true"></span>
+    <span>{readingTime(post.body)} min read</span>
+    {tags.map((tag) => <span class="tag-accent">{tag}</span>)}
+  </div>
+  <Heading class="card-title mb-0 text-xl md:text-2xl">{title}</Heading>
+  <p class="font-mono text-sm leading-relaxed text-gray-400">{description}</p>
+  <span class="mt-auto pt-2 inline-flex items-center gap-2 ui-text text-[13px] text-[#00E5CC]">
+    Read more <Icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+  </span>
+</a>

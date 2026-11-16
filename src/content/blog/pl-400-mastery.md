@@ -1,27 +1,90 @@
 ---
-title: "Road to PL-400: Mastering Power Platform"
-description: "Documenting my preparation process for the PL-400 exam, following my perfect 1000/1000 score on the PL-900."
+title: "PL-400: what the exam covers and how I prepared"
+description: "What the Power Platform Developer exam asks for, a small plug-in example, and how I prepared for it after PL-900."
 date: 2026-06-16
-category: "Certification"
+tags: ["Certification", "PL-400", "Power Platform", "C#"]
+takeaways:
+  - "PL-400 is the developer exam for Power Platform: plug-ins, custom connectors, PCF controls, ALM and integrations."
+  - "A plug-in is a C# class registered on a message, a table and a stage."
+  - "Many ideas have a close match in F&O, which helps X++ developers."
+  - "I prepared with Microsoft Learn, hands-on building, video courses and practice tests."
 ---
 
-## The Baseline: Perfection is Engineered
-In May 2026, I cleared the Microsoft PL-900 (Power Platform Fundamentals) exam with a maximum score of 1000/1000. While PL-900 is foundational, achieving a perfect score wasn't just about reading the documentation—it was about dissecting and understanding the core architectural philosophy Microsoft is establishing. 
+**Update, November 2026:** I have passed PL-400. I rewrote this post so it covers what the exam asks for and how I prepared.
 
-I approach engineering and personal growth with the exact same mindset: a love for high-level competition and an absolute refusal to lose. That intensity is now entirely directed at my next technical target: the **PL-400 Power Platform Developer** certification.
+## Why PL-400 after PL-900
 
-## Why PL-400? Bridging the Enterprise Gap
-Working deep in the trenches as a Senior Technical Architect specializing in Dynamics 365 Finance & Operations and X++, I’ve seen firsthand how chaotic enterprise business logic can become. D365 F&O is an absolute powerhouse for heavy lifting, but modern enterprises demand rapid, smooth integrations and automated pipelines that don't overload the core ERP.
+In May 2026 I passed PL-900 (Power Platform Fundamentals) with 1000 out of 1000. PL-900 is about what the platform can do. PL-400 is the developer exam: it is about extending the platform with code.
 
-The Power Platform is the bridge. 
+I work as a D365 F&O developer and write X++ most days. A lot of the work around F&O now ends up in Power Platform: a flow, a small app, a connector to another system. PL-400 was the next step to do that work properly.
 
-PL-400 is the threshold where development stops being about simple drag-and-drop interfaces and transitions into serious software engineering. My current preparation is heavily focused on the technical backend:
-* **Extending Dataverse:** Engineering robust C# plug-ins and custom workflow activities that execute complex, server-side business logic.
-* **Custom Connectors:** Architecting scalable APIs that securely connect legacy on-premise infrastructure with the modern cloud environment.
-* **Application Lifecycle Management (ALM):** Implementing zero-touch CI/CD pipelines for Power Platform solutions utilizing Azure DevOps.
-* **PCF (Power Apps Component Framework):** Building custom, high-performance UI components using TypeScript and React to replace standard, unoptimized controls.
+## What the exam covers
 
-## The Execution Strategy
-Merely passing the exam is not the objective; mastering the underlying systems is. I am treating the PL-400 preparation exactly like a D365 F&O enterprise implementation: breaking down requirements, building Proof of Concepts (PoCs), and brutally stress-testing the architecture. 
+Microsoft publishes a skills outline for PL-400 and updates it from time to time, so check the current version on Microsoft Learn before you start. In short, it asks you to:
 
-I'll be documenting these deep technical dives right here on the blog. Expect minimal theory and heavy focus on architecture, code, and system integration.
+- **Create a technical design.** Decide what should be a flow, a plug-in, a custom connector or plain configuration.
+- **Build Power Platform solutions.** Environments, solutions, and moving changes from development to production (ALM).
+- **Improve Power Apps.** Formulas, performance and reusable components in canvas and model-driven apps.
+- **Extend the user experience.** JavaScript on model-driven forms and custom controls built with the Power Apps Component Framework (PCF).
+- **Extend the platform.** Dataverse plug-ins in C#, custom APIs, custom connectors and the Dataverse Web API.
+- **Develop integrations.** Dataverse events, Azure Functions, service endpoints and webhooks.
+
+## A plug-in, the part closest to X++
+
+A plug-in is a C# class that Dataverse calls when something happens to a row, for example when an account is created. This one stops accounts without a name and trims the spaces around it:
+
+```csharp
+using System;
+using Microsoft.Xrm.Sdk;
+
+public class AccountPreCreate : IPlugin
+{
+    public void Execute(IServiceProvider serviceProvider)
+    {
+        var context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+
+        // "Target" is the row that is being created
+        if (context.InputParameters["Target"] is Entity account)
+        {
+            var name = account.GetAttributeValue<string>("name");
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new InvalidPluginExecutionException("An account needs a name.");
+            }
+
+            account["name"] = name.Trim();
+        }
+    }
+}
+```
+
+You register the class on a message (Create), a table (account) and a stage. The stage decides when the code runs:
+
+- **PreValidation** runs before the main operation and outside the database transaction.
+- **PreOperation** runs inside the transaction, before the row is saved. Changing the Target here changes what gets saved.
+- **PostOperation** runs inside the transaction, after the row is saved.
+
+Two rules come up again and again: a plug-in must not keep state between calls, and it has to finish within two minutes.
+
+## If you come from F&O
+
+Many ideas have a close match, which makes the exam easier to study for:
+
+| In F&O | In Power Platform |
+|---|---|
+| Event handlers and Chain of Command | Plug-ins on Dataverse messages |
+| Data entities and OData | Dataverse tables and the Web API |
+| Business events | Dataverse events, service endpoints, webhooks |
+| Models and deployable packages | Solutions (managed and unmanaged) |
+
+## How I prepared
+
+I used four things:
+
+- **Microsoft Learn.** The official PL-400 learning paths.
+- **Hands-on building.** Plug-ins, flows, apps and connectors in a developer environment.
+- **Video courses.** To hear the same topics explained in a different way.
+- **Practice tests.** Before the exam, to find the gaps and get used to how the questions are worded.
+
+If you start from zero, do the hands-on part early. A plug-in that you have registered and debugged yourself is much easier to remember than one you have only read about.

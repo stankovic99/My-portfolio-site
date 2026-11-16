@@ -3,6 +3,7 @@
 // Pravilan import slike iz src foldera (putanja je relativna u odnosu na komponentu)
 import logo from '../images/logo.svg';
 import { navLinks, contactLink } from '../data/nav';
+import Icon from './Icon.astro';
 
 // Projekti pripadaju Portfolio sekciji, postovi Blog sekciji.
 // Skidamo završnu kosu crtu i sa putanje i sa href-a pre poređenja.
@@ -16,20 +17,23 @@ const isActive = (href: string) => {
 };
 ---
 
-<nav class="w-full bg-[#040D14]/95 backdrop-blur-md border-b border-gray-800 text-white fixed top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 md:px-12 py-3 flex justify-between items-center">
+<nav class="w-full bg-[#061219]/85 backdrop-blur-md border-b border-[#00E5CC]/10 text-white fixed top-0 z-50">
+  <div class="container-custom py-3 flex justify-between items-center gap-6">
 
     <a href="/" class="z-50 flex items-center justify-center">
       <img src={logo.src} width={logo.width} height={logo.height} alt="Stefan Stankovic, home" class="h-8 md:h-10 w-auto object-contain" />
     </a>
 
-    <!-- Navigacioni Linkovi (Desktop) -->
-    <div class="hidden md:flex space-x-8 text-sm font-sans font-semibold uppercase tracking-widest text-gray-300 items-center">
+    <!-- Navigacioni linkovi (desktop), grupisani u "pill" okvir; aktivna stranica dobija cyan pozadinu -->
+    <div class="hidden md:flex items-center gap-1 rounded-xl border border-gray-800 bg-[#0A1A22] p-1">
       {navLinks.map(({ href, label }) => (
         <a
           href={href}
           aria-current={isActive(href) ? 'page' : undefined}
-          class:list={['hover:text-[#00E5CC] transition-colors duration-200', { 'text-[#00E5CC]': isActive(href) }]}
+          class:list={[
+            'ui-text text-[13px] px-4 py-2 rounded-lg transition-colors duration-200',
+            isActive(href) ? 'text-[#00E5CC] bg-[#00E5CC]/10' : 'text-gray-300 hover:text-white hover:bg-white/5',
+          ]}
         >
           {label}
         </a>
@@ -37,33 +41,35 @@ const isActive = (href: string) => {
     </div>
 
     <!-- CTA Dugme -->
-    <a href={contactLink.href} aria-current={isActive(contactLink.href) ? 'page' : undefined} class="hidden md:inline-flex items-center justify-center bg-[#00E5CC] text-[#040D14] hover:bg-white px-6 py-2.5 rounded-sm text-sm font-bold uppercase tracking-wider transition-all duration-300">
+    <a href={contactLink.href} aria-current={isActive(contactLink.href) ? 'page' : undefined} class="btn-primary hidden md:inline-flex text-[13px] px-5 py-2.5">
+      <Icon name="mail" class="h-4 w-4" />
       {contactLink.label}
     </a>
 
     <!-- Mobilni meni ikonica -->
-    <button id="mobile-menu-btn" type="button" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden text-gray-300 hover:text-[#00E5CC] focus:outline-none z-50">
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
+    <button id="mobile-menu-btn" type="button" aria-label="Toggle menu" aria-controls="mobile-menu" aria-expanded="false" class="md:hidden rounded-lg p-1 text-gray-300 hover:text-[#00E5CC] focus-visible:outline-2 focus-visible:outline-[#00E5CC] z-50">
+      <Icon name="menu" class="w-8 h-8" />
     </button>
   </div>
 
   <!-- Padajući meni za mobilne -->
-  <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#040D14] border-b border-gray-800 flex-col items-center py-8 space-y-6 shadow-2xl">
+  <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#061219] border-b border-[#00E5CC]/10 flex-col items-center py-8 gap-3 shadow-2xl">
     {navLinks.map(({ href, label }) => (
       <a
         href={href}
         aria-current={isActive(href) ? 'page' : undefined}
         class:list={[
-          'mobile-link hover:text-[#00E5CC] text-lg font-bold uppercase tracking-widest',
-          isActive(href) ? 'text-[#00E5CC]' : 'text-gray-300',
+          'mobile-link ui-text text-sm px-5 py-3 rounded-lg transition-colors',
+          isActive(href) ? 'text-[#00E5CC] bg-[#00E5CC]/10' : 'text-gray-300 hover:text-white',
         ]}
       >
         {label}
       </a>
     ))}
-    <a href={contactLink.href} aria-current={isActive(contactLink.href) ? 'page' : undefined} class="mobile-link bg-[#00E5CC] text-[#040D14] px-10 py-3.5 rounded-sm font-bold uppercase tracking-wider mt-4">{contactLink.label}</a>
+    <a href={contactLink.href} aria-current={isActive(contactLink.href) ? 'page' : undefined} class="mobile-link btn-primary mt-4">
+      <Icon name="mail" class="h-4 w-4" />
+      {contactLink.label}
+    </a>
   </div>
 </nav>
 

@@ -9,7 +9,7 @@ You build UI for Stefan Stankovic's Astro 6 + Tailwind v4 portfolio. Read `CLAUD
 ## How to work
 1. Read the files you will touch and one similar existing page/component, and match its style (indentation, Serbian comments, class order).
 2. Reuse before you write:
-   - shared classes in `src/styles/global.css` (`container-custom`, `section-wrapper`, `heading-*`, `text-body`, `pill-badge`, `tag`, `card-base`, `btn-primary`, `btn-secondary`, `fade-in-up`, `reveal-on-scroll`)
+   - shared classes in `src/styles/global.css` (`container-custom`, `section-wrapper`, `heading-*`, `text-body`, `pill-badge`, `tag`, `card-base`, `ui-text`, `btn-primary`, `btn-secondary`, `fade-in-up`, `reveal-on-scroll`)
    - existing components (`BaseLayout`, `ProjectCard`, `Prose`, `Certifications`, `ScrollToTop`)
    - data files in `src/data/` (`certifications.ts`, `skills.ts`, `nav.ts`) and helpers in `src/utils/content.ts` (`getProjects`, `getFeaturedProjects`, `getPosts`, `readingTime`, `formatDate`, `toDateAttr`, `formatMonth`). Never call `getCollection` directly in pages; the helpers filter out drafts.
    - internal page links end with `/` (`/about/`, `/blog/${id}/`).
@@ -19,7 +19,7 @@ You build UI for Stefan Stankovic's Astro 6 + Tailwind v4 portfolio. Read `CLAUD
 ## Rules
 - Every page uses `BaseLayout` with a `title` ("Stefan Stankovic | Page") and a `description`. Content goes in `<main class="pt-32 …">`.
 - A new top-level page also goes into the `links` array in `Navbar.astro` and into `Footer.astro`.
-- Colors only from the palette in `CLAUDE.md`: `#040D14`, `#02080D`, `#08131D`, accent `#00E5CC`, gray-300/400/500/800, white. New surfaces use `#08131D`.
+- Colors only from the palette in `CLAUDE.md`: `#061219`, `#081820`, `#0A1A22`, accent `#00E5CC`, gray-300/400/500/800, white. New surfaces use `#0A1A22`.
 - Fonts come only through `font-sans`, `font-serif` and `font-mono`. Never add a Google Fonts `<link>`. New weights go in `astro.config.mjs`.
 - Images: `<Image>` from `astro:assets` with `widths` + `sizes`. Never `img.src` or a CSS `background-image` for local images.
 - Mobile-first, with `md:` / `lg:` breakpoints. Check that nothing overflows horizontally at 375px.

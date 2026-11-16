@@ -1,180 +1,278 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Certifications from '../components/Certifications.astro';
-import { skills } from '../data/skills';
+import Icon from '../components/Icon.astro';
+import ContactCta from '../components/ContactCta.astro';
+import GlassPane from '../components/GlassPane.astro';
+import { linkedInUrl } from '../data/nav';
+import { jobs, d365Start, education } from '../data/experience';
+import { certifications } from '../data/certifications';
+import { formatMonth, yearsSince } from '../utils/content';
 import bgImage from '../images/bg.png';
 
 const pageTitle = "Stefan Stankovic | About";
-const pageDescription = "About Stefan Stankovic, Dynamics 365 F&O and Power Platform developer.";
+const pageDescription = "About Stefan Stankovic, Dynamics 365 F&O developer in Skopje: experience, skills, and the UPVC business where he learns ERP hands-on.";
 
-// Kartice za sekciju "What I do"
-const services = [
+const years = yearsSince(d365Start);
+
+// Pozicije malih uglova oko fotografije
+const photoCorners = [
+  '-left-3 -top-3 border-l border-t rounded-tl-lg',
+  '-right-3 -top-3 border-r border-t rounded-tr-lg',
+  '-left-3 -bottom-3 border-l border-b rounded-bl-lg',
+  '-right-3 -bottom-3 border-r border-b rounded-br-lg',
+];
+
+// Klase za otkrivanje pri skrolovanju (scrollReveal.js)
+const reveal = 'reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out';
+
+// Delovi UPVC biznisa koje Stefan sam vodi
+const upvcProcesses = [
+  { icon: 'file-text', title: 'Quotes and orders', body: 'Pricing each window and door, and turning quotes into orders.' },
+  { icon: 'layers', title: 'BOMs and cutting lists', body: 'Profiles, glass and hardware for every item, and how each bar gets cut.' },
+  { icon: 'calendar', title: 'Production planning', body: 'Deciding what gets made, and when.' },
+  { icon: 'package', title: 'Purchasing and stock', body: 'Ordering profiles and glass, and keeping track of stock.' },
+] as const;
+
+// Veštine po grupama (Home marquee koristi kraću listu iz src/data/skills.ts)
+const skillGroups = [
   {
-    eyebrow: 'ENTERPRISE LOGIC',
-    title: 'Dynamics 365 F&O Architecture',
-    role: 'Intermediate Technical Consultant',
-    body: "This is my day-to-day engine. I write robust X++ business logic, execute complex data migrations, and customize modules for large-scale enterprise environments. If your ERP system needs stable, scalable customizations that won't break during Microsoft updates, this is where I come in.",
-    tags: ['D365 F&O', 'X++', 'ERP'],
+    title: 'Dynamics 365 F&O',
+    items: [
+      'X++ and AX 2012',
+      'SysOperation framework',
+      'Data entities and data migration',
+      'BYOD',
+      'Integrations: custom services, OData, REST/JSON, business events',
+      'Reports: SSRS, Electronic Reporting',
+      'Security and SysTest',
+      'ISV module development',
+      'UDE (Unified Developer Experience), learning on my own',
+    ],
   },
   {
-    eyebrow: 'AUTOMATION & APPS',
-    title: 'Microsoft Power Platform',
-    role: 'Certified Power Platform Developer',
-    body: "Bridging the gaps between your disconnected systems. I build custom workflows, model-driven apps, and automated processes using Power Apps, Power Automate and Power Pages. It's all about eliminating manual bottlenecks and securely making your data work for you.",
-    tags: ['Power Apps', 'Power Automate', 'Power Pages'],
+    title: 'Power Platform',
+    items: [
+      'Power Automate',
+      'Power Apps: canvas and model-driven',
+      'Dataverse',
+      'C# plugins and custom connectors',
+      'Power Pages',
+    ],
   },
   {
-    eyebrow: 'HIGH-PERFORMANCE UI',
-    title: 'Modern Frontend Execution',
-    role: 'Full-Stack Developer',
-    body: "I don't use heavy templates. I build fast, visually precise frontend architectures using Astro and Webflow, strictly styled with utility-first CSS frameworks like Tailwind. The result is a site that loads quickly and works well on any device.",
-    tags: ['Astro', 'Webflow', 'Tailwind'],
+    title: 'Code and tools',
+    items: ['C#', 'SQL', 'Azure DevOps: builds and deployments', 'Git and TFS'],
   },
   {
-    eyebrow: 'DATA STRUCTURES',
-    title: 'Backend & CMS Architecture',
-    role: 'Full-Stack Developer',
-    body: "A beautiful frontend needs a smart backend. I set up decoupled content architectures using Sanity, Webflow CMS, or dedicated backend engines like Xano. This gives you a secure, intuitive dashboard to manage your content and data without ever having to touch the source code.",
-    tags: ['Sanity', 'Webflow CMS', 'Xano'],
+    title: 'Web',
+    items: ['Astro', 'Tailwind CSS', 'Webflow', 'TypeScript and JavaScript', 'HTML and CSS'],
   },
 ];
 
-// Kartice za sekciju "My Approach"
-const approach = [
-  {
-    number: '01',
-    title: 'Keep It Simple',
-    body: 'Writing clean, maintainable code without unnecessary libraries. Every single line must serve a purpose and never slow down the system.',
-  },
-  {
-    number: '02',
-    title: 'Enterprise Architecture',
-    body: 'Scalable architecture, database integrations, and business automation designed to withstand real-world enterprise loads.',
-  },
-  {
-    number: '03',
-    title: 'Performance-First UI',
-    body: "Interfaces that don't just look visually striking, but load in milliseconds and are easy to use on any device.",
-  },
-];
+const aiTools = ['Claude', 'Claude Code', 'GitHub Copilot'];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-    <main class="pt-32 pb-20">
-      
-      <section class="container-custom mb-20 md:mb-32">
-        <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-          
-          <article class="fade-in-up order-1 lg:order-2">
-            <div class="group relative mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-gray-800 bg-[#08131D] p-4 shadow-xl transition-all duration-500 hover:-translate-y-1 hover:border-[#00E5CC]/50 hover:shadow-[0_0_35px_rgba(0,229,204,0.1)]">
-              <Image
-                src={bgImage}
-                alt="Stefan Stankovic"
-                widths={[400, 800]}
-                sizes="(min-width: 448px) 448px, 100vw"
-                loading="eager"
-                fetchpriority="high"
-                class="relative h-full w-full rounded-2xl object-cover"
-              />
-              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,229,204,0.08),transparent_30%)] opacity-0 transition duration-500 group-hover:opacity-100 pointer-events-none"></div>
-            </div>
-          </article>
+  <!-- Bez pb-20: poslednja sekcija ima svoju pozadinu do footera -->
+  <main id="main" class="pt-32">
 
-          <article class="fade-in-up order-2 lg:order-1 text-center md:text-left" style="animation-delay: 100ms;">
-            
-            <p class="pill-badge">About Me</p>
-            
-            <h1 class="heading-page">
-              The story so far.
-            </h1>
-            
-            <p class="text-body mb-6 max-w-2xl mx-auto md:mx-0">
-              With nearly eight years in the IT world — and the last five deeply 
-              immersed in enterprise software as a Dynamics 365 F&O Developer — 
-              my foundation is built on heavy business logic. 
-              I've spent my career architecting complex integrations and ensuring 
-              large-scale systems run reliably behind the scenes.</p>
-            
-            <p class="text-body mb-10 max-w-2xl mx-auto md:mx-0">
-              But my curiosity doesn't stop at the backend. I actively explore the modern web space, 
-              building fast, scalable platforms with Astro, Webflow, and headless CMS integrations. 
-              I’m driven by continuous learning. Whether it’s adapting to AI-assisted workflows, 
-              exploring new tech trends, or just writing clean code, my goal remains the same: 
-              <span class="text-white font-bold">solving real problems and constantly evolving as an engineer.</span>
+    <!-- INTRO -->
+    <section class="container-custom pb-20 md:pb-28">
+      <div class="grid items-center gap-10 lg:gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+
+        <div class="order-2 lg:order-1 flex flex-col gap-6 fade-in-up" style="animation-delay: 100ms;">
+          <span class="eyebrow">About me</span>
+          <h1 class="heading-page mb-0">The story so far.</h1>
+          <div class="flex flex-col gap-5 max-w-2xl">
+            <p class="text-body">
+              I'm Stefan, a Dynamics 365 Finance & Operations developer based in Skopje. For the past {years}+ years I've worked on D365 F&O and AX 2012 projects: integrations, data migrations, ISV modules and a lot of debugging in between.
             </p>
-
-            <div class="flex flex-col md:flex-row w-full max-w-xl mx-auto md:mx-0 gap-4">
-              <a href="/StefanCV.pdf" download class="btn-primary w-full md:w-auto">
-                <svg class="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M12 3v12" stroke-linecap="round" />
-                  <path d="M8 11l4 4 4-4" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M5 19h14" stroke-linecap="round" />
-                </svg>
-                Download CV
-              </a>
-              <a href="/contact/" class="btn-secondary w-full md:w-auto">
-                Contact Me
-              </a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- WHAT I DO -->
-      <section class="section-wrapper bg-[#02080D]">
-        <div class="container-custom">
-          <div class="mb-16 flex flex-col gap-3 text-center lg:text-left fade-in-up">
-            <span class="pill-badge self-center lg:self-start">What I do</span>
-            <h2 class="heading-section">What I do</h2>
+            <p class="text-body">
+              I also own a small UPVC window and door manufacturing business. That's where I learn ERP from the owner's side: quotes, materials, production and stock.
+            </p>
+            <p class="text-body">
+              Next to F&O I build with Power Platform, use AI tools every day, and make websites on the side, like this one.
+            </p>
           </div>
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <a href="/contact/" class="btn-primary">
+              <Icon name="mail" class="h-4 w-4" /> Get in touch
+            </a>
+            <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" class="btn-secondary">
+              <Icon name="linkedin" class="h-4 w-4" /> LinkedIn
+            </a>
+          </div>
+        </div>
 
-          <div class="grid gap-6 md:grid-cols-2">
-            {services.map((service, i) => (
-              <article class="card-base fade-in-up" style={`animation-delay: ${100 + i * 100}ms;`}>
-                <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#00E5CC] mb-2 block">{service.eyebrow}</span>
-                <h3 class="card-title">{service.title}</h3>
-                <p class="text-sm font-mono text-gray-400 mb-4">{service.role}</p>
-                <p class="text-gray-300 leading-relaxed mb-6 text-sm md:text-base flex-grow">{service.body}</p>
-                <div class="flex flex-wrap gap-2">
-                  {service.tags.map((tag) => <span class="tag">{tag}</span>)}
-                </div>
-              </article>
+        <!-- Fotografija (izrezana, bez okvira) na "staklenoj" pozadini; manja na telefonu da tekst ostane blizu vrha -->
+        <div class="order-1 lg:order-2 fade-in-up">
+          <div class="relative mx-auto w-full max-w-[260px] sm:max-w-xs lg:max-w-md">
+            <!-- Mikro mreža koja bledi ka ivicama -->
+            <div class="pointer-events-none absolute -inset-10 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px] [mask-image:radial-gradient(closest-side,#000_35%,transparent)]" aria-hidden="true"></div>
+            <!-- Cyan sjaj iza glave i ramena -->
+            <div class="pointer-events-none absolute left-1/2 top-[32%] h-3/4 w-3/4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00E5CC]/15 blur-[80px]" aria-hidden="true"></div>
+            <!-- Stakleni disk: kose linije koje klize + povremeni odsjaj -->
+            <GlassPane class="left-1/2 top-[6%] aspect-square w-[94%] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_30%_20%,rgba(0,229,204,0.25),#0A1A22_65%)]" />
+            <!-- Tanki isprekidani prsten oko diska -->
+            <div class="pointer-events-none absolute left-1/2 top-[1%] aspect-square w-[106%] -translate-x-1/2 rounded-full border border-dashed border-[#00E5CC]/15" aria-hidden="true"></div>
+            <!-- Mikro uglovi oko fotografije -->
+            {photoCorners.map((corner) => (
+              <span class:list={['pointer-events-none absolute z-30 h-6 w-6 border-[#00E5CC]/50', corner]} aria-hidden="true"></span>
             ))}
+            <Image
+              src={bgImage}
+              alt="Stefan Stankovic"
+              widths={[300, 500]}
+              sizes="(min-width: 1024px) 448px, (min-width: 640px) 320px, 260px"
+              loading="eager"
+              fetchpriority="high"
+              class="relative z-10 w-full drop-shadow-2xl"
+            />
+            <!-- Donji prelaz u pozadinu stranice (fotografija je odsečena u struku) -->
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-1/4 bg-gradient-to-t from-[#061219] to-transparent" aria-hidden="true"></div>
           </div>
         </div>
-      </section>
 
-      <Certifications class="bg-[#040D14]" />
+      </div>
+    </section>
 
-      <section class="section-wrapper bg-[#02080D]">
-        <div class="container-custom">
-          <div class="mb-16 flex flex-col gap-3 text-center lg:text-left fade-in-up">
-            <span class="pill-badge self-center lg:self-start">My Approach</span>
-            <h2 class="heading-section">Minimalism. Logic. Scalability.</h2>
+    <!-- EXPERIENCE: vremenska linija -->
+    <section class="section-wrapper bg-[#081820]">
+      <div class="container-custom">
+        <div class:list={['mb-12 flex flex-col gap-4', reveal]}>
+          <span class="eyebrow">Experience</span>
+          <h2 class="heading-section">Where I've worked.</h2>
+        </div>
+
+        <ol class="relative ml-1.5 flex max-w-4xl flex-col gap-12 border-l border-gray-800">
+          {jobs.map((job) => (
+            <li class:list={['relative pl-8 md:pl-10', reveal]}>
+              <!-- Tačka na liniji: puna za trenutni posao -->
+              <span
+                class:list={[
+                  'absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full border-2 border-[#00E5CC]',
+                  job.end ? 'bg-[#081820]' : 'bg-[#00E5CC] shadow-[0_0_0_4px_rgba(0,229,204,0.2)]',
+                ]}
+                aria-hidden="true"
+              ></span>
+              <p class="font-mono text-xs uppercase tracking-widest text-gray-400">
+                <time datetime={job.start}>{formatMonth(job.start)}</time> – {job.end ? <time datetime={job.end}>{formatMonth(job.end)}</time> : 'Present'}
+              </p>
+              <h3 class="mt-2 text-xl md:text-2xl font-bold text-white">{job.role}</h3>
+              <p class="mt-1 font-semibold text-[#00E5CC]">{job.company}</p>
+              <ul class="mt-4 flex flex-col gap-2.5 font-mono text-sm md:text-[15px] leading-relaxed text-gray-400">
+                {job.points.map((point) => (
+                  <li class="flex gap-3">
+                    <span class="mt-[0.6rem] h-1 w-1 shrink-0 rounded-full bg-[#00E5CC]" aria-hidden="true"></span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+
+          <!-- Obrazovanje kao poslednja tačka priče -->
+          <li class:list={['relative pl-8 md:pl-10', reveal]}>
+            <span class="absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full border-2 border-gray-700 bg-[#081820]" aria-hidden="true"></span>
+            <p class="font-mono text-xs uppercase tracking-widest text-gray-400">Education</p>
+            <h3 class="mt-2 text-xl md:text-2xl font-bold text-white">{education.degree}</h3>
+            <p class="mt-1 font-mono text-sm md:text-[15px] leading-relaxed text-gray-400">{education.school}</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- UPVC BIZNIS -->
+    <section class="section-wrapper bg-[#061219]">
+      <div class="container-custom">
+        <div class="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <div class:list={['flex flex-col gap-5', reveal]}>
+            <span class="eyebrow">My own business</span>
+            <h2 class="heading-section">
+              UPVC windows and doors.<br />
+              <span class="font-serif italic font-normal tracking-normal text-[#00E5CC]">ERP from the owner's side.</span>
+            </h2>
+            <p class="text-body">
+              I own a small business that makes UPVC windows and doors, and I handle these four parts of it myself.
+            </p>
+            <p class="text-body">
+              Right now I'm designing a system to run it, my own hands-on ERP project.
+            </p>
           </div>
 
-          <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {approach.map((item, i) => (
-              <article class="card-base fade-in-up" style={`animation-delay: ${100 + i * 100}ms;`}>
-                <p class="text-xs uppercase tracking-[0.25em] text-[#00E5CC] font-bold mb-4">{item.number}</p>
-                <h3 class="card-title">{item.title}</h3>
-                <p class="text-body flex-grow">{item.body}</p>
-              </article>
+          <!-- Jedan panel 2x2 sa tankim linijama između (gap-px na sivoj pozadini), bez hovera -->
+          <ul class:list={['grid gap-px overflow-hidden rounded-[20px] border border-gray-800 bg-gray-800 sm:grid-cols-2', reveal]}>
+            {upvcProcesses.map(({ icon, title, body }) => (
+              <li class="flex flex-col gap-3 bg-[#0A1A22] p-6 md:p-7">
+                <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#00E5CC]/10 text-[#00E5CC]">
+                  <Icon name={icon} class="h-5 w-5" />
+                </span>
+                <h3 class="text-lg font-bold text-white">{title}</h3>
+                <p class="font-mono text-sm leading-relaxed text-gray-400">{body}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section-wrapper bg-[#040D14]">
-        <div class="container-custom">
-          <div class="rounded-3xl border border-gray-800 bg-[#08131D] p-8 md:p-12 shadow-2xl fade-in-up" style="animation-delay: 400ms;">
-            <h2 class="pill-badge mb-8">Skills & Tools</h2>
-            <div class="flex flex-wrap gap-3">
-              {skills.map((skill) => <span class="tag">{skill}</span>)}
-            </div>
-          </div>
+    <!-- SKILLS -->
+    <section class="section-wrapper bg-[#081820]">
+      <div class="container-custom">
+        <div class:list={['mb-12 flex flex-col gap-4', reveal]}>
+          <span class="eyebrow">Skills</span>
+          <h2 class="heading-section">What I work with.</h2>
         </div>
-      </section>
-    </main>
+
+        <div class="grid gap-x-12 gap-y-10 md:grid-cols-2">
+          {skillGroups.map(({ title, items }) => (
+            <div class:list={['border-t border-gray-800 pt-6', reveal]}>
+              <h3 class="ui-text text-[13px] text-[#00E5CC]">{title}</h3>
+              <ul class="mt-4 flex flex-col gap-2.5 text-[15px] text-gray-300">
+                {items.map((item) => (
+                  <li class="flex gap-2.5">
+                    <Icon name="check" class="mt-0.5 h-[18px] w-[18px] text-[#00E5CC]" />{item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <p class:list={['mt-12 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-sm text-gray-400', reveal]}>
+          <Icon name="badge-check" class="h-5 w-5 text-[#00E5CC]" />
+          Microsoft certified: {certifications.map(({ code }) => code).join(' · ')}
+          <a href="/#certifications" class="inline-flex items-center gap-1.5 ui-text text-[13px] text-[#00E5CC] hover:text-white transition-colors">
+            See certifications <Icon name="arrow-right" class="h-4 w-4" />
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- AI -->
+    <section class="section-wrapper bg-[#061219]">
+      <div class="container-custom">
+        <div class:list={['flex max-w-3xl flex-col gap-5', reveal]}>
+          <span class="eyebrow">AI</span>
+          <h2 class="heading-section">How I use AI.</h2>
+          <p class="text-body">
+            I use Claude, Claude Code and GitHub Copilot in my daily development work. They make me faster, but they don't replace knowing the system. I still read, test and own every line that goes out.
+          </p>
+          <p class="text-body">This website was built together with Claude Code, too.</p>
+          <ul class="flex flex-wrap gap-2.5 pt-2">
+            {aiTools.map((tool) => (
+              <li class="flex items-center gap-2 rounded-xl border border-gray-800 px-4 py-2.5 text-gray-300">
+                <Icon name="sparkles" class="h-[18px] w-[18px] text-[#00E5CC]" />{tool}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- KRAJ: ista kontakt sekcija kao na Home (AI sekcija iznad je iste boje, pa nema gornjeg razmaka) -->
+    <ContactCta class="pb-24 md:pb-28" />
+
+  </main>
 </BaseLayout>

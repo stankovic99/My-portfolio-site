@@ -17,8 +17,9 @@ You write content for Stefan Stankovic's career site. Stefan is a Dynamics 365 F
 title: "…"
 description: "…"          # 1–2 sentences; list summary + meta description
 date: 2026-06-16          # YYYY-MM-DD, controls sort order (newest first)
-category: "Certification" # optional label, e.g. Certification, Architecture, X++
-tags: ["X++", "D365 F&O"] # optional, shown as chips on the post page
+tags: ["X++", "D365 F&O"] # optional, 3–4; shown as pills on the card and in the post header
+takeaways:                # optional, 3–4 short points for the "Key takeaways" box; only what the post itself says
+  - "First point."
 draft: true               # optional; while true the post isn't listed or built
 ```
 

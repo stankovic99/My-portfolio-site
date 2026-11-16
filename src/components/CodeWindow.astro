@@ -1,0 +1,88 @@
+---
+// Pozadina iza fotografije u Hero sekciji (Home): nagnut "prozor editora" sa pravim X++ kodom.
+// Čisto dekorativno (aria-hidden); poziciju i veličinu zadaje stranica preko `class`.
+// Poslednji red se "kuca" (animacije code-type / code-cursor su u global.css).
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+// Boje delova koda
+const kw = 'text-[#00E5CC]/80'; // ključne reči
+const cm = 'text-gray-500'; // komentari
+
+// Redovi koda: svaki red je niz delova [tekst, klasa?]
+type Part = [text: string, cls?: string];
+const linesBefore: Part[][] = [
+  [['/// Sends open sales orders to the reporting database', cm]],
+  [['final class ', kw], ['OrderExportService']],
+  [['{']],
+  [['    public void ', kw], ['run(TransDate _fromDate)']],
+  [['    {']],
+  [['        SalesTable salesTable;']],
+];
+
+// Red koji se "kuca": kratak i visoko, da ostane vidljiv levo od glave
+const typedLine = '        Counter exported;';
+
+const linesAfter: Part[][] = [
+  [],
+  [['        while select ', kw], ['salesTable']],
+  [['            where ', kw], ['salesTable.DeliveryDate >= _fromDate']],
+  [['        {']],
+  [['            this', kw], ['.exportOrder(salesTable);']],
+  [['            exported++;']],
+  [['        }']],
+];
+
+const lineCount = linesBefore.length + 1 + linesAfter.length;
+
+// Mini-mapa uz desnu ivicu (kao u editoru): širine crtica u pikselima, 0 = prazan red
+const minimap = [30, 22, 6, 26, 8, 20, 18, 0, 22, 34, 10, 28, 16, 10, 0, 24, 30, 12, 20, 8];
+---
+
+<div class:list={['pointer-events-none absolute -rotate-3', className]} aria-hidden="true">
+  <!-- Tanki okvir iza prozora, nagnut na drugu stranu -->
+  <div class="absolute inset-0 rotate-[7deg] rounded-[22px] border border-white/15 [mask-image:linear-gradient(to_bottom,#000_55%,transparent_95%)]"></div>
+
+  <!-- Prozor; bledi ka dnu jer je fotografija odsečena u struku -->
+  <div class="absolute inset-0 overflow-hidden rounded-[22px] border border-[#00E5CC]/25 bg-[#0A1A22] bg-[radial-gradient(circle_at_85%_0%,rgba(0,229,204,0.22),transparent_60%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] [mask-image:linear-gradient(to_bottom,#000_55%,transparent_95%)]">
+    <!-- Naslovna traka -->
+    <div class="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
+      <span class="h-2 w-2 rounded-full bg-[#00E5CC]"></span>
+      <span class="h-2 w-2 rounded-full bg-gray-700"></span>
+      <span class="h-2 w-2 rounded-full bg-gray-700"></span>
+      <span class="ml-3 font-mono text-[11px] text-gray-400">OrderExportService.xpp</span>
+      <span class="ml-auto rounded-md bg-[#00E5CC]/10 px-2 py-0.5 font-mono text-[10px] text-[#00E5CC]">X++</span>
+    </div>
+
+    <!-- Kod sa brojevima redova -->
+    <!-- pr-16 ostavlja mesto za mini-mapu, da dugi redovi ne pređu preko nje na užim ekranima -->
+    <div class="flex gap-4 py-4 pl-4 pr-16 font-mono text-[11px] leading-[1.8] text-gray-400">
+      <div class="text-right text-gray-700">
+        {Array.from({ length: lineCount }, (_, i) => <div>{i + 1}</div>)}
+      </div>
+      <!-- whitespace-pre je na svakom redu (na omotaču bi i prelomi iz šablona postali prazni redovi) -->
+      <div class="min-w-0 flex-1 overflow-hidden">
+        {linesBefore.map((parts) => (
+          <div class="h-[1.8em] whitespace-pre">{parts.map(([text, cls]) => <span class={cls}>{text}</span>)}</div>
+        ))}
+        <div class="flex h-[1.8em] items-center whitespace-pre">
+          <span class="code-type overflow-hidden">{typedLine}</span>
+          <span class="code-cursor ml-0.5 h-3 w-1.5 bg-[#00E5CC]"></span>
+        </div>
+        {linesAfter.map((parts) => (
+          <div class="h-[1.8em] whitespace-pre">{parts.map(([text, cls]) => <span class={cls}>{text}</span>)}</div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Mini-mapa -->
+    <div class="absolute right-4 top-14 flex flex-col items-start gap-[3px]">
+      {minimap.map((width, i) => (
+        <span class:list={['h-[2px] rounded-full', i % 5 === 1 ? 'bg-[#00E5CC]/50' : 'bg-white/15']} style={`width: ${width}px;`}></span>
+      ))}
+    </div>
+  </div>
+</div>

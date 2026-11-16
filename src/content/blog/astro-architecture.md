@@ -1,45 +1,59 @@
 ---
-title: "Why I Chose Astro for Modern Web Development"
-description: "An analysis of rendering strategies. Why generating static HTML with Island architecture beats heavy SPAs."
+title: "Why I use Astro for content websites"
+description: "Astro sends plain HTML and adds JavaScript only where a page needs it. Why that fits blogs, portfolios and small business sites."
 date: 2026-05-15
-category: "Architecture"
-author: "Stefan"
+tags: ["Web", "Astro", "Tailwind CSS"]
+takeaways:
+  - "Astro builds every page into plain HTML and sends no JavaScript by default."
+  - "Only the interactive parts of a page get their own script."
+  - "That fits blogs, portfolios and small business sites."
+  - "For apps with a lot of state in the browser, React or Vue are still the better choice."
 ---
 
-When you spend hours working on complex enterprise systems, you learn to appreciate an architecture that does *exactly* what it needs to do, without unnecessary baggage. When it comes to modern web development, the industry has been moving for years in a direction where everything became a Single Page Application (SPA). 
+Most of my working day goes into large ERP systems. That teaches you to like tools that do the job and nothing more. On the web, the usual choice for years was a single-page application (SPA) built with React, Vue or Angular, even when the site was only a few pages of text.
 
-React, Vue, and Angular brought a revolution, but they also brought a serious problem: we started sending hundreds of kilobytes of JavaScript to the client just to render static text, a blog post, or a simple portfolio. It just didn't make sense.
+For a blog, a portfolio or a restaurant site, that means sending a lot of JavaScript to show content that never changes. Astro takes the opposite approach.
 
-Enter **Astro**.
+## HTML first, JavaScript only where needed
 
-## 🏝️ Island Architecture
+Astro builds every page into plain HTML ahead of time. By default it ships no JavaScript to the browser at all.
 
-The main reason why Astro is superior for content-driven websites lies in its *Island Architecture*. 
+When a part of the page does need to be interactive, such as a mobile menu, an image slider or a form, only that part gets its script. Astro calls these parts "islands". The rest of the page stays plain HTML.
 
-Instead of taking over the entire site and rendering it through client-side JavaScript (like a classic SPA), Astro by default strips out absolutely all client-side JS. It generates clean, lightweight, and fast static HTML on the server.
+## What the browser has to do
 
-What happens when we need interactivity? Astro allows us to create "islands" of interactivity. If we need a dynamic image slider or a complex form, only that specific part of the page gets its JavaScript, while the rest remains pure HTML. 
+With a typical SPA, the browser has to:
 
-## ⚡ Performance That Beats Heavy SPAs
+1. Download a nearly empty HTML file.
+2. Download the JavaScript bundle.
+3. Run it.
+4. Only then show the content.
 
-When a client or user opens a website (like a restaurant menu via a QR code or a landing page), they expect instant loading. 
+With Astro, the first response already contains the content. Someone who opens a menu from a QR code on a slow mobile connection sees the page sooner, and search engines get the full text without running any scripts.
 
-With heavy SPA frameworks, the browser has to:
-1. Download an empty HTML file.
-2. Download a massive JavaScript bundle.
-3. Parse and execute that JavaScript.
-4. Only then render the content.
+## Writing components
 
-With Astro, the user instantly receives ready-to-use HTML. The result? A **100/100 Lighthouse score** out of the box, perfect SEO, and metrics that directly impact conversions. For projects where content is king, generating static HTML is the absolute winner.
+An `.astro` file is HTML with a small script block at the top. The script runs when the site is built, not in the browser:
 
-## 🛠️ Developer Experience (DX) and Tailwind Integration
+```astro
+---
+const { title, items } = Astro.props;
+---
 
-Switching to Astro didn't mean sacrificing modern tools. On the contrary, the component system is fantastic. Writing `.astro` files feels like writing pure HTML with a touch of JSX and scoped CSS. 
+<section>
+  <h2>{title}</h2>
+  <ul>
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+</section>
+```
 
-All of this integrates perfectly with **Tailwind CSS**. Writing layouts is fast, utility classes just work, and the final build process outputs minimal, optimized code. No more Webpack configuration nightmares—Vite handles everything under the hood in milliseconds.
+Styling is done with Tailwind CSS, which only includes the classes that are actually used.
 
-## 🏁 Conclusion
+## This site
 
-Astro isn't here to replace React or Vue where they are truly needed (heavy web applications, enterprise dashboards, portals with complex state management). But for content-oriented websites, Astro is currently the most rational choice.
+This site is built the same way: Astro with static output, Tailwind CSS, and a few small plain JavaScript files for the mobile menu, the scroll animations and the contact form. Blog posts and case studies are Markdown files, so adding a post means adding one file. It is hosted on GitHub Pages.
 
-It gives us the best of both worlds: the premium developer experience (DX) offered by modern tools, and the raw, uncompromising performance of the classic static web. It's an architecture that respects the user's time and resources, and that's why it's my primary choice.
+## When I would not use it
+
+Astro is not a replacement for React or Vue where they are really needed: dashboards, portals and apps with a lot of state in the browser. For sites where the content is the main thing, it is the simplest tool I know that still feels modern to work with.

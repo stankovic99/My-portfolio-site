@@ -34,7 +34,7 @@ const socialImageURL = new URL(image, Astro.url);
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/site.webmanifest" />
-<meta name="theme-color" content="#040D14" />
+<meta name="theme-color" content="#061219" />
 
 <meta name="generator" content={Astro.generator} />
 
@@ -64,6 +64,9 @@ const socialImageURL = new URL(image, Astro.url);
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={socialImageURL} />
+
+{/* Bez JS-a scrollReveal.js ne radi, pa bi sadržaj ispod prvog ekrana ostao nevidljiv */}
+<noscript><style is:inline>.reveal-on-scroll { opacity: 1 !important; translate: none !important; }</style></noscript>
 
 <Font cssVariable="--font-bricolage" preload />
 <Font cssVariable="--font-instrument" />
